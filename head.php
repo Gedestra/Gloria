@@ -312,7 +312,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                     <div class="form-group row">
                                                                         <label class="col-xl-3 col-lg-3 col-form-label">Selecciona el grupo</label>
                                                                         <div class="col-lg-9 col-xl-6">
-                                                                            <select class="form-control kt-selectpicker" name="id_grupo_servicio" onchange="formadd();" required>
+                                                                            <select class="form-control kt-selectpicker" name="id_grupo_servicio" onchange="formadd();">
                                                                                 <option value="" style="display: none;">Seleccinar</option>
                                                                                 <option value="new">Nuevo grupo</option>
                                                                                 <option value="exis">Grupo existente</option>
@@ -324,13 +324,13 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                             <div class="form-group row">
                                                                                 <label class="col-xl-3 col-lg-3 col-form-label">Nombre del nuevo grupo</label>
                                                                                 <div class="col-lg-9 col-xl-6">
-                                                                                    <input type="text" class="form-control" name="" required>
+                                                                                    <input type="text" class="form-control" name="newnamegrupo">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group row">
-                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Seleccionar uno o más servicios a activar</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Seleccionar uno o más servicios a relacionar</label>
                                                                                 <div class="col-lg-9 col-xl-6">
-                                                                                    <select class="form-control kt-select2" id="kt_select2_3" name="id_servicio" multiple="multiple" style="width: 200px:" required>
+                                                                                    <select class="form-control kt-select2" id="kt_select2_3" name="servicios[]" multiple="multiple" style="width: 200px:">
                                                                                         <?php 
                                                                                         $query = "SELECT * FROM servicios WHERE estatus='Activo' ORDER BY nombre_servicio ASC";
                                                                                         $resultado=$conexion->query($query);
@@ -347,7 +347,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                             <div class="form-group row">
                                                                                 <label class="col-xl-3 col-lg-3 col-form-label">Seleciona el grupo</label>
                                                                                 <div class="col-lg-9 col-xl-6">
-                                                                                    <select class="form-control kt-selectpicker" name="id_servicio" required>
+                                                                                    <select class="form-control kt-selectpicker" name="id_grupo_servicio">
                                                                                         <option value="" style="display: none;">Seleccinar</option>
                                                                                         <?php 
                                                                                         $query = "SELECT * FROM grupo_servicio ORDER BY nombre_grupo_servicio ASC";
@@ -361,10 +361,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group row">
-                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Seleccionar el servicio</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Seleccionar uno o más servicios a relacionar</label>
                                                                                 <div class="col-lg-9 col-xl-6">
-                                                                                    <select class="form-control kt-selectpicker" name="id_servicio" required>
-                                                                                        <option value="" style="display: none;">Seleccinar</option>
+                                                                                    <select class="form-control kt-select2" id="kt_select2_4" name="servicios[]" multiple="multiple" style="width: 200px:">
                                                                                         <?php 
                                                                                         $query = "SELECT * FROM servicios WHERE estatus='Activo' ORDER BY nombre_servicio ASC";
                                                                                         $resultado=$conexion->query($query);

@@ -3,14 +3,14 @@ include("funciones/conexion.php");
 session_start();
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-	$captcha=$_POST['g-recaptcha-response'];
-	$secret="6LdhRc4UAAAAAPtuw4R0ks8f2mXIvNFgKgAPmZ92";
-	if (!$captcha) {
-		$captchaerror=true;
-	}
-	$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$captcha");
-	$arr=json_decode($response, true);
-	if ($arr['success']) {
+	// $captcha=$_POST['g-recaptcha-response'];
+	// $secret="6LdhRc4UAAAAAPtuw4R0ks8f2mXIvNFgKgAPmZ92";
+	// if (!$captcha) {
+	// 	$captchaerror=true;
+	// }
+	// $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$captcha");
+	// $arr=json_decode($response, true);
+	// if ($arr['success']) {
 		$username = mysqli_real_escape_string($conexion,$_POST['username']);
 		$mypassword = mysqli_real_escape_string($conexion,$_POST['password']); 
 
@@ -27,9 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		}else{
 			$error=true;
 		}		
-	}else{
-		$captchaerror=true;
-	}
+	// s
 }
 ?>
 <!DOCTYPE html>
