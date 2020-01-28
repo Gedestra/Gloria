@@ -841,10 +841,25 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                             <div class="col-lg-9 col-xl-6">
                                                                                 <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
                                                                                     <label>
-                                                                                        <input type="checkbox" name="sincronizar" value="Activo">
+                                                                                        <input type="checkbox" id="sincronizaractividad" name="sincronizar" value="Activo">
                                                                                         <span></span>
                                                                                     </label>
                                                                                 </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group row" id="habilitarsincronizarsms" style="display: none;">
+                                                                            <label class="col-xl-3 col-lg-3 col-form-label">Seleccione el tipo de mensaje a sincronizar</label>
+                                                                            <div class="col-lg-9 col-xl-6">
+                                                                                <select class="form-control kt-select2" id="kt_select2_5" name="id_sms[]" multiple="multiple" style="width: 200px:">
+                                                                                    <?php 
+                                                                                    $query = "SELECT * FROM sms_tipo ORDER BY etiqueta_sms ASC";
+                                                                                    $resultado=$conexion->query($query);
+                                                                                    while ($row=$resultado->fetch_assoc()) {
+                                                                                        ?>
+                                                                                        <option value="<?php echo $row['id_sms']; ?>"><?php echo $row['etiqueta_sms']; ?></option><?php 
+                                                                                    }
+                                                                                    ?>
+                                                                                </select>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1169,5 +1184,14 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     $("#form1").hide()
                                 }
                             }
+                        </script>
+                        <script>
+                            $("#sincronizaractividad").on( 'change', function() {
+                                if( $(this).is(':checked') ) {
+                                    $('#habilitarsincronizarsms').show();
+                                } else {
+                                    $('#habilitarsincronizarsms').hide();
+                                }
+                            });
                         </script>
 
