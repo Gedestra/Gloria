@@ -45,12 +45,13 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
             <div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
                 <div id="kt_aside_menu" class="kt-aside-menu " data-ktmenu-vertical="1" data-ktmenu-scroll="1" data-ktmenu-dropdown-timeout="500">
                     <ul class="kt-menu__nav ">
-                        <li class="kt-menu__item " aria-haspopup="true"><a href="sucursales.php" class="kt-menu__link " title="Sucursales"><i class="kt-menu__link-icon flaticon2-architecture-and-city"></i><span class="kt-menu__link-text">Sucursales</span></a></li><br><br>
-                        <li class="kt-menu__item " aria-haspopup="true"><a href="empleados.php" class="kt-menu__link" title="Empleados"><i class="kt-menu__link-icon flaticon-users"></i><span class="kt-menu__link-text">Empleados</span></a></li><br><br>
-                        <li class="kt-menu__item " aria-haspopup="true"><a href="usuarios.php" class="kt-menu__link" title="Usuarios"><i class="kt-menu__link-icon flaticon-network"></i><span class="kt-menu__link-text">Usuarios</span></a></li><br><br>
-                        <li class="kt-menu__item " aria-haspopup="true"><a href="clientes.php" class="kt-menu__link" title="Clientes"><i class="kt-menu__link-icon flaticon-customer"></i><span class="kt-menu__link-text">Clientes</span></a></li><br><br>
-                        <li class="kt-menu__item " aria-haspopup="true"><a href="servicios.php" class="kt-menu__link" title="Servicios"><i class="kt-menu__link-icon flaticon-medical"></i><span class="kt-menu__link-text">Servicios</span></a></li><br><br>
+                        <li class="kt-menu__item " aria-haspopup="true"><a href="sucursales.php" class="kt-menu__link " title="Sucursales"><i class="kt-menu__link-icon flaticon2-architecture-and-city"></i><span class="kt-menu__link-text">Sucursales</span></a></li>
+                        <li class="kt-menu__item " aria-haspopup="true"><a href="empleados.php" class="kt-menu__link" title="Empleados"><i class="kt-menu__link-icon flaticon-users"></i><span class="kt-menu__link-text">Empleados</span></a></li>
+                        <li class="kt-menu__item " aria-haspopup="true"><a href="usuarios.php" class="kt-menu__link" title="Usuarios"><i class="kt-menu__link-icon flaticon-network"></i><span class="kt-menu__link-text">Usuarios</span></a></li>
+                        <li class="kt-menu__item " aria-haspopup="true"><a href="clientes.php" class="kt-menu__link" title="Clientes"><i class="kt-menu__link-icon flaticon-customer"></i><span class="kt-menu__link-text">Clientes</span></a></li>
+                        <li class="kt-menu__item " aria-haspopup="true"><a href="servicios.php" class="kt-menu__link" title="Servicios"><i class="kt-menu__link-icon flaticon-medical"></i><span class="kt-menu__link-text">Servicios</span></a></li>
                         <li class="kt-menu__item " aria-haspopup="true"><a href="promociones.php" class="kt-menu__link" title="Promociones"><i class="kt-menu__link-icon flaticon2-tag"></i><span class="kt-menu__link-text">Promociones</span></a></li>
+                        <li class="kt-menu__item " aria-haspopup="true"><a href="promociones.php" class="kt-menu__link" title="Promociones"><i class="kt-menu__link-icon flaticon-gift"></i><span class="kt-menu__link-text">gift card</span></a></li>
                     </ul>
                 </div>
             </div>
