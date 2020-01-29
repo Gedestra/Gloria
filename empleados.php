@@ -308,6 +308,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 								</select>
 							</div>
 						</div>
+
 						<div class="form-group row">
 							<label class="col-2 col-form-label" style="padding-top: 0px;">Fecha de ingreso</label>
 							<div class="col-10">
@@ -322,6 +323,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 								<!-- <input type="date" class="form-control" name="fecha_ingreso" required> -->
 							</div>
 						</div>
+						
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">Número de IMSS</label>
 							<div class="col-10">

@@ -2,7 +2,7 @@
 <html>
     <head>
     <meta charset="utf-8" />
-	<title>3D LASHES | Usuarios</title>
+	<title>3D LASHES | Actividades</title>
 	<meta name="description" content="Latest updates and statistic charts">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -159,57 +159,20 @@
                         <div class="modal-body">
 
                             <form action="" method="POST">
-                                    <div class="form-group row">
-                                        <label for="" class="col-2 col-form-label">Actividad</label>
-                                        <div class="col-10">
-                                            <input type="text" class="form-control" name="username" required>
-                                        </div>
+                                <div class="form-group row">
+                                    <label for="" class="col-2 col-form-label">nombre de la Actividad</label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" name="actividad" required>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="" class="col-2 col-form-label">Asignar al empleado:</label>
-                                        <div class="col-10">
-                                            <select class="form-control kt-selectpicker" name="id_empleado" required>
-                                                <option value="" style="display: none;">Seleccionar</option>
-                                                <?php 
-                                                $query1 = "SELECT id_empleado, nombre, apellidos FROM empleados WHERE estatus='Activo' ORDER BY nombre ASC";
-                                                $resultado2=$conexion->query($query1);
-                                                while ($row3=$resultado2->fetch_assoc()) {
-                                                    ?>
-                                                    <option value="<?php echo $row3['id_empleado']; ?>"><?php echo $row3['nombre'].' '.$row3['apellidos']; ?></option><?php 
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="" class="col-2 col-form-label">Contraseña</label>
-                                        <div class="col-10">
-                                            <input type="password" class="form-control" id="pasw" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="" class="col-2 col-form-label">Confirmar contraseña</label>
-                                        <div class="col-10">
-                                            <input id="paswconf" type="passord" class="form-control" name="password" required>
-                                            <span style="color: red;display: none;" id="errorconfir">* La contraseña no coincide</span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="" class="col-2 col-form-label">seleccionar cliente</label>
-                                        <div class="col-10">
-                                            <select class="form-control "  name="servicios[]" style="width: 200px:">
-                                                <option value="" style="display: none;">Seleccionar</option>
-                                                <?php 
-                                                    $query = "SELECT * FROM clientes ORDER BY nombres ASC";
-                                                    $resultado=$conexion->query($query);
-                                                    while ($row=$resultado->fetch_assoc()) {
-                                                        ?>
-                                                        <option value="<?php echo $row['id_cliente']; ?>"><?php echo $row['nombres']." ".$row["apellidos"]; ?></option><?php 
-                                                    }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
+                                </div>
+                                    
+                                <div class="form-group row">
+                                    <label for="" class="col-2 col-form-label">Fecha de inicio de la actividad </label>
+                                    <div class="col-10"></div>
+                                </div>
+                                
+
+                                
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                     <button type="submit" class="btn btn-primary" id="btnguardar">Guardar</button>
