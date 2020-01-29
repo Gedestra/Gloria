@@ -753,13 +753,14 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                     <?php 
                                                                     include("funciones/conexion.php");
                                                                     $conexion->query("SET NAMES 'utf8'");
-                                                                    $query = "SELECT * FROM tipo_actividad";
+                                                                    $query = "SELECT GROUP_CONCAT(' ',smstipo.etiqueta_sms), tipo.nombre_tipo_actividad, tipo.estatus FROM tipo_actividad AS tipo INNER JOIN sms_relacion AS sms ON tipo.id_tipo_actividad=sms.id_tipo_actividad INNER JOIN sms_tipo AS smstipo ON sms.id_sms=smstipo.id_sms GROUP BY tipo.id_tipo_actividad";
                                                                     $resultado=$conexion->query($query);
                                                                     while ($row=$resultado->fetch_assoc()) {
                                                                         $datostipo_actividad=$row['id_tipo_actividad']."||".$row['nombre_tipo_actividad']."||".$row['estatus']."||".$row['sincronizar_tipo_actividad'];
                                                                         $sincronizar_tipo_actividad=$row['sincronizar_tipo_actividad'];
                                                                         $nombre=$row['nombre_tipo_actividad'];
                                                                         $estatus=$row['estatus'];
+                                                                        $mensaje=$row["GROUP_CONCAT(' ',smstipo.etiqueta_sms)"];
                                                                         if ($sincronizar_tipo_actividad=='Activo') {
                                                                             $mostrarsincronizar='Si';
                                                                         }else{
@@ -779,7 +780,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                     $nombre <a href='#' onclick='editartipoactividad($mostrar$datostipo_actividad$mostrar)' data-toggle='modal' data-target='#edittopo' data-dismiss='modal'><i class='la la-pencil-square-o'></i></a>
                                                                                     </span><br>
                                                                                     <span class='kt-timeline-v3__item-user-name'>
-                                                                                    Sincronizar: $mostrarsincronizar
+                                                                                    $mensaje
                                                                                     </span>
                                                                                     </div>
                                                                                     </div>";
@@ -792,7 +793,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                     $nombre <a href='#' onclick='editartipoactividad($mostrar$datostipo_actividad$mostrar)' data-toggle='modal' data-target='#edittopo' data-dismiss='modal'><i class='la la-pencil-square-o'></i></a>
                                                                                     </span><br>
                                                                                     <span class='kt-timeline-v3__item-user-name'>
-                                                                                    Sincronizar: $mostrarsincronizar
+                                                                                    $mensaje
                                                                                     </span>
                                                                                     </div>
                                                                                     </div>";
