@@ -753,13 +753,14 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                     <?php 
                                                                     include("funciones/conexion.php");
                                                                     $conexion->query("SET NAMES 'utf8'");
-                                                                    $query = "SELECT * FROM tipo_actividad";
+                                                                    $query = "SELECT GROUP_CONCAT(' ',smstipo.etiqueta_sms), GROUP_CONCAT(smstipo.id_sms),tipo.nombre_tipo_actividad, tipo.estatus, tipo.sincronizar_tipo_actividad, tipo.id_tipo_actividad FROM tipo_actividad AS tipo INNER JOIN sms_relacion AS sms ON tipo.id_tipo_actividad=sms.id_tipo_actividad INNER JOIN sms_tipo AS smstipo ON sms.id_sms=smstipo.id_sms GROUP BY tipo.id_tipo_actividad";
                                                                     $resultado=$conexion->query($query);
                                                                     while ($row=$resultado->fetch_assoc()) {
-                                                                        $datostipo_actividad=$row['id_tipo_actividad']."||".$row['nombre_tipo_actividad']."||".$row['estatus']."||".$row['sincronizar_tipo_actividad'];
+                                                                        $datostipo_actividad=$row['id_tipo_actividad']."||".$row['nombre_tipo_actividad']."||".$row['estatus']."||".$row['sincronizar_tipo_actividad']."||".$row['id_sms'];
                                                                         $sincronizar_tipo_actividad=$row['sincronizar_tipo_actividad'];
                                                                         $nombre=$row['nombre_tipo_actividad'];
                                                                         $estatus=$row['estatus'];
+                                                                        $mensaje=$row["GROUP_CONCAT(' ',smstipo.etiqueta_sms)"];
                                                                         if ($sincronizar_tipo_actividad=='Activo') {
                                                                             $mostrarsincronizar='Si';
                                                                         }else{
@@ -779,7 +780,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                     $nombre <a href='#' onclick='editartipoactividad($mostrar$datostipo_actividad$mostrar)' data-toggle='modal' data-target='#edittopo' data-dismiss='modal'><i class='la la-pencil-square-o'></i></a>
                                                                                     </span><br>
                                                                                     <span class='kt-timeline-v3__item-user-name'>
-                                                                                    Sincronizar: $mostrarsincronizar
+                                                                                    $mensaje
                                                                                     </span>
                                                                                     </div>
                                                                                     </div>";
@@ -792,7 +793,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                     $nombre <a href='#' onclick='editartipoactividad($mostrar$datostipo_actividad$mostrar)' data-toggle='modal' data-target='#edittopo' data-dismiss='modal'><i class='la la-pencil-square-o'></i></a>
                                                                                     </span><br>
                                                                                     <span class='kt-timeline-v3__item-user-name'>
-                                                                                    Sincronizar: $mostrarsincronizar
+                                                                                    $mensaje
                                                                                     </span>
                                                                                     </div>
                                                                                     </div>";
@@ -1052,7 +1053,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group row">
-                                                                            <label class="col-xl-3 col-lg-3 col-form-label">¿Sincronizar Actividad?</label>
+                                                                            <label class="col-xl-3 col-lg-3 col-form-label">Enviar sms</label>
                                                                             <div class="col-lg-9 col-xl-6">
                                                                                 <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
                                                                                     <label>
@@ -1060,6 +1061,21 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                         <span></span>
                                                                                     </label>
                                                                                 </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group row" id="habilitarsincronizarsms">
+                                                                            <label class="col-xl-3 col-lg-3 col-form-label">tipo de sms</label>
+                                                                            <div class="col-lg-9 col-xl-6">
+                                                                                <select class="form-control kt-select2" id="kt_select2_10" name="id_sms[]" multiple="multiple" style="width: 200px:">
+                                                                                    <?php 
+                                                                                    $query = "SELECT * FROM sms_tipo ORDER BY etiqueta_sms ASC";
+                                                                                    $resultado=$conexion->query($query);
+                                                                                    while ($row=$resultado->fetch_assoc()) {
+                                                                                        ?>
+                                                                                        <option value="<?php echo $row['id_sms']; ?>"><?php echo $row['etiqueta_sms']; ?></option><?php 
+                                                                                    }
+                                                                                    ?>
+                                                                                </select>
                                                                             </div>
                                                                         </div>
                                                                         <input type="text" name="id_tipo_actividad" id="upidtipoactividad" style="display: none;">
