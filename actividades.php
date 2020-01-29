@@ -148,6 +148,7 @@
         <?php include("menu.php"); ?>
         <!-- end::Sticky Toolbar -->
         <!--begin::Modal agregar-->
+        <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
         <div class="modal fade" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -159,31 +160,108 @@
                         <div class="modal-body">
 
                             <form action="" method="POST">
+
                                 <div class="form-group row">
                                     <label for="" class="col-2 col-form-label">nombre de la Actividad</label>
                                     <div class="col-10">
-                                        <input type="text" class="form-control" name="actividad" required>
+                                        <input type="text" class="form-control" name="nombre_actividad" required>
                                     </div>
                                 </div>
                                     
                                 <div class="form-group row">
-                                    <label for="" class="col-2 col-form-label">Fecha de inicio de la actividad </label>
-                                    <div class="col-10"></div>
+                                    <label for="" class="col-2 col-form-label">cliente</label>
+                                    <div class="col-10">
+                                        <select class="form-control kt-selectpicker" name="nombre_cliente" required>
+                                            <option value="" style="display: none;">Seleccionar</option>
+                                            <?php 
+                                            $query = "SELECT * FROM clientes ORDER BY nombres ASC";
+                                            $resultado=$conexion->query($query);
+                                            while ($row3=$resultado->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?php echo $row3['nombres']; ?>"><?php echo $row3['apellidos']; ?></option><?php 
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
                                 </div>
                                 
+                                <div class="form-group row">
+                                    <label for="" class="col-form-label col-2">Nombre del empleado</label>
+                                    <div class="col-10">
+                                        <select class="form-control kt-selectorpicker" name="nombre_empleado" required>
+                                            <option value="" style="display: none;">Seleccionar empleado</option>
+                                            <?php
+                                                $query = "SELECT * FROM empleados ORDER BY nombre ASC";
+                                                $resultado=$conexion->query($query);
+                                                while ($row3=$resultado->fetch_assoc()) {
+                                                    ?>
+                                                    <option value="<?php echo $row3['nombre']; ?>"><?php echo $row3['apellidos']; ?></option><?php 
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
 
-                                
+                                <div class="form-group row">
+                                    <label for="" class="col-form-label col-2">Tipo de actividad</label>
+                                    <div class="col-10">
+                                        <select class="form-control kt-selectorpicker" name="tipo_actividad" required>
+                                            <option value="" style="display: none;">Seleccionar tipo de actividad</option>
+                                            <?php
+                                                $query = "SELECT * FROM tipo_actividad WHERE estatus='Activo' ORDER BY nombre_tipo_actividad ASC ";
+                                                $resultado = $conexion->query($query);
+                                                while($row3 = $resultado-> fetch_assoc()){
+                                                    ?>
+                                                    <option value= "<?php echo $row3['nombre_tipo_actividad'] ?>"><?php echo $row3['nombre_tipo_actividad'] ?></option> <?php
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="" class="col-form-label col-6">introduzca la hora de inicio de la actividad </label>
+                                    <label for="" class="col-form-label col-6">introduzca la hora de termino de la actividad</label>
+
+                                    <div class="col-6">
+                                        <div class="input-group date form_datetime form_datetime bs-datetime">
+                                            <input type="text" size="16" class="form-control">
+                                            <span class="input-group-addon">
+                                                <button class="btn default date-set" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control" placeholder="Select date and time" id="kt_datetimepicker_5" name="fecha_hora_final">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="la la-calendar glyphicon-th"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                     <button type="submit" class="btn btn-primary" id="btnguardar">Guardar</button>
                                 </div>
                             </form>
+
+                            <?php
+
+                            ?>
                         
                     </div>
             </div>
         </div>
     </div>
     <!--End begin::Modal agregar-->
+    <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     <!--begin::Modal actualizar-->
     <div class="modal fade" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -348,6 +426,7 @@
     <!--begin::Page Scripts(used by this page) -->
     <script src="assets/js/pages/crud/forms/widgets/input-mask.js" type="text/javascript"></script>
     <script src="assets/js/pages/crud/metronic-datatable/base/html-table.js" type="text/javascript"></script>
+    <script src="assets/js/pages/crud/forms/widgets/bootstrap-datetimepicker.js" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
             $('#example tfoot th').each( function () {
