@@ -11,7 +11,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
     <div class="kt-header-mobile__logo">
         <a href="inicio.php">
-            <img alt="Logo" src="img/logo2.png" width="70" />
+            <img alt="Logo" src="img/logo2.png" width="140"/>
         </a>
     </div>
     <div class="kt-header-mobile__toolbar">
@@ -31,7 +31,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
             <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
                 <div class="kt-aside__brand-logo">
                     <a href="index.html">
-                        <img alt="Logo" src="img/logo2.png" width="150" />
+                        <img alt="Logo" src="img/logo2.png" width="155"/>
                     </a>
                 </div>
                 <div class="kt-aside__brand-tools">

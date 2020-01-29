@@ -59,7 +59,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	<!--begin::Layout Skins(used by all pages) -->
 
 	<!--end::Layout Skins -->
-	<link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+	<link rel="shortcut icon" href="img/logo1.png" />
 	<script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 
@@ -76,7 +76,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 					<div class="kt-login__container">
 						<div class="kt-login__logo">
 							<a href="#">
-								<img src="img/logo1.jpg" width="300">
+								<img src="img/logo1.png" width="300">
 							</a>
 						</div>
 						<div class="kt-login__signin" id="test2">
