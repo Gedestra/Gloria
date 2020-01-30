@@ -371,7 +371,7 @@
                     search: 'Buscar:',
                     "lengthMenu": "Mostrando _MENU_ registros por pagina",
                     "zeroRecords": "Sin datos",
-                    "info": "Mostrando _PAGE_ de _PAGES_",
+                    "info": "",
                     "infoEmpty": "Sin registros",
                     "infoFiltered": "(filtrados de _MAX_)",
                     paginate: {
