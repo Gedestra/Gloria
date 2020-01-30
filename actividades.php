@@ -107,7 +107,7 @@
                             $query = "SELECT * FROM actividades AS a INNER JOIN clientes AS c ON a.id_cliente=c.id_cliente INNER JOIN actividades AS ac ON a.id_actividad=ac.id_actividad WHERE a.completado='No completado'";
                             $resultado=$conexion->query($query);
                             while ($row=$resultado->fetch_assoc()) {
-                                    $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono'];
+                                $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono'];
                                 ?>
                                 <tr>
                                     <td style="text-align: center;"><label class="kt-checkbox kt-checkbox--tick kt-checkbox--success" style="margin-bottom: 15px;"><input type="checkbox"><span></span></label></td>
@@ -275,12 +275,12 @@
                                     <div class="kt-widget__content">
                                         <div class="kt-widget__section">
                                             <a href="#" class="kt-widget__username" id="acticlinom">
-                                                
+
                                             </a>
                                         </div>
 
-                                        <div class="kt-widget__action">
-                                            <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a>
+                                        <div class="kt-widget__action" id="btnshowclie">
+                                           <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
                                         </div>
                                     </div>
                                 </div>
@@ -395,6 +395,14 @@
             $('#acticlinom').text(d[1]);
             $('#acticlitel').text(d[4]);
             $('#acticlicor').text(d[3]);
+            var boton = document.createElement('a');
+            boton.text = 'Ver Detalles';
+            boton.href = "showcliente.php?cliente="+d[0];
+            boton.className = 'btn btn-success btn-sm';
+            boton.id = 'btnshowclivi';
+            boton.setAttribute('target', '_blank');
+            $('#btnshowclie').empty();
+            lugar=document.getElementById('btnshowclie').appendChild(boton);
         }
     </script>
 </body>
