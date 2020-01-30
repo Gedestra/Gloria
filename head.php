@@ -753,7 +753,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                     <?php 
                                                                     include("funciones/conexion.php");
                                                                     $conexion->query("SET NAMES 'utf8'");
-                                                                    $query = "SELECT GROUP_CONCAT(' ',smstipo.etiqueta_sms), GROUP_CONCAT(smstipo.id_sms),tipo.nombre_tipo_actividad, tipo.estatus, tipo.sincronizar_tipo_actividad, tipo.id_tipo_actividad FROM tipo_actividad AS tipo INNER JOIN sms_relacion AS sms ON tipo.id_tipo_actividad=sms.id_tipo_actividad INNER JOIN sms_tipo AS smstipo ON sms.id_sms=smstipo.id_sms GROUP BY tipo.id_tipo_actividad";
+                                                                    $query = "SELECT GROUP_CONCAT(' ',smstipo.etiqueta_sms), GROUP_CONCAT(smstipo.id_sms),tipo.nombre_tipo_actividad, tipo.estatus, tipo.sincronizar_tipo_actividad, tipo.id_tipo_actividad, id_icon FROM sms_relacion AS sms RIGHT JOIN tipo_actividad AS tipo ON sms.id_tipo_actividad=tipo.id_tipo_actividad LEFT JOIN sms_tipo AS smstipo ON sms.id_sms=smstipo.id_sms GROUP BY tipo.id_tipo_actividad";
                                                                     $resultado=$conexion->query($query);
                                                                     while ($row=$resultado->fetch_assoc()) {
                                                                         $datostipo_actividad=$row['id_tipo_actividad']."||".$row['nombre_tipo_actividad']."||".$row['estatus']."||".$row['sincronizar_tipo_actividad']."||".$row['id_sms'];
@@ -761,10 +761,31 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                         $nombre=$row['nombre_tipo_actividad'];
                                                                         $estatus=$row['estatus'];
                                                                         $mensaje=$row["GROUP_CONCAT(' ',smstipo.etiqueta_sms)"];
+                                                                        switch ($row['id_icon']) {
+                                                                            case '1':
+                                                                                $icon="<i class='la la-file-text-o'></i>";
+                                                                            break;
+                                                                            case '2':
+                                                                                $icon="<i class='la la-envelope-o'></i>";
+                                                                            break;
+                                                                            case '3':
+                                                                                $icon="<i class='la la-phone'></i>";
+                                                                            break;
+                                                                            case '4':
+                                                                                $icon="<i class='la la-money'></i>";
+                                                                            break;
+                                                                            
+                                                                            default:
+                                                                                $icon="<i class='la la-cart-plus'></i>";
+                                                                            break;
+                                                                        }
                                                                         if ($sincronizar_tipo_actividad=='Activo') {
                                                                             $mostrarsincronizar='Si';
                                                                         }else{
                                                                             $mostrarsincronizar='No';
+                                                                        }
+                                                                        if ($mensaje==null) {
+                                                                            $mensaje="No sms";
                                                                         }
                                                                         ?>
                                                                         <div class="kt-section kt-section--first">
@@ -777,7 +798,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                     <span class='kt-timeline-v3__item-time' style='font-size: 11px;'>$estatus</span>
                                                                                     <div class='kt-timeline-v3__item-desc'>
                                                                                     <span class='kt-timeline-v3__item-text'>
-                                                                                    $nombre <a href='#' onclick='editartipoactividad($mostrar$datostipo_actividad$mostrar)' data-toggle='modal' data-target='#edittopo' data-dismiss='modal'><i class='la la-pencil-square-o'></i></a>
+                                                                                    $icon $nombre <a href='#' onclick='editartipoactividad($mostrar$datostipo_actividad$mostrar)' data-toggle='modal' data-target='#edittopo' data-dismiss='modal'><i class='la la-pencil-square-o'></i></a>
                                                                                     </span><br>
                                                                                     <span class='kt-timeline-v3__item-user-name'>
                                                                                     $mensaje
@@ -790,7 +811,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                     <span class='kt-timeline-v3__item-time' style='font-size: 11px;'>$estatus</span>
                                                                                     <div class='kt-timeline-v3__item-desc'>
                                                                                     <span class='kt-timeline-v3__item-text'>
-                                                                                    $nombre <a href='#' onclick='editartipoactividad($mostrar$datostipo_actividad$mostrar)' data-toggle='modal' data-target='#edittopo' data-dismiss='modal'><i class='la la-pencil-square-o'></i></a>
+                                                                                    $icon $nombre <a href='#' onclick='editartipoactividad($mostrar$datostipo_actividad$mostrar)' data-toggle='modal' data-target='#edittopo' data-dismiss='modal'><i class='la la-pencil-square-o'></i></a>
                                                                                     </span><br>
                                                                                     <span class='kt-timeline-v3__item-user-name'>
                                                                                     $mensaje
@@ -822,6 +843,21 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group row">
+                                                                            <label class="col-xl-3 col-lg-3 col-form-label"></label>
+                                                                            <div class="col-lg-9 col-xl-6" style="margin-bottom: -15px;">
+                                                                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('1')"><i class="la la-file-text-o"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('2')"><i class="la la-envelope-o"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('3')"><i class="la la-phone"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('4')"><i class="la la-money"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('5')"><i class="la la-cart-plus"></i></button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div id="idicon">
+
+                                                                        </div>
+                                                                        <div class="form-group row">
                                                                             <label class="col-xl-3 col-lg-3 col-form-label">Nombre del tipo de actividad</label>
                                                                             <div class="col-lg-9 col-xl-6">
                                                                                 <input type="text" class="form-control" name="nombre" required>
@@ -839,7 +875,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group row">
-                                                                            <label class="col-xl-3 col-lg-3 col-form-label">¿Sincronizar actividad?</label>
+                                                                            <label class="col-xl-3 col-lg-3 col-form-label">Enviar sms</label>
                                                                             <div class="col-lg-9 col-xl-6">
                                                                                 <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
                                                                                     <label>
@@ -868,7 +904,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-label-brand btn-bold">Guardar</button>
+                                                                <button type="submit" class="btn btn-label-brand btn-bold" onclick="btnagregartipoactividad()">Guardar</button>
                                                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
                                                             </div>
                                                         </form>
@@ -1210,5 +1246,34 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     $('#habilitarsincronizarsms').hide();
                                 }
                             });
+                        </script>
+                        <script>
+                            function btnicon(datos){
+                                var input = document.createElement('input');
+                                input.type = 'text';
+                                input.name = 'idicon';
+                                input.id = 'idiconcss';
+                                input.value = datos;
+                                $('#idicon').empty();
+                                lugar=document.getElementById('idicon').appendChild(input);
+                                $("#idiconcss").css('display','none');
+                            }
+                        </script>
+                        <script>
+                            function btnagregartipoactividad(){
+                                if($('#idicon').find("#idiconcss").length){
+                                    var sms= $("#kt_select2_5").is(":visible");
+                                    if (sms==true) {
+                                        var smsvalue= $("#kt_select2_5").val();
+                                        if (smsvalue=="") {
+                                            alert('Selecciona los sms a enviar');
+                                            event.preventDefault();
+                                        }
+                                    }
+                                }else{
+                                    alert('Selecciona un icono para tu tipo de actividad');
+                                    event.preventDefault();
+                                }
+                            }
                         </script>
 
