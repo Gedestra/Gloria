@@ -70,9 +70,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 <div class="kt-header-menu-wrapper" id="kt_header_menu_wrapper">
                     <div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile  kt-header-menu--layout-default ">
                         <ul class="kt-menu__nav ">
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="transacciones.php" class="kt-menu__link "><span class="kt-menu__link-text">Transacciones</span></a></li>
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="actividades.php" class="kt-menu__link "><span class="kt-menu__link-text">Actividades</span></a></li>
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="inicio.php" class="kt-menu__link "><span class="kt-menu__link-text">Disponibilidad</span></a></li>
+                            <li class="kt-menu__item" aria-haspopup="true"><a href="transacciones.php" class="kt-menu__link "><span class="kt-menu__link-text"><i class="la la-dollar"></i>Transacciones</span></a></li>
+                            <li class="kt-menu__item" aria-haspopup="true"><a href="actividades.php" class="kt-menu__link "><span class="kt-menu__link-text"><i class="la la-list"></i>&nbsp;Actividades</span></a></li>
+                            <li class="kt-menu__item" aria-haspopup="true"><a href="inicio.php" class="kt-menu__link "><span class="kt-menu__link-text"><i class="la la-calendar"></i>&nbsp;Disponibilidad</span></a></li>
                         </ul>
                     </div>
                 </div>
