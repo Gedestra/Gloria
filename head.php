@@ -822,6 +822,17 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group row">
+                                                                            <label class="col-xl-3 col-lg-3 col-form-label"></label>
+                                                                            <div class="col-lg-9 col-xl-6" style="margin-bottom: -15px;">
+                                                                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                                                                    <button type="button" class="btn btn-secondary"><i class="la la-file-text-o"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary"><i class="la la-floppy-o"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary"><i class="la la-header"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary"><i class="la la-italic"></i></button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group row">
                                                                             <label class="col-xl-3 col-lg-3 col-form-label">Nombre del tipo de actividad</label>
                                                                             <div class="col-lg-9 col-xl-6">
                                                                                 <input type="text" class="form-control" name="nombre" required>
