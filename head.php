@@ -845,12 +845,12 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                         <div class="form-group row">
                                                                             <label class="col-xl-3 col-lg-3 col-form-label"></label>
                                                                             <div class="col-lg-9 col-xl-6" style="margin-bottom: -15px;">
-                                                                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('1')"><i class="la la-file-text-o"></i></button>
-                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('2')"><i class="la la-envelope-o"></i></button>
-                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('3')"><i class="la la-phone"></i></button>
-                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('4')"><i class="la la-money"></i></button>
-                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('5')"><i class="la la-cart-plus"></i></button>
+                                                                                <div class="btn-group col-12" role="group" aria-label="Button group with nested dropdown">
+                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('1')" id="btnicon1"><i class="la la-file-text-o"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('2')" id="btnicon2"><i class="la la-envelope-o"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('3')" id="btnicon3"><i class="la la-phone"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('4')" id="btnicon4"><i class="la la-money"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('5')" id="btnicon5"><i class="la la-cart-plus"></i></button>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1255,8 +1255,16 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 input.id = 'idiconcss';
                                 input.value = datos;
                                 $('#idicon').empty();
+                                var marcar=datos
                                 lugar=document.getElementById('idicon').appendChild(input);
                                 $("#idiconcss").css('display','none');
+                                $("#btnicon1").removeAttr("disabled");
+                                $("#btnicon2").removeAttr("disabled");
+                                $("#btnicon3").removeAttr("disabled");
+                                $("#btnicon4").removeAttr("disabled");
+                                $("#btnicon5").removeAttr("disabled");
+                                document.getElementById("btnicon"+datos).disabled = true;
+                                
                             }
                         </script>
                         <script>
