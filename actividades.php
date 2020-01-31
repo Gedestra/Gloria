@@ -35,26 +35,7 @@
 <body>
     <?php
     include("head.php");
-    if ($_POST) {
-        $conexion->query("SET NAMES 'utf8'");
-        $username=$_POST['username'];
-        $password=$_POST['password'];
-        $id_empleado=$_POST['id_empleado'];
-        $rol=$_POST['rol'];
-        $query="INSERT INTO usuarios (id_usuario, id_empleado, username, password, rol) VALUES (NULL, '$id_empleado', '$username', '$password', '$rol');";
-        $resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
-        if ($resultado) {
-            echo "<script>alertify.set('notifier','position', 'botton-right');
-            alertify.success('<strong>Agregado correctamente</strong>');</script>";
-        }
-    }
-    if ($_GET['usuario']=='update') {
-        echo "<script>alertify.set('notifier','position', 'botton-right');
-        alertify.success('<strong>¡Usuario Actualizado!</strong>');</script>";
-    }else if($_GET['usuario']=='delete'){
-        echo "<script>alertify.set('notifier','position', 'botton-right');
-        alertify.error('<strong>¡Usuario Eliminado!</strong>');</script>";
-    } 
+    
     ?>
     <!-- end:: Header -->
     <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
@@ -145,6 +126,64 @@
 
                     <form action="" method="POST">
 
+                        
+                        <div class="form-group row">
+                                <aside class="col-2"></aside>
+                                <div class="btn-group col-8" role="group" aria-label="Button group with nested dropdown" >
+                                    <button type="button" class="btn btn-secondary"  id="btnicon1"><i class="la la-file-text-o"></i></button>
+                                    <button type="button" class="btn btn-secondary"  id="btnicon2"><i class="la la-envelope-o"></i></button>
+                                    <button type="button" class="btn btn-secondary"  id="btnicon3"><i class="la la-phone"></i></button>
+                                    <button type="button" class="btn btn-secondary"  id="btnicon4"><i class="la la-money"></i></button>
+                                    <button type="button" class="btn btn-secondary"  id="btnicon5"><i class="la la-cart-plus"></i></button>
+                                </div>
+                                
+                                <aside class="col-2"></aside>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="date col-form-label col-4">fecha</label>
+                            <label for="" class="date col-form-label col-4">hora</label>
+                            <label for="" class="date col-form-label col-4">duracion</label>
+                            <style>
+                                .date{
+                                    text-align: center;
+                                }
+                            </style>
+                            <div class="col-4">
+                            <div class="input-group date">
+                                <input type="text" class="form-control" readonly="" placeholder="Select date" id="kt_datepicker_2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="la la-calendar-check-o"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-group timepicker">
+                                    <input class="form-control" id="kt_timepicker_2" readonly="" placeholder="Select time" type="text">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="la la-clock-o"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <select class="form-control kt-selectpicker" name="nombre_cliente" required>
+                                    <option value="" style="display: none;">Seleccionar</option>
+                                    <option value="15">15 minutos</option>
+                                    <option value="30">30 minutos</option>
+                                    <option value="45">45 minutos</option>
+                                    <option value="60">1 hora</option>
+                                    <option value="75">1 hora y 15 minutos</option>
+                                    <option value="90">1 hora y media</option>
+                                    <option value="105">1 hora y 45 minutos</option>
+                                    <option value="120">2 horas</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="" class="col-2 col-form-label">nombre de la Actividad</label>
                             <div class="col-10">
@@ -203,32 +242,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="" class="col-form-label col-6">introduzca la hora de inicio de la actividad </label>
-                            <label for="" class="col-form-label col-6">introduzca la hora de termino de la actividad</label>
-
-                            <div class="col-6">
-                                <div class="input-group date form_datetime form_datetime bs-datetime">
-                                    <input type="text" size="16" class="form-control">
-                                    <span class="input-group-addon">
-                                        <button class="btn default date-set" type="button">
-                                            <i class="fa fa-calendar"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="col-6">
-                                <div class="input-group date">
-                                    <input type="text" class="form-control" placeholder="Select date and time" id="kt_datetimepicker_5" name="fecha_hora_final">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="la la-calendar glyphicon-th"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -245,6 +259,28 @@
         </div>
     </div>
     <!--End begin::Modal agregar-->
+    <?php
+        if ($_POST) {
+            $conexion->query("SET NAMES 'utf8'");
+            //$username=$_POST['username'];
+            //$password=$_POST['password'];
+            //$id_empleado=$_POST['id_empleado'];
+            //$rol=$_POST['rol'];
+            //$query="INSERT INTO usuarios (id_usuario, id_empleado, username, password, rol) VALUES (NULL, '$id_empleado', '$username', '$password', '$rol');";
+            //$resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
+            //if ($resultado) {
+            //    echo "<script>alertify.set('notifier','position', 'botton-right');
+            //    alertify.success('<strong>Agregado correctamente</strong>');</script>";
+            //}
+        }
+        /*if ($_GET['usuario']=='update') {
+            echo "<script>alertify.set('notifier','position', 'botton-right');
+            alertify.success('<strong>¡Usuario Actualizado!</strong>');</script>";
+        }else if($_GET['usuario']=='delete'){
+            echo "<script>alertify.set('notifier','position', 'botton-right');
+            alertify.error('<strong>¡Usuario Eliminado!</strong>');</script>";
+        }*/
+    ?>
     <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     <!--begin::Modal visualizar cliente-->
     <div class="modal fade show" id="kt_modal_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
