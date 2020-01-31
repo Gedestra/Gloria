@@ -30,7 +30,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
             <!-- begin:: Aside -->
             <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
                 <div class="kt-aside__brand-logo">
-                    <a href="index.html">
+                    <a href="inicio.php">
                         <img alt="Logo" src="img/logo2.png" width="155"/>
                     </a>
                 </div>
