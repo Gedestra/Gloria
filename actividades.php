@@ -1,3 +1,13 @@
+<?php 
+include("funciones/session.php"); 
+$query="SELECT rol FROM usuarios WHERE username='$username'";
+$resultado = $conexion->query($query);
+$row=$resultado->fetch_assoc();
+$sesion=$row['rol']; 
+if ($sesion !='Administrador' && $sesion !='Empleado') {
+    header("location: index.php");
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +70,7 @@
                         <div class="kt-portlet__head-wrapper">
                             <div class="kt-portlet__head-actions">
                                 &nbsp;
-                                <a href="#" class="btn btn-brand btn-elevate btn-icon-sm" data-toggle="modal" data-target="#kt_modal_4">
+                                <a href="#" class="btn btn-brand btn-elevate btn-icon-sm" data-toggle="modal" data-target="#kt_modal_4" onclick="modaladdactiviti()">
                                     <i class="la la-plus"></i>
                                     Agregar Actividad
                                 </a>
@@ -149,13 +159,10 @@
 
                         <div class="form-group row">
                             <aside class="col-2"></aside>
-                            <div class="btn-group col-8" role="group" aria-label="Button group with nested dropdown" >
-                                <button type="button" class="btn btn-secondary"  id="btnicon1"><i class="la la-file-text-o"></i></button>
-                                <button type="button" class="btn btn-secondary"  id="btnicon2"><i class="la la-envelope-o"></i></button>
-                                <button type="button" class="btn btn-secondary"  id="btnicon3"><i class="la la-phone"></i></button>
-                                <button type="button" class="btn btn-secondary"  id="btnicon4"><i class="la la-money"></i></button>
-                                <button type="button" class="btn btn-secondary"  id="btnicon5"><i class="la la-cart-plus"></i></button>
+                            <div class="btn-group col-8" role="group" aria-label="Button group with nested dropdown" id="icontipo">
+
                             </div>
+                            <div id="inputidicon"></div>
 
                             <aside class="col-2"></aside>
                         </div>
@@ -171,7 +178,7 @@
                             </style>
                             <div class="col-4">
                                 <div class="input-group date">
-                                    <input type="text" class="form-control" readonly="" placeholder="Select date" id="kt_datepicker_2" required>
+                                    <input type="text" class="form-control" readonly="" placeholder="Seleccionar Fecha" id="kt_datepicker_2" required>
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="la la-calendar-check-o"></i>
@@ -207,16 +214,16 @@
                         <div class="form-group row">
                             <label for="" class="col-2 col-form-label">Nombre de la Actividad</label>
                             <div class="col-10">
-                                <input type="text" class="form-control" name="nombre_actividad" required>
+                                <input type="text" class="form-control" name="nombre_actividad" id="nombre_actividad" required>
                             </div>
                         </div>
 
                         
 
                         <div class="form-group row">
-                            <label for="" class="col-form-label col-2">Asigar a</label>
+                            <label for="" class="col-form-label col-2">Asignar a</label>
                             <div class="col-10">
-                                <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_empleado" required>
+                                <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_empleado" id="nombre_empleado_actividad" required>
                                     <?php
                                     $query = "SELECT * FROM empleados ORDER BY nombre ASC";
                                     $resultado=$conexion->query($query);
@@ -264,7 +271,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary" id="btnguardar">Guardar</button>
+                            <button type="submit" class="btn btn-primary" id="btnguardar" onclick="btnaddactividad()">Guardar</button>
                         </div>
                     </form>
 
@@ -461,6 +468,119 @@
             boton.setAttribute('target', '_blank');
             $('#btnshowclie').empty();
             lugar=document.getElementById('btnshowclie').appendChild(boton);
+        }
+    </script>
+    <script>
+        function modaladdactiviti(){
+            $('#icontipo').empty();
+            <?php
+            $conexion->query("SET NAMES 'utf8'");
+            $query = "SELECT * FROM tipo_actividad WHERE estatus='Activo'";
+            $resultado=$conexion->query($query);
+            while ($row=$resultado->fetch_assoc()) {
+                $datostipoactividad=$row['id_tipo_actividad']."||".$row['nombre_tipo_actividad'];
+                $comas='"';
+                $idtipoactividad=$row['id_tipo_actividad'];
+                $nombre_tipo_actividad=$row['nombre_tipo_actividad'];
+                switch ($row['id_icon']) {
+                    case '1':
+                    echo $icon="
+                    var input = document.createElement('button');
+                    input.type= 'button'
+                    input.title= '$nombre_tipo_actividad'
+                    input.className = 'la la-file-text-o btn btn-secondary testicon';
+                    input.id='$idtipoactividad'
+                    input.setAttribute('onclick','selecticon($comas$datostipoactividad$comas)');
+
+                    lugar=document.getElementById('icontipo').appendChild(input);
+                    ";
+                    break;
+                    case '2':
+                    echo $icon="
+                    var input = document.createElement('button');
+                    input.type= 'button'
+                    input.title= '$nombre_tipo_actividad'
+                    input.className = 'la la-envelope-o btn btn-secondary testicon';
+                    input.id='$idtipoactividad'
+                    input.setAttribute('onclick','selecticon($comas$datostipoactividad$comas)');
+
+                    lugar=document.getElementById('icontipo').appendChild(input);
+                    ";
+                    break;
+                    case '3':
+                    echo $icon="
+                    var input = document.createElement('button');
+                    input.type= 'button'
+                    input.title= '$nombre_tipo_actividad'
+                    input.className = 'la la-phone btn btn-secondary testicon';
+                    input.id='$idtipoactividad'
+                    input.setAttribute('onclick','selecticon($comas$datostipoactividad$comas)');
+
+                    lugar=document.getElementById('icontipo').appendChild(input);
+                    ";
+                    break;
+                    case '4':
+                    echo $icon="
+                    var input = document.createElement('button');
+                    input.type= 'button'
+                    input.title= '$nombre_tipo_actividad'
+                    input.className = 'la la-money btn btn-secondary testicon';
+                    input.id='$idtipoactividad'
+                    input.setAttribute('onclick','selecticon($comas$datostipoactividad$comas)');
+
+                    lugar=document.getElementById('icontipo').appendChild(input);
+                    ";
+                    break;
+
+                    default:
+                    echo $icon="
+                    var input = document.createElement('button');
+                    input.type= 'button'
+                    input.title= '$nombre_tipo_actividad'
+                    input.className = 'la la-cart-plus btn btn-secondary testicon';
+                    input.id='$idtipoactividad'
+                    input.setAttribute('onclick','selecticon($comas$datostipoactividad$comas)');
+
+                    lugar=document.getElementById('icontipo').appendChild(input);
+                    ";
+                    break;
+                }
+            }
+            ?>
+        }
+        function selecticon(datos){
+            d=datos.split('||');
+            $(".testicon").removeAttr("disabled");
+            document.getElementById(d[0]).disabled = true;
+            var input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'iconselectactividad';
+            input.id = 'iconselectactividad';
+            input.value = d[0];
+            $('#inputidicon').empty();
+            lugar=document.getElementById('inputidicon').appendChild(input);
+            $("#iconselectactividad").css('display','none');
+            var inputnombreactividad=lugar=document.getElementById('nombre_actividad').setAttribute('placeholder',d[1]);
+        }
+        <?php 
+        $query = "SELECT * FROM usuarios AS u INNER JOIN empleados AS e ON u.id_empleado=e.id_empleado WHERE username='$username'";
+        $resultado=$conexion->query($query);
+        $row=$resultado->fetch_assoc();
+        $id_empleado_actividad=$row['id_empleado'];
+        echo "$('#nombre_empleado_actividad').val('$id_empleado_actividad');";
+        ?>
+        function btnaddactividad(){
+            var nombre_actividad_value=$("#nombre_actividad").val();
+            if (nombre_actividad_value=="") {
+                if($('#inputidicon').find("#iconselectactividad").length){
+                    var valuetipoactividad=$('#iconselectactividad').val();
+                    var texttipoactividad=document.getElementById("nombre_actividad").placeholder;
+                    var valuenombreactividad=$("#nombre_actividad").val(texttipoactividad);
+                }else{
+                    alert("Seleccione un tipo de actividad seleccionando un icono");
+                    event.preventDefault();
+                }
+            }
         }
     </script>
 </body>
