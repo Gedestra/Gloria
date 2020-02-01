@@ -1099,7 +1099,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                 </span>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="form-group row" id="habilitarsincronizarsms">
+                                                                        <div class="form-group row" id="updatesmstipoactividad">
                                                                             <label class="col-xl-3 col-lg-3 col-form-label">tipo de sms</label>
                                                                             <div class="col-lg-9 col-xl-6">
                                                                                 <select class="form-control kt-select2" id="kt_select2_10" name="id_sms[]" multiple="multiple" style="width: 200px:">
@@ -1209,10 +1209,21 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 }
                                 if (d[3]=='Activo') {
                                     $("#upsincronizartipoactividad").prop("checked", true);
+                                    $("#updatesmstipoactividad").show();
                                 }else{
                                     $("#upsincronizartipoactividad").prop("checked", false);
+                                    $("#updatesmstipoactividad").hide();
                                 }
                             }
+
+                            $("#upsincronizartipoactividad").on( 'change', function() {
+                                if( $(this).is(':checked') ) {
+                                    $('#updatesmstipoactividad').show();
+                                } else {
+                                    $('#updatesmstipoactividad').hide();
+                                }
+                            });
+                            
                         </script>
                         <script>
                             function editarrazonperdido(datos){
