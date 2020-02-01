@@ -572,20 +572,68 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                     var valuefecha=document.getElementsByName("fechaactividad")[0].value;
                     var valuehora=document.getElementsByName("horaactividad")[0].value;
                     var valueduracion=document.getElementsByName("duracionactividad")[0].value;
+
                     var valuecliente=document.getElementsByName("nombre_cliente")[0].value;
                     var valueempleado=document.getElementsByName("nombre_empleado")[0].value;
                     var valueusuario='<?php echo $id_empleado_actividad; ?>';
                     var estatus="completado";
-                     alert(valuehora);
+
+                    let fecha = valuefecha.split("/");
+                    let hora;
+                    if(valuehora.includes("PM") && !valuehora.includes(12)){
+                        hora = valuehora.substring(0,5);
+                        hora = hora.split(":");
+                        hora[0]= (parseInt(hora[0])+12).toString();
+                    }else{
+                        hora = valuehora.substring(0,5);
+                        hora = hora.split(":");
+                    }
+                    let iday= fecha[1];
+                    let imonth = fecha[0];
+                    let iyear = fecha[2];
+                    let ihour = hora[0];
+                    let iminutes = hora[1];
+                    let iseconds = 00;
+                    
+                    inicio = new Date(iyear, imonth-1, iday, ihour, iminutes, iseconds);
+                    final = moment(inicio).add(valueduracion, 'm').toDate();
+                    console.log(inicio);
+                    console.log(final);
+                    let fday = final.getDate();
+                    let fmonth = final.getMonth()+1;
+                    let fyear = final.getFullYear();
+                    let fhour = final.getHours();
+                    let fminutes = final.getMinutes();
+                    let fseconds = final.getSeconds();
+
+                    
+                    
+                    let srecord = iyear+"-"+imonth+"-"+iday+" "+ihour+":"+iminutes+":"+iseconds;
+                    let frecord = fyear+"-"+fmonth+"-"+fday+" "+fhour+":"+fminutes+":"+fseconds;
+
+                    console.log(srecord);
+                    console.log(frecord);
+
                     $.ajax({                        
                         type: "POST",                 
-                        url: "https://hook.integromat.com/wnnw3atwfwm3g3fyhsqrfdehxn1fd3ba",     
-                        data:{idtipoactividad:valuetipoactividad,hora:valuehora,fecha:valuefecha,duracion:valueduracion,idcliente:valuecliente,idempleado:valueempleado,idusuario:valueusuario,completado:'completado',nombreactividad:valuenombreactividad},
+                        url: "funciones/addactividades.php",     
+                        data:{
+                            idtipoactividad:valuetipoactividad,
+                            fechainicial: srecord,
+                            fechafinal: frecord,
+                            idcliente:valuecliente,
+                            idempleado:valueempleado,
+                            idusuario:valueusuario,
+                            completado:'No completado',
+                            nombreactividad:valuenombreactividad
+                        },
                         beforeSend: function () {
 
                         },
                         success:  function (response) {
-                            alert("Enviado");
+                            alert(response);
+
+                            //location.href ='actividades.php';
                         }
                     })
                 }else{
