@@ -45,14 +45,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 <body>
     <?php
     include("head.php");
-    
     ?>
     <!-- end:: Header -->
     <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
-
-        <!-- begin:: Subheader -->
-
-        <!-- end:: Subheader -->
 
         <!-- begin:: Content -->
         <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
@@ -143,7 +138,6 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
     <?php include("menu.php"); ?>
     <!-- end::Sticky Toolbar -->
     <!--begin::Modal agregar-->
-    <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     <div class="modal fade" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -276,29 +270,6 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
             </div>
         </div>
         <!--End begin::Modal agregar-->
-        <?php
-        if ($_POST) {
-            $conexion->query("SET NAMES 'utf8'");
-            //$username=$_POST['username'];
-            //$password=$_POST['password'];
-            //$id_empleado=$_POST['id_empleado'];
-            //$rol=$_POST['rol'];
-            //$query="INSERT INTO usuarios (id_usuario, id_empleado, username, password, rol) VALUES (NULL, '$id_empleado', '$username', '$password', '$rol');";
-            //$resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
-            //if ($resultado) {
-            //    echo "<script>alertify.set('notifier','position', 'botton-right');
-            //    alertify.success('<strong>Agregado correctamente</strong>');</script>";
-            //}
-        }
-        /*if ($_GET['usuario']=='update') {
-            echo "<script>alertify.set('notifier','position', 'botton-right');
-            alertify.success('<strong>¡Usuario Actualizado!</strong>');</script>";
-        }else if($_GET['usuario']=='delete'){
-            echo "<script>alertify.set('notifier','position', 'botton-right');
-            alertify.error('<strong>¡Usuario Eliminado!</strong>');</script>";
-        }*/
-        ?>
-        <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
         <!--begin::Modal visualizar cliente-->
         <div class="modal fade show" id="kt_modal_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -333,11 +304,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                             </div>
 
                                             <div class="kt-widget__action" id="btnshowclie">
-                                             <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="kt-widget__body">
+                                               <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="kt-widget__body">
                                     <div class="kt-widget__content">
                                         <div class="kt-widget__info">
                                             <span class="kt-widget__label">Teléfono/Celular</span>
@@ -631,9 +602,16 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
                         },
                         success:  function (response) {
-                            alert(response);
-
-                            //location.href ='actividades.php';
+                            alertify.set('notifier','position', 'botton-right');
+                            alertify.success('<strong>¡Actividad Agregada!</strong>');
+                            $("#kt_modal_4").modal("hide");
+                            setInterval(function(){
+                                location.reload();
+                            },1000)
+                        },
+                        error: function(xhr, status, err) {
+                            alertify.set('notifier','position', 'botton-right');
+                            alertify.error('<strong>Problemas con el servidor</strong>');
                         }
                     })
                 }else{
