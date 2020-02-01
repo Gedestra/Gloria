@@ -154,110 +154,108 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 </div>
                 <div class="modal-body">
 
-                    <form action="" method="POST">
 
+                    <div class="form-group row">
+                        <aside class="col-2"></aside>
+                        <div class="btn-group col-8" role="group" aria-label="Button group with nested dropdown" id="icontipo">
 
-                        <div class="form-group row">
-                            <aside class="col-2"></aside>
-                            <div class="btn-group col-8" role="group" aria-label="Button group with nested dropdown" id="icontipo">
-
-                            </div>
-                            <div id="inputidicon"></div>
-
-                            <aside class="col-2"></aside>
                         </div>
+                        <div id="inputidicon"></div>
 
-                        <div class="form-group row">
-                            <label for="" class="date col-form-label col-4">Fecha</label>
-                            <label for="" class="date col-form-label col-4">Hora</label>
-                            <label for="" class="date col-form-label col-4">Duración</label>
-                            <style>
-                                .date{
-                                    text-align: center;
+                        <aside class="col-2"></aside>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="date col-form-label col-4">Fecha</label>
+                        <label for="" class="date col-form-label col-4">Hora</label>
+                        <label for="" class="date col-form-label col-4">Duración</label>
+                        <style>
+                            .date{
+                                text-align: center;
+                            }
+                        </style>
+                        <div class="col-4">
+                            <div class="input-group date">
+                                <input type="text" class="form-control" readonly="" placeholder="Seleccionar Fecha" name="fechaactividad" id="kt_datepicker_2" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="la la-calendar-check-o"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="input-group timepicker">
+                                <input class="form-control" id="kt_timepicker_1" readonly="" name="horaactividad" type="text" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="la la-clock-o"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <select class="form-control kt-selectpicker" name="duracionactividad" required>
+                                <option value="" style="display: none;">Seleccionar</option>
+                                <option value="15">15 minutos</option>
+                                <option value="30">30 minutos</option>
+                                <option value="45">45 minutos</option>
+                                <option value="60">1 hora</option>
+                                <option value="90">1 hora 30 minutos</option>
+                                <option value="120">2 horas</option>
+                                <option value="360">6 horas</option>
+                                <option value="720">12 horas</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-2 col-form-label">Nombre de la Actividad</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control" name="nombre_actividad" id="nombre_actividad">
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-2">Asignar a</label>
+                        <div class="col-10">
+                            <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_empleado" id="nombre_empleado_actividad" required>
+                                <?php
+                                $query = "SELECT * FROM empleados ORDER BY nombre ASC";
+                                $resultado=$conexion->query($query);
+                                while ($row3=$resultado->fetch_assoc()) {
+                                    ?>
+                                    <option value="<?php echo $row3['id_empleado']; ?>"><?php echo $row3['nombre'].$row3['apellidos']; ?></option><?php 
                                 }
-                            </style>
-                            <div class="col-4">
-                                <div class="input-group date">
-                                    <input type="text" class="form-control" readonly="" placeholder="Seleccionar Fecha" id="kt_datepicker_2" required>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="la la-calendar-check-o"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="input-group timepicker">
-                                    <input class="form-control" id="kt_timepicker_1" readonly="" placeholder="Select time" type="text" required>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="la la-clock-o"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <select class="form-control kt-selectpicker" name="nombre_cliente" required>
-                                    <option value="" style="display: none;">Seleccionar</option>
-                                    <option value="15">15 minutos</option>
-                                    <option value="30">30 minutos</option>
-                                    <option value="45">45 minutos</option>
-                                    <option value="60">1 hora</option>
-                                    <option value="90">1 hora 30 minutos</option>
-                                    <option value="120">2 horas</option>
-                                    <option value="360">6 horas</option>
-                                    <option value="720">12 horas</option>
-                                </select>
-                            </div>
+                                ?>
+                            </select>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="" class="col-2 col-form-label">Nombre de la Actividad</label>
-                            <div class="col-10">
-                                <input type="text" class="form-control" name="nombre_actividad" id="nombre_actividad" required>
-                            </div>
-                        </div>
-
-                        
-
-                        <div class="form-group row">
-                            <label for="" class="col-form-label col-2">Asignar a</label>
-                            <div class="col-10">
-                                <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_empleado" id="nombre_empleado_actividad" required>
-                                    <?php
-                                    $query = "SELECT * FROM empleados ORDER BY nombre ASC";
-                                    $resultado=$conexion->query($query);
-                                    while ($row3=$resultado->fetch_assoc()) {
-                                        ?>
-                                        <option value="<?php echo $row3['id_empleado']; ?>"><?php echo $row3['nombre'].$row3['apellidos']; ?></option><?php 
-                                    }
+                    <div class="form-group row">
+                        <label for="" class="col-2 col-form-label">Cliente</label>
+                        <div class="col-10">
+                            <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_cliente" required>
+                                <option value="" style="display: none;">Seleccionar</option>
+                                <?php 
+                                $query = "SELECT * FROM clientes ORDER BY nombres ASC";
+                                $resultado=$conexion->query($query);
+                                while ($row3=$resultado->fetch_assoc()) {
                                     ?>
-                                </select>
-                            </div>
+                                    <option value="<?php echo $row3['id_cliente']; ?>"><?php echo $row3['nombres'].$row3['apellidos']; ?></option><?php 
+                                }
+                                ?>
+                            </select>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="" class="col-2 col-form-label">Cliente</label>
-                            <div class="col-10">
-                                <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_cliente" required>
-                                    <option value="" style="display: none;">Seleccionar</option>
-                                    <?php 
-                                    $query = "SELECT * FROM clientes ORDER BY nombres ASC";
-                                    $resultado=$conexion->query($query);
-                                    while ($row3=$resultado->fetch_assoc()) {
-                                        ?>
-                                        <option value="<?php echo $row3['id_cliente']; ?>"><?php echo $row3['nombres'].$row3['apellidos']; ?></option><?php 
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="" class="col-form-label col-2">Transacción</label>
-                            <div class="col-10">
-                                <select class="form-control kt-selectorpicker" name="tipo_actividad">
-                                    <option value="" style="display: none;">Seleccionar Transacción</option>
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-2">Transacción</label>
+                        <div class="col-10">
+                            <select class="form-control kt-selectorpicker" name="tipo_actividad">
+                                <option value="" style="display: none;">Seleccionar Transacción</option>
                                     <!-- <?php
                                     $query = "SELECT * FROM tipo_actividad WHERE estatus='Activo' ORDER BY nombre_tipo_actividad ASC ";
                                     $resultado = $conexion->query($query);
@@ -271,22 +269,16 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary" id="btnguardar" onclick="btnaddactividad()">Guardar</button>
+                            <button type="button" class="btn btn-primary" id="btnguardar" onclick="btnaddactividad()">Guardar</button>
                         </div>
-                    </form>
-
-                    <?php
-
-                    ?>
-
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!--End begin::Modal agregar-->
-    <?php
-    if ($_POST) {
-        $conexion->query("SET NAMES 'utf8'");
+        <!--End begin::Modal agregar-->
+        <?php
+        if ($_POST) {
+            $conexion->query("SET NAMES 'utf8'");
             //$username=$_POST['username'];
             //$password=$_POST['password'];
             //$id_empleado=$_POST['id_empleado'];
@@ -297,7 +289,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
             //    echo "<script>alertify.set('notifier','position', 'botton-right');
             //    alertify.success('<strong>Agregado correctamente</strong>');</script>";
             //}
-    }
+        }
         /*if ($_GET['usuario']=='update') {
             echo "<script>alertify.set('notifier','position', 'botton-right');
             alertify.success('<strong>¡Usuario Actualizado!</strong>');</script>";
@@ -575,10 +567,29 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 if($('#inputidicon').find("#iconselectactividad").length){
                     var valuetipoactividad=$('#iconselectactividad').val();
                     var texttipoactividad=document.getElementById("nombre_actividad").placeholder;
-                    var valuenombreactividad=$("#nombre_actividad").val(texttipoactividad);
+                    $("#nombre_actividad").val(texttipoactividad);
+                    var valuenombreactividad=document.getElementsByName("nombre_actividad")[0].value;
+                    var valuefecha=document.getElementsByName("fechaactividad")[0].value;
+                    var valuehora=document.getElementsByName("horaactividad")[0].value;
+                    var valueduracion=document.getElementsByName("duracionactividad")[0].value;
+                    var valuecliente=document.getElementsByName("nombre_cliente")[0].value;
+                    var valueempleado=document.getElementsByName("nombre_empleado")[0].value;
+                    var valueusuario='<?php echo $id_empleado_actividad; ?>';
+                    var estatus="completado";
+                     alert(valuehora);
+                    $.ajax({                        
+                        type: "POST",                 
+                        url: "https://hook.integromat.com/wnnw3atwfwm3g3fyhsqrfdehxn1fd3ba",     
+                        data:{idtipoactividad:valuetipoactividad,hora:valuehora,fecha:valuefecha,duracion:valueduracion,idcliente:valuecliente,idempleado:valueempleado,idusuario:valueusuario,completado:'completado',nombreactividad:valuenombreactividad},
+                        beforeSend: function () {
+
+                        },
+                        success:  function (response) {
+                            alert("Enviado");
+                        }
+                    })
                 }else{
                     alert("Seleccione un tipo de actividad seleccionando un icono");
-                    event.preventDefault();
                 }
             }
         }
