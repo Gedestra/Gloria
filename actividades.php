@@ -91,7 +91,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                             <?php 
                             include("funciones/conexion.php");
                             $conexion->query("SET NAMES 'utf8'");
-                            $query = "SELECT nombre_tipo_Actividad, c.id_cliente, nombres,apellidos,correo,telefono,fecha_hora_inicio,nombre_actividad, id_icon FROM actividades AS a INNER JOIN clientes AS c ON a.id_cliente=c.id_cliente INNER JOIN tipo_actividad AS ac ON a.id_tipo_actividad=ac.id_tipo_actividad WHERE a.completado='No completado'";
+                            $query = "SELECT a.id_Actividad,nombre_tipo_Actividad, c.id_cliente, nombres,apellidos,correo,telefono,fecha_hora_inicio,nombre_actividad, id_icon FROM actividades AS a INNER JOIN clientes AS c ON a.id_cliente=c.id_cliente INNER JOIN tipo_actividad AS ac ON a.id_tipo_actividad=ac.id_tipo_actividad WHERE a.completado='No completado'";
                             $resultado=$conexion->query($query);
                             while ($row=$resultado->fetch_assoc()) {
                                 $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono'];
@@ -114,8 +114,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     break;
                                 }
                                 ?>
-                                <tr>
-                                    <td style="text-align: center;"><label class="kt-checkbox kt-checkbox--tick kt-checkbox--success" style="margin-bottom: 15px;"><input type="checkbox"><span></span></label></td>
+                                <tr id="<?php echo $row['id_Actividad'];?>">
+                                    <td style="text-align: center;"><label class="kt-checkbox kt-checkbox--tick kt-checkbox--success" style="margin-bottom: 15px;"><input type="checkbox" onclick="btncompletadoactividad(<?php echo $row['id_Actividad']; ?>)"><span></span></label></td>
                                     <td><?php echo $row['fecha_hora_inicio']; ?></td>
                                     <td><?php echo $row['nombre_actividad']; ?></td>
                                     <td><?php echo $icon." ".$row['nombre_tipo_Actividad']; ?></td>
@@ -304,11 +304,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                             </div>
 
                                             <div class="kt-widget__action" id="btnshowclie">
-                                               <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <div class="kt-widget__body">
+                                             <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="kt-widget__body">
                                     <div class="kt-widget__content">
                                         <div class="kt-widget__info">
                                             <span class="kt-widget__label">Teléfono/Celular</span>
@@ -611,9 +611,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         alertify.set('notifier','position', 'botton-right');
                         alertify.success('<strong>¡Actividad Agregada!</strong>');
                         $("#kt_modal_4").modal("hide");
-                        // setInterval(function(){
-                        //     location.reload();
-                        // },1000)
+                        setInterval(function(){
+                            location.reload();
+                        },900)
                     },
                     error: function(xhr, status, err) {
                         alertify.set('notifier','position', 'botton-right');
@@ -621,6 +621,29 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                     }
                 })
             }
+        }
+
+        function btncompletadoactividad(id){
+            $.ajax({                        
+                type: "POST",                 
+                url: "funciones/completaractividad.php",     
+                data:{id_actividad:id},
+                beforeSend: function () {
+                },
+                success:  function (response) {
+                    alertify.set('notifier','position', 'botton-right');
+                    alertify.success('<strong>¡Actividad Completada!</strong>');
+                    modaladdactiviti();
+                    // $("#kt_modal_4").modal("show");
+                    setInterval(function(n){
+                        $("#"+id).css("display","none");
+                    },700)
+                },
+                error: function(xhr, status, err) {
+                    alertify.set('notifier','position', 'botton-right');
+                    alertify.error('<strong>Problemas con el servidor</strong>');
+                }
+            })
         }
     </script>
 </body>
