@@ -158,7 +158,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         </style>
                         <div class="col-4">
                             <div class="input-group date">
-                                <input type="text" class="form-control" readonly="" placeholder="Seleccionar Fecha" name="fechaactividad" id="kt_datepicker_2" required>
+                                <input type="text" class="form-control" readonly="" placeholder="Seleccionar Fecha" name="fechaactividad" id="kt_datepicker_2">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="la la-calendar-check-o"></i>
@@ -168,7 +168,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         </div>
                         <div class="col-4">
                             <div class="input-group timepicker">
-                                <input class="form-control" id="kt_timepicker_1" readonly="" name="horaactividad" type="text" required>
+                                <input class="form-control" id="kt_timepicker_1" readonly="" name="horaactividad" type="text">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="la la-clock-o"></i>
@@ -177,7 +177,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                             </div>
                         </div>
                         <div class="col-4">
-                            <select class="form-control kt-selectpicker" name="duracionactividad" required>
+                            <select class="form-control kt-selectpicker" name="duracionactividad">
                                 <option value="" style="display: none;">Seleccionar</option>
                                 <option value="15">15 minutos</option>
                                 <option value="30">30 minutos</option>
@@ -198,12 +198,10 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         </div>
                     </div>
 
-
-
                     <div class="form-group row">
                         <label for="" class="col-form-label col-2">Asignar a</label>
                         <div class="col-10">
-                            <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_empleado" id="nombre_empleado_actividad" required>
+                            <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_empleado" id="nombre_empleado_actividad">
                                 <?php
                                 $query = "SELECT * FROM empleados ORDER BY nombre ASC";
                                 $resultado=$conexion->query($query);
@@ -219,7 +217,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                     <div class="form-group row">
                         <label for="" class="col-2 col-form-label">Cliente</label>
                         <div class="col-10">
-                            <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_cliente" required>
+                            <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_cliente" id="nombre_cliente">
                                 <option value="" style="display: none;">Seleccionar</option>
                                 <?php 
                                 $query = "SELECT * FROM clientes ORDER BY nombres ASC";
@@ -292,11 +290,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                             </div>
 
                                             <div class="kt-widget__action" id="btnshowclie">
-                                               <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <div class="kt-widget__body">
+                                             <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="kt-widget__body">
                                     <div class="kt-widget__content">
                                         <div class="kt-widget__info">
                                             <span class="kt-widget__label">Teléfono/Celular</span>
@@ -422,7 +420,12 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
             lugar=document.getElementById('btnshowclie').appendChild(boton);
         }
 
-        function modaladdactiviti(){
+        function modaladdactiviti(response){
+
+            if (response!=undefined) {
+                $('#nombre_cliente').val(response);
+                $('#nombre_cliente').trigger("change");
+            }
             $('#icontipo').empty();
             <?php
             $conexion->query("SET NAMES 'utf8'");
@@ -521,6 +524,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
         echo "$('#nombre_empleado_actividad').val('$id_empleado_actividad');";
         ?>
         function btnaddactividad(){
+
             var nombre_actividad_value=$("#nombre_actividad").val();
             if (nombre_actividad_value=="") {
                 if($('#inputidicon').find("#iconselectactividad").length){
@@ -533,6 +537,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
             }else{
                 enviardata();
             }
+
             function enviardata(){
                 var valuetipoactividad=$('#iconselectactividad').val();
                 var valuenombreactividad=document.getElementsByName("nombre_actividad")[0].value;
@@ -562,8 +567,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
                 inicio = new Date(iyear, imonth-1, iday, ihour, iminutes, iseconds);
                 final = moment(inicio).add(valueduracion, 'm').toDate();
-                console.log(inicio);
-                console.log(final);
+                
                 let fday = final.getDate();
                 let fmonth = final.getMonth()+1;
                 let fyear = final.getFullYear();
@@ -571,13 +575,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 let fminutes = final.getMinutes();
                 let fseconds = final.getSeconds();
 
-
-
                 let srecord = iyear+"-"+imonth+"-"+iday+" "+ihour+":"+iminutes+":"+iseconds;
                 let frecord = fyear+"-"+fmonth+"-"+fday+" "+fhour+":"+fminutes+":"+fseconds;
-
-                console.log(srecord);
-                console.log(frecord);
 
                 $.ajax({                        
                     type: "POST",                 
@@ -624,8 +623,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
                 success:  function (response) {
 
-                    if (response=="No hay otra actividad") {
+                    if (response!="Hay otra actividad") {
 
+                        modaladdactiviti(response);
                         alertify.set('notifier','position', 'botton-right');
                         alertify.success('<strong>¡Actividad Completada!</strong>');
                         setInterval(function(n){
