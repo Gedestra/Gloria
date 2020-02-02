@@ -12,7 +12,7 @@ if ($_POST) {
 		if ($total>0) {
 			echo "Hay otra actividad";
 		}else{
-			echo "No hay otra actividad";
+			echo $id_cliente;
 		}
 	}
 }
