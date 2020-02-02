@@ -388,6 +388,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
     <script src="assets/js/pages/crud/forms/widgets/bootstrap-timepicker.js" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
+
+            modaladdactiviti();
+
             $('#example tfoot th').each( function () {
                 var title = $(this).text();
                 $(this).html( '<input type="text" placeholder="Buscar'+title+'" />' );
@@ -415,8 +418,6 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
             } );
         } );
-    </script>
-    <script>
         function agregaform(datos){
             d=datos.split('||');
             $('#upusername').val(d[0]);
@@ -432,8 +433,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
             $('#btnshowclie').empty();
             lugar=document.getElementById('btnshowclie').appendChild(boton);
         }
-    </script>
-    <script>
+
         function modaladdactiviti(){
             $('#icontipo').empty();
             <?php
@@ -638,7 +638,6 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
                     if (response=="No hay otra actividad") {
 
-                        modaladdactiviti();
                         alertify.set('notifier','position', 'botton-right');
                         alertify.success('<strong>¡Actividad Completada!</strong>');
                         setInterval(function(n){
