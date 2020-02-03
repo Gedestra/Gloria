@@ -756,27 +756,27 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                     $query = "SELECT GROUP_CONCAT(' ',smstipo.etiqueta_sms), GROUP_CONCAT(smstipo.id_sms),tipo.nombre_tipo_actividad, tipo.estatus, tipo.sincronizar_tipo_actividad, tipo.id_tipo_actividad, id_icon FROM sms_relacion AS sms RIGHT JOIN tipo_actividad AS tipo ON sms.id_tipo_actividad=tipo.id_tipo_actividad LEFT JOIN sms_tipo AS smstipo ON sms.id_sms=smstipo.id_sms GROUP BY tipo.id_tipo_actividad";
                                                                     $resultado=$conexion->query($query);
                                                                     while ($row=$resultado->fetch_assoc()) {
-                                                                        $datostipo_actividad=$row['id_tipo_actividad']."||".$row['nombre_tipo_actividad']."||".$row['estatus']."||".$row['sincronizar_tipo_actividad']."||".$row['id_sms'];
+                                                                        $datostipo_actividad=$row['id_tipo_actividad']."||".$row['nombre_tipo_actividad']."||".$row['estatus']."||".$row['sincronizar_tipo_actividad']."||".$row['GROUP_CONCAT(smstipo.id_sms)'];
                                                                         $sincronizar_tipo_actividad=$row['sincronizar_tipo_actividad'];
                                                                         $nombre=$row['nombre_tipo_actividad'];
                                                                         $estatus=$row['estatus'];
                                                                         $mensaje=$row["GROUP_CONCAT(' ',smstipo.etiqueta_sms)"];
                                                                         switch ($row['id_icon']) {
                                                                             case '1':
-                                                                                $icon="<i class='la la-file-text-o'></i>";
+                                                                            $icon="<i class='la la-file-text-o'></i>";
                                                                             break;
                                                                             case '2':
-                                                                                $icon="<i class='la la-envelope-o'></i>";
+                                                                            $icon="<i class='la la-envelope-o'></i>";
                                                                             break;
                                                                             case '3':
-                                                                                $icon="<i class='la la-phone'></i>";
+                                                                            $icon="<i class='la la-phone'></i>";
                                                                             break;
                                                                             case '4':
-                                                                                $icon="<i class='la la-money'></i>";
+                                                                            $icon="<i class='la la-money'></i>";
                                                                             break;
                                                                             
                                                                             default:
-                                                                                $icon="<i class='la la-cart-plus'></i>";
+                                                                            $icon="<i class='la la-cart-plus'></i>";
                                                                             break;
                                                                         }
                                                                         if ($sincronizar_tipo_actividad=='Activo') {
@@ -1198,10 +1198,25 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         <script src="assets/js/pages/crud/forms/widgets/select2.js" type="text/javascript"></script>
                         <script>
                             function editartipoactividad(datos){
+
                                 d=datos.split('||');
+                                $("#kt_select2_10 option:selected").removeAttr("selected");
                                 $('#upnombretipoactividad').val(d[1]);
                                 $('#upestatus').val(d[2]);
                                 $('#upidtipoactividad').val(d[0]);
+
+                                if (d[4]!="") {
+
+                                    var id_smsedit=d[4].split(',');
+                                    id_smsedit.forEach( function(valor, indice, array) {
+
+                                        $('#kt_select2_10 option[value='+valor+']').attr('selected',true);
+                                        $('#kt_select2_10').trigger("change");
+                                        console.log(valor);
+                                        
+                                    });
+                                }
+
                                 if (d[2]=='Activo') {
                                     $("#upestatustipoactividad").prop("checked", true);
                                 }else{
@@ -1223,7 +1238,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     $('#updatesmstipoactividad').hide();
                                 }
                             });
-                            
+
                         </script>
                         <script>
                             function editarrazonperdido(datos){
@@ -1275,7 +1290,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 $("#btnicon4").removeAttr("disabled");
                                 $("#btnicon5").removeAttr("disabled");
                                 document.getElementById("btnicon"+datos).disabled = true;
-                                
+
                             }
                         </script>
                         <script>
