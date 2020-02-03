@@ -290,11 +290,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                             </div>
 
                                             <div class="kt-widget__action" id="btnshowclie">
-                                             <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="kt-widget__body">
+                                               <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="kt-widget__body">
                                     <div class="kt-widget__content">
                                         <div class="kt-widget__info">
                                             <span class="kt-widget__label">Teléfono/Celular</span>
@@ -532,7 +532,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                     $("#nombre_actividad").val(texttipoactividad);
                     enviardata();
                 }else{
-                    alert("Seleccione un tipo de actividad seleccionando un icono");
+                    alertify.set('notifier','position', 'botton-right');
+                    alertify.error('<strong>Seleccione un tipo de actividad seleccionando un icono</strong>');
                 }
             }else{
                 enviardata();
@@ -548,65 +549,71 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 var valueempleado=document.getElementsByName("nombre_empleado")[0].value;
                 var valueusuario='<?php echo $id_empleado_actividad; ?>';
 
-                let fecha = valuefecha.split("/");
-                let hora;
-                if(valuehora.includes("PM") && !valuehora.includes(12)){
-                    hora = valuehora.substring(0,5);
-                    hora = hora.split(":");
-                    hora[0]= (parseInt(hora[0])+12).toString();
-                }else{
-                    hora = valuehora.substring(0,5);
-                    hora = hora.split(":");
-                }
-                let iday= fecha[1];
-                let imonth = fecha[0];
-                let iyear = fecha[2];
-                let ihour = hora[0];
-                let iminutes = hora[1];
-                let iseconds = 00;
+                if (valuecliente!=""&&valuefecha!=""&&valueduracion!="") {
 
-                inicio = new Date(iyear, imonth-1, iday, ihour, iminutes, iseconds);
-                final = moment(inicio).add(valueduracion, 'm').toDate();
-                
-                let fday = final.getDate();
-                let fmonth = final.getMonth()+1;
-                let fyear = final.getFullYear();
-                let fhour = final.getHours();
-                let fminutes = final.getMinutes();
-                let fseconds = final.getSeconds();
-
-                let srecord = iyear+"-"+imonth+"-"+iday+" "+ihour+":"+iminutes+":"+iseconds;
-                let frecord = fyear+"-"+fmonth+"-"+fday+" "+fhour+":"+fminutes+":"+fseconds;
-
-                $.ajax({                        
-                    type: "POST",                 
-                    url: "funciones/addactividades.php",     
-                    data:{
-                        idtipoactividad:valuetipoactividad,
-                        fechainicial: srecord,
-                        fechafinal: frecord,
-                        idcliente:valuecliente,
-                        idempleado:valueempleado,
-                        idusuario:valueusuario,
-                        completado:'No completado',
-                        nombreactividad:valuenombreactividad
-                    },
-                    beforeSend: function () {
-
-                    },
-                    success:  function (response) {
-                        alertify.set('notifier','position', 'botton-right');
-                        alertify.success('<strong>¡Actividad Agregada!</strong>');
-                        $("#kt_modal_4").modal("hide");
-                        setInterval(function(){
-                            location.reload();
-                        },900)
-                    },
-                    error: function(xhr, status, err) {
-                        alertify.set('notifier','position', 'botton-right');
-                        alertify.error('<strong>Problemas con el servidor</strong>');
+                    let fecha = valuefecha.split("/");
+                    let hora;
+                    if(valuehora.includes("PM") && !valuehora.includes(12)){
+                        hora = valuehora.substring(0,5);
+                        hora = hora.split(":");
+                        hora[0]= (parseInt(hora[0])+12).toString();
+                    }else{
+                        hora = valuehora.substring(0,5);
+                        hora = hora.split(":");
                     }
-                })
+                    let iday= fecha[1];
+                    let imonth = fecha[0];
+                    let iyear = fecha[2];
+                    let ihour = hora[0];
+                    let iminutes = hora[1];
+                    let iseconds = 00;
+
+                    inicio = new Date(iyear, imonth-1, iday, ihour, iminutes, iseconds);
+                    final = moment(inicio).add(valueduracion, 'm').toDate();
+
+                    let fday = final.getDate();
+                    let fmonth = final.getMonth()+1;
+                    let fyear = final.getFullYear();
+                    let fhour = final.getHours();
+                    let fminutes = final.getMinutes();
+                    let fseconds = final.getSeconds();
+
+                    let srecord = iyear+"-"+imonth+"-"+iday+" "+ihour+":"+iminutes+":"+iseconds;
+                    let frecord = fyear+"-"+fmonth+"-"+fday+" "+fhour+":"+fminutes+":"+fseconds;
+
+                    $.ajax({                        
+                        type: "POST",                 
+                        url: "funciones/addactividades.php",     
+                        data:{
+                            idtipoactividad:valuetipoactividad,
+                            fechainicial: srecord,
+                            fechafinal: frecord,
+                            idcliente:valuecliente,
+                            idempleado:valueempleado,
+                            idusuario:valueusuario,
+                            completado:'No completado',
+                            nombreactividad:valuenombreactividad
+                        },
+                        beforeSend: function () {
+
+                        },
+                        success:  function (response) {
+                            alertify.set('notifier','position', 'botton-right');
+                            alertify.success('<strong>¡Actividad Agregada!</strong>');
+                            $("#kt_modal_4").modal("hide");
+                            setInterval(function(){
+                                location.reload();
+                            },900)
+                        },
+                        error: function(xhr, status, err) {
+                            alertify.set('notifier','position', 'botton-right');
+                            alertify.error('<strong>Problemas con el servidor</strong>');
+                        }
+                    })
+                }else{
+                    alertify.set('notifier','position', 'botton-right');
+                    alertify.error('<strong>No se aceptan campos vacios</strong>');
+                }
             }
         }
 
