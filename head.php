@@ -537,6 +537,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                 <div class="form-group form-group-last">
                                                                                     <textarea class="form-control" id="exampleTextarea" rows="3" name="mensaje" required></textarea>
                                                                                 </div>
+                                                                                <span id="smsCharCounter">160 caracteres restantes</span><br>
+                                                                                <span id="smsCounter">se enviará un mensaje</span>
+                                                                                <script src="js/smsCount.js"></script>
                                                                             </div>
                                                                         </div>
                                                                     </div>
