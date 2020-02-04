@@ -179,6 +179,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         <div class="col-4">
                             <select class="form-control kt-selectpicker" name="duracionactividad">
                                 <option value="" style="display: none;">Seleccionar</option>
+                                <option value="5">5 minutos</option>
                                 <option value="15">15 minutos</option>
                                 <option value="30">30 minutos</option>
                                 <option value="45">45 minutos</option>
