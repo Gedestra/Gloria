@@ -756,7 +756,10 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                     <?php 
                                                                     include("funciones/conexion.php");
                                                                     $conexion->query("SET NAMES 'utf8'");
-                                                                    $query = "SELECT GROUP_CONCAT(' ',smstipo.etiqueta_sms), GROUP_CONCAT(smstipo.id_sms),tipo.nombre_tipo_actividad, tipo.estatus, tipo.sincronizar_tipo_actividad, tipo.id_tipo_actividad, id_icon FROM sms_relacion AS sms RIGHT JOIN tipo_actividad AS tipo ON sms.id_tipo_actividad=tipo.id_tipo_actividad LEFT JOIN sms_tipo AS smstipo ON sms.id_sms=smstipo.id_sms GROUP BY tipo.id_tipo_actividad";
+                                                                    $query = "SELECT GROUP_CONCAT(' ',smstipo.etiqueta_sms), GROUP_CONCAT"
+                                                                            ."(smstipo.id_sms),tipo.nombre_tipo_actividad, tipo.estatus, tipo.sincronizar_tipo_actividad, tipo.id_tipo_actividad, id_icon "
+                                                                            ."FROM sms_relacion AS sms RIGHT JOIN tipo_actividad AS tipo ON sms.id_tipo_actividad=tipo.id_tipo_actividad LEFT JOIN sms_tipo AS "
+                                                                            ."smstipo ON sms.id_sms=smstipo.id_sms GROUP BY tipo.id_tipo_actividad";
                                                                     $resultado=$conexion->query($query);
                                                                     while ($row=$resultado->fetch_assoc()) {
                                                                         $datostipo_actividad=$row['id_tipo_actividad']."||".$row['nombre_tipo_actividad']."||".$row['estatus']."||".$row['sincronizar_tipo_actividad']."||".$row['GROUP_CONCAT(smstipo.id_sms)'];
@@ -777,9 +780,23 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                             case '4':
                                                                             $icon="<i class='la la-money'></i>";
                                                                             break;
-                                                                            
+                                                                            case '6':
+                                                                                $icon="<i class='la la-bell'></i>";
+                                                                            break;
+                                                                            case '7':
+                                                                                $icon = "<i class='la la-briefcase'></i>";
+                                                                            break;
+                                                                            case '8':
+                                                                                $icon = "<i class='la la-cog'></i>";
+                                                                            break;
+                                                                            case '9':
+                                                                                $icon = "<i class='la la-cut'></i>";
+                                                                            break;
+                                                                            case '10':
+                                                                                $icon = "<i class='la la-eye'></i>";
+                                                                            break;
                                                                             default:
-                                                                            $icon="<i class='la la-cart-plus'></i>";
+                                                                                $icon="<i class='la la-cart-plus'></i>";
                                                                             break;
                                                                         }
                                                                         if ($sincronizar_tipo_actividad=='Activo') {
@@ -854,6 +871,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                     <button type="button" class="btn btn-secondary" onclick="btnicon('3')" id="btnicon3"><i class="la la-phone"></i></button>
                                                                                     <button type="button" class="btn btn-secondary" onclick="btnicon('4')" id="btnicon4"><i class="la la-money"></i></button>
                                                                                     <button type="button" class="btn btn-secondary" onclick="btnicon('5')" id="btnicon5"><i class="la la-cart-plus"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('6')" id="btnicon6"><i class="la la-bell-o"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('7')" id="btnicon7"><i class="la la-briefcase"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('8')" id="btnicon8"><i class="la la-cog"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('9')" id="btnicon9"><i class="la la-cut"></i></button>
+                                                                                    <button type="button" class="btn btn-secondary" onclick="btnicon('10')" id="btnicon10"><i class="la la-eye"></i></button>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1292,6 +1314,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 $("#btnicon3").removeAttr("disabled");
                                 $("#btnicon4").removeAttr("disabled");
                                 $("#btnicon5").removeAttr("disabled");
+                                $("#btnicon6").removeAttr("disabled");
+                                $("#btnicon7").removeAttr("disabled");
+                                $("#btnicon8").removeAttr("disabled");
+                                $("#btnicon9").removeAttr("disabled");
+                                $("#btnicon10").removeAttr("disabled");
                                 document.getElementById("btnicon"+datos).disabled = true;
 
                             }
