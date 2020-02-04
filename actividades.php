@@ -84,6 +84,15 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                             $query = "SELECT a.id_Actividad,nombre_tipo_Actividad, c.id_cliente, nombres,apellidos,correo,telefono,fecha_hora_inicio,nombre_actividad, id_icon FROM actividades AS a INNER JOIN clientes AS c ON a.id_cliente=c.id_cliente INNER JOIN tipo_actividad AS ac ON a.id_tipo_actividad=ac.id_tipo_actividad WHERE a.completado='No completado'";
                             $resultado=$conexion->query($query);
                             while ($row=$resultado->fetch_assoc()) {
+
+                                date_default_timezone_set('America/Mexico_City');
+                                setlocale(LC_TIME, 'es_MX.UTF-8');
+                                $hoy = date("Y-m-d H:i:s");
+                                $fecha_entrada = $row['fecha_hora_inicio'];
+                                if ($hoy > $fecha_entrada) {
+                                    $color="Red;";
+                                }
+
                                 $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono']."||".$row['id_Actividad'];
                                 switch ($row['id_icon']) {
                                     case '1':
@@ -106,11 +115,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 ?>
                                 <tr id="<?php echo $row['id_Actividad'];?>">
                                     <td style="text-align: center;"><label class="kt-checkbox kt-checkbox--tick kt-checkbox--success" style="margin-bottom: 15px;"><input type="checkbox" onclick="btncompletadoactividad('<?php echo $datos; ?>')"><span></span></label></td>
-                                    <td><?php echo $row['fecha_hora_inicio']; ?></td>
-                                    <td><?php echo $row['nombre_actividad']; ?></td>
-                                    <td><?php echo $icon." ".$row['nombre_tipo_Actividad']; ?></td>
-                                    <td><a class="dropdown-item" href="#" onclick="agregaform('<?php echo $datos; ?>')" data-toggle="modal" data-target="#kt_modal_5"><?php echo $row['nombres']." ".$row['apellidos'];?></a></td>
-                                    <td><?php echo $row['id_transaccion'];?></td>
+                                    <td style="color: <?php echo $color; ?>"><?php echo $row['fecha_hora_inicio']; ?></td>
+                                    <td style="color: <?php echo $color; ?>"><?php echo $row['nombre_actividad']; ?></td>
+                                    <td style="color: <?php echo $color; ?>"><?php echo $icon." ".$row['nombre_tipo_Actividad']; ?></td>
+                                    <td><a class="dropdown-item" style="color: <?php echo $color; ?>" href="#" onclick="agregaform('<?php echo $datos; ?>')" data-toggle="modal" data-target="#kt_modal_5"><?php echo $row['nombres']." ".$row['apellidos'];?></a></td>
+                                    <td style="color: <?php echo $color; ?>"><?php echo $row['id_transaccion'];?></td>
                                 </tr>
                             <?php } ?>
                         </tbody>
