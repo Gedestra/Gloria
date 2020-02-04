@@ -130,7 +130,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agregar Actividad</h5>
+                    <h5 class="modal-title cambiotitle" id="exampleModalLabel">Agregar Actividad</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
@@ -179,6 +179,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         <div class="col-4">
                             <select class="form-control kt-selectpicker" name="duracionactividad">
                                 <option value="" style="display: none;">Seleccionar</option>
+                                <option value="5">5 minutos</option>
                                 <option value="15">15 minutos</option>
                                 <option value="30">30 minutos</option>
                                 <option value="45">45 minutos</option>
@@ -425,6 +426,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
             if (response!=undefined) {
                 $('#nombre_cliente').val(response);
                 $('#nombre_cliente').trigger("change");
+                $('.cambiotitle').text("");
+                $('.cambiotitle').text("Agregar Próxima Actividad");
+            }else{
+                $('.cambiotitle').text("");
+                $('.cambiotitle').text("Agregar Actividad");
             }
             $('#icontipo').empty();
             <?php
