@@ -35,6 +35,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
     <link rel="shortcut icon" href="img/logo1.png" />
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
 </head>
 <body>
     <?php include("head.php"); ?>
@@ -81,7 +82,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                             <?php 
                             include("funciones/conexion.php");
                             $conexion->query("SET NAMES 'utf8'");
-                            $query = "SELECT a.id_Actividad,nombre_tipo_Actividad, c.id_cliente, nombres,apellidos,correo,telefono,fecha_hora_inicio,nombre_actividad, id_icon FROM actividades AS a INNER JOIN clientes AS c ON a.id_cliente=c.id_cliente INNER JOIN tipo_actividad AS ac ON a.id_tipo_actividad=ac.id_tipo_actividad WHERE a.completado='No completado'";
+                            $query = "SELECT a.id_empleado,ac.id_tipo_actividad,a.id_Actividad,nombre_tipo_Actividad, c.id_cliente, nombres,apellidos,correo,telefono,fecha_hora_inicio,fecha_hora_termino,nombre_actividad, id_icon FROM actividades AS a INNER JOIN clientes AS c ON a.id_cliente=c.id_cliente INNER JOIN tipo_actividad AS ac ON a.id_tipo_actividad=ac.id_tipo_actividad WHERE a.completado='No completado'";
                             $resultado=$conexion->query($query);
                             while ($row=$resultado->fetch_assoc()) {
 
@@ -93,7 +94,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                  echo $color="Red;";
                              }
 
-                             $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono']."||".$row['id_Actividad'];
+                             $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono']."||".$row['id_Actividad']."||".$row['id_tipo_actividad']."||".$row['nombre_actividad']."||".$row['fecha_hora_inicio']."||".$row['fecha_hora_termino']."||".$row['id_empleado'];
                              switch ($row['id_icon']) {
                                 case '1':
                                 $icon="<i class='la la-file-text-o'></i>";
@@ -106,6 +107,21 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 break;
                                 case '4':
                                 $icon="<i class='la la-money'></i>";
+                                break;
+                                case '6':
+                                $icon="<i class='la la-bell'></i>";
+                                break;
+                                case '7':
+                                $icon="<i class='la la-briefcase'></i>";
+                                break;
+                                case '8':
+                                $icon="<i class='la la-cog'></i>";
+                                break;
+                                case '9':
+                                $icon="<i class='la la-cut'></i>";
+                                break;
+                                case '10':
+                                $icon="<i class='la la-eye'></i>";
                                 break;
 
                                 default:
@@ -287,10 +303,10 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
                 <div class="form-group row">
                     <aside class="col-2"></aside>
-                    <div class="btn-group col-8" role="group" aria-label="Button group with nested dropdown" id="icontipo">
+                    <div class="btn-group col-8" role="group" aria-label="Button group with nested dropdown" id="icontipoedit">
 
                     </div>
-                    <div id="inputidicon"></div>
+                    <div id="inputidiconedit"></div>
 
                     <aside class="col-2"></aside>
                 </div>
@@ -306,7 +322,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                     </style>
                     <div class="col-4">
                         <div class="input-group date">
-                            <input type="text" class="form-control" readonly="" placeholder="Seleccionar Fecha" name="fechaactividad" id="kt_datepicker_2">
+                            <input type="text" class="form-control testfecha" readonly="" placeholder="Seleccionar Fecha" name="editfechaactividad" id="kt_datepicker_2">
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="la la-calendar-check-o"></i>
@@ -316,7 +332,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                     </div>
                     <div class="col-4">
                         <div class="input-group timepicker">
-                            <input class="form-control" id="kt_timepicker_1" readonly="" name="horaactividad" type="text">
+                            <input class="form-control testhora" id="kt_timepicker_1" readonly="" name="horaactividad" type="text">
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="la la-clock-o"></i>
@@ -325,7 +341,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         </div>
                     </div>
                     <div class="col-4">
-                        <select class="form-control kt-selectpicker" name="duracionactividad">
+                        <select class="form-control kt-selectpicker" name="duracionactividad" id="duracionactividadedit">
                             <option value="" style="display: none;">Seleccionar</option>
                             <option value="5">5 minutos</option>
                             <option value="15">15 minutos</option>
@@ -343,14 +359,14 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 <div class="form-group row">
                     <label for="" class="col-2 col-form-label">Nombre de la Actividad</label>
                     <div class="col-10">
-                        <input type="text" class="form-control" name="nombre_actividad" id="nombre_actividad">
+                        <input type="text" class="form-control" name="nombre_actividad_edit" id="nombre_actividad_edit">
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="" class="col-form-label col-2">Asignar a</label>
                     <div class="col-10">
-                        <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_empleado" id="nombre_empleado_actividad">
+                        <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_empleado" id="nombre_empleado_actividadeditar">
                             <?php
                             $query = "SELECT * FROM empleados ORDER BY nombre ASC";
                             $resultado=$conexion->query($query);
@@ -366,7 +382,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 <div class="form-group row">
                     <label for="" class="col-2 col-form-label">Cliente</label>
                     <div class="col-10">
-                        <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_cliente" id="nombre_cliente">
+                        <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_cliente" id="nombre_clienteeditar">
                             <option value="" style="display: none;">Seleccionar</option>
                             <?php 
                             $query = "SELECT * FROM clientes ORDER BY nombres ASC";
@@ -710,165 +726,400 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
         ?>
     }
 
-    // function modaleditactiviti(){
-
-    // }
-
-    function selecticon(datos){
+    function modaleditactiviti(datos){
         d=datos.split('||');
-        $(".testicon").removeAttr("disabled");
-        document.getElementById(d[0]).disabled = true;
-        var input = document.createElement('input');
-        input.type = 'text';
-        input.name = 'iconselectactividad';
-        input.id = 'iconselectactividad';
-        input.value = d[0];
-        $('#inputidicon').empty();
-        lugar=document.getElementById('inputidicon').appendChild(input);
-        $("#iconselectactividad").css('display','none');
-        var inputnombreactividad=lugar=document.getElementById('nombre_actividad').setAttribute('placeholder',d[1]);
-    }
-    <?php 
-    $query = "SELECT * FROM usuarios AS u INNER JOIN empleados AS e ON u.id_empleado=e.id_empleado WHERE username='$username'";
-    $resultado=$conexion->query($query);
-    $row=$resultado->fetch_assoc();
-    $id_empleado_actividad=$row['id_empleado'];
-    echo "$('#nombre_empleado_actividad').val('$id_empleado_actividad');";
-    ?>
-    function btnaddactividad(){
+        $('#icontipoedit').empty();
+        
+        <?php
+        $conexion->query("SET NAMES 'utf8'");
+        $query = "SELECT * FROM tipo_actividad";
+        $resultado=$conexion->query($query);
+        while ($row=$resultado->fetch_assoc()) {
+            $datostipoactividad=$row['id_tipo_actividad']."||".$row['nombre_tipo_actividad'];
+            $comas='"';
+            $idtipoactividad=$row['id_tipo_actividad'];
+            $nombre_tipo_actividad=$row['nombre_tipo_actividad'];
+            switch ($row['id_icon']) {
+                case '1':
+                echo $icon="
+                var input = document.createElement('button');
+                input.type= 'button'
+                input.title= '$nombre_tipo_actividad'
+                input.className = 'la la-file-text-o btn btn-secondary testiconedit';
+                input.id='edit$idtipoactividad'
+                input.setAttribute('onclick','selecticonedit($comas$datostipoactividad$comas)');
 
-        var nombre_actividad_value=$("#nombre_actividad").val();
-        if (nombre_actividad_value=="") {
-            if($('#inputidicon').find("#iconselectactividad").length){
-                var texttipoactividad=document.getElementById("nombre_actividad").placeholder;
-                $("#nombre_actividad").val(texttipoactividad);
-                enviardata();
-            }else{
-                alertify.set('notifier','position', 'botton-right');
-                alertify.error('<strong>Seleccione un tipo de actividad seleccionando un icono</strong>');
+                lugar=document.getElementById('icontipoedit').appendChild(input);
+                ";
+                break;
+                case '2':
+                echo $icon="
+                var input = document.createElement('button');
+                input.type= 'button'
+                input.title= '$nombre_tipo_actividad'
+                input.className = 'la la-envelope-o btn btn-secondary testiconedit';
+                input.id='edit$idtipoactividad'
+                input.setAttribute('onclick','selecticonedit($comas$datostipoactividad$comas)');
+
+                lugar=document.getElementById('icontipoedit').appendChild(input);
+                ";
+                break;
+                case '3':
+                echo $icon="
+                var input = document.createElement('button');
+                input.type= 'button'
+                input.title= '$nombre_tipo_actividad'
+                input.className = 'la la-phone btn btn-secondary testiconedit';
+                input.id='edit$idtipoactividad'
+                input.setAttribute('onclick','selecticonedit($comas$datostipoactividad$comas)');
+
+                lugar=document.getElementById('icontipoedit').appendChild(input);
+                ";
+                break;
+                case '4':
+                echo $icon="
+                var input = document.createElement('button');
+                input.type= 'button'
+                input.title= '$nombre_tipo_actividad'
+                input.className = 'la la-money btn btn-secondary testiconedit';
+                input.id='edit$idtipoactividad'
+                input.setAttribute('onclick','selecticonedit($comas$datostipoactividad$comas)');
+
+                lugar=document.getElementById('icontipoedit').appendChild(input);
+                ";
+                break;
+                case '6':
+                echo $icon="
+                var input = document.createElement('button');
+                input.type= 'button'
+                input.title= '$nombre_tipo_actividad'
+                input.className = 'la la-bell btn btn-secondary testiconedit';
+                input.id='edit$idtipoactividad'
+                input.setAttribute('onclick','selecticonedit($comas$datostipoactividad$comas)');
+
+                lugar=document.getElementById('icontipoedit').appendChild(input);
+                ";
+                break;
+                case '7':
+                echo $icon="
+                var input = document.createElement('button');
+                input.type= 'button'
+                input.title= '$nombre_tipo_actividad'
+                input.className = 'la la-briefcase btn btn-secondary testiconedit';
+                input.id='edit$idtipoactividad'
+                input.setAttribute('onclick','selecticonedit($comas$datostipoactividad$comas)');
+
+                lugar=document.getElementById('icontipoedit').appendChild(input);
+                ";
+                break;
+                case '8':
+                echo $icon="
+                var input = document.createElement('button');
+                input.type= 'button'
+                input.title= '$nombre_tipo_actividad'
+                input.className = 'la la-cog btn btn-secondary testiconedit';
+                input.id='edit$idtipoactividad'
+                input.setAttribute('onclick','selecticonedit($comas$datostipoactividad$comas)');
+
+                lugar=document.getElementById('icontipoedit').appendChild(input);
+                ";
+                break;
+                case '9':
+                echo $icon="
+                var input = document.createElement('button');
+                input.type= 'button'
+                input.title= '$nombre_tipo_actividad'
+                input.className = 'la la-cut btn btn-secondary testiconedit';
+                input.id='edit$idtipoactividad'
+                input.setAttribute('onclick','selecticonedit($comas$datostipoactividad$comas)');
+
+                lugar=document.getElementById('icontipoedit').appendChild(input);
+                ";
+                break;
+                case '10':
+                echo $icon="
+                var input = document.createElement('button');
+                input.type= 'button'
+                input.title= '$nombre_tipo_actividad'
+                input.className = 'la la-eye btn btn-secondary testiconedit';
+                input.id='edit$idtipoactividad'
+                input.setAttribute('onclick','selecticonedit($comas$datostipoactividad$comas)');
+
+                lugar=document.getElementById('icontipoedit').appendChild(input);
+                ";
+                break;
+
+                default:
+                echo $icon="
+                var input = document.createElement('button');
+                input.type= 'button'
+                input.title= '$nombre_tipo_actividad'
+                input.className = 'la la-cart-plus btn btn-secondary testiconedit';
+                input.id='edit$idtipoactividad'
+                input.setAttribute('onclick','selecticonedit($comas$datostipoactividad$comas)');
+
+                lugar=document.getElementById('icontipoedit').appendChild(input);
+                ";
+                break;
             }
+        }
+        ?>
+        
+        // $(".testiconedit").removeAttr("disabled");
+        document.getElementById('edit'+d[6]).disabled = true;
+        document.getElementById('nombre_actividad_edit').value=d[7];
+        var fecha=d[8].substring(0,10);
+        var year=fecha.substring(0,4);
+        var mount=fecha.substring(5,7);
+        var day=fecha.substring(8,10);
+        var fechavalue=mount+"/"+day+"/"+year;
+        $(".testfecha").val(fechavalue);
+
+        var hour=d[8].substring(11,16);
+        var hours=hour.substring(0,2);
+        var minuts=hour.substring(3,6);
+        var houractiviti=hours+":"+minuts;
+
+        var fecha1 = moment(d[8]);
+        var fecha2 = moment(d[9]);
+        var diff=fecha1-fecha2;
+        var duracionedit=(fecha2.diff(fecha1, 'minutes'));
+
+        if (parseInt(hours) > 12) {
+            var tiempo="PM"
         }else{
+            var tiempo="AM"
+        }
+        if (tiempo=="PM"||hours=="00") {
+            switch (parseInt(hours)) {
+              case 13:
+              var hora="1:"+minuts+" "+tiempo;
+              break;
+              case 14:
+              var hora="2:"+minuts+" "+tiempo;
+              break;
+              case 15:
+              var hora="3:"+minuts+" "+tiempo;
+              break;
+              case 16:
+              var hora="4:"+minuts+" "+tiempo;
+              break;
+              case 17:
+              var hora="5:"+minuts+" "+tiempo;
+              break;
+              case 18:
+              var hora="6:"+minuts+" "+tiempo;
+              break;
+              case 19:
+              var hora="7:"+minuts+" "+tiempo;
+              break;
+              case 20:
+              var hora="8:"+minuts+" "+tiempo;
+              break;
+              case 21:
+              var hora="9:"+minuts+" "+tiempo;
+              break;
+              case 22:
+              var hora="10:"+minuts+" "+tiempo;
+              break;
+              case 23:
+              var hora="11:"+minuts+" "+tiempo;
+              break;
+              default:
+              var hora="12:"+minuts+" "+tiempo;
+          }
+      }else{
+        var cero=hours.substring(0,1);
+        if (cero=="0") {
+            var hora=hours.substring(1,4)+":"+minuts+" "+tiempo; 
+        }else{
+            var hora=hours.substring(0,4)+":"+minuts+" "+tiempo;
+        } 
+    }
+
+    $(".testhora").val(hora);
+    document.getElementById("duracionactividadedit").value=duracionedit;
+    $('#duracionactividadedit').trigger("change");
+    document.getElementById('nombre_actividad_edit').value=d[7];
+    $(".testfecha").val(fechavalue);
+    document.getElementById("nombre_empleado_actividadeditar").value=d[10];
+    $('#nombre_empleado_actividadeditar').trigger("change");
+    document.getElementById("nombre_clienteeditar").value=d[0];
+    $('#nombre_clienteeditar').trigger("change");
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.name = 'iconselectactividadedit';
+    input.id = 'iconselectactividadedit';
+    input.value = d[6];
+    $('#inputidiconedit').empty();
+    lugar=document.getElementById('inputidiconedit').appendChild(input);
+    $("#iconselectactividadedit").css('display','none');
+}
+
+function selecticonedit(datos){
+
+    d=datos.split('||');
+    $(".testiconedit").removeAttr("disabled");
+    document.getElementById('edit'+d[0]).disabled = true;
+    document.getElementById('nombre_actividad_edit').setAttribute('placeholder',d[1]);
+
+}
+
+function selecticon(datos){
+    d=datos.split('||');
+    $(".testicon").removeAttr("disabled");
+    document.getElementById(d[0]).disabled = true;
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.name = 'iconselectactividad';
+    input.id = 'iconselectactividad';
+    input.value = d[0];
+    $('#inputidicon').empty();
+    lugar=document.getElementById('inputidicon').appendChild(input);
+    $("#iconselectactividad").css('display','none');
+    var inputnombreactividad=lugar=document.getElementById('nombre_actividad').setAttribute('placeholder',d[1]);
+}
+<?php 
+$query = "SELECT * FROM usuarios AS u INNER JOIN empleados AS e ON u.id_empleado=e.id_empleado WHERE username='$username'";
+$resultado=$conexion->query($query);
+$row=$resultado->fetch_assoc();
+$id_empleado_actividad=$row['id_empleado'];
+echo "$('#nombre_empleado_actividad').val('$id_empleado_actividad');";
+?>
+function btnaddactividad(){
+
+    var nombre_actividad_value=$("#nombre_actividad").val();
+    if (nombre_actividad_value=="") {
+        if($('#inputidicon').find("#iconselectactividad").length){
+            var texttipoactividad=document.getElementById("nombre_actividad").placeholder;
+            $("#nombre_actividad").val(texttipoactividad);
             enviardata();
+        }else{
+            alertify.set('notifier','position', 'botton-right');
+            alertify.error('<strong>Seleccione un tipo de actividad seleccionando un icono</strong>');
         }
+    }else{
+        enviardata();
+    }
 
-        function enviardata(){
-            var valuetipoactividad=$('#iconselectactividad').val();
-            var valuenombreactividad=document.getElementsByName("nombre_actividad")[0].value;
-            var valuefecha=document.getElementsByName("fechaactividad")[0].value;
-            var valuehora=document.getElementsByName("horaactividad")[0].value;
-            var valueduracion=document.getElementsByName("duracionactividad")[0].value;
-            var valuecliente=document.getElementsByName("nombre_cliente")[0].value;
-            var valueempleado=document.getElementsByName("nombre_empleado")[0].value;
-            var valueusuario='<?php echo $id_empleado_actividad; ?>';
+    function enviardata(){
+        var valuetipoactividad=$('#iconselectactividad').val();
+        var valuenombreactividad=document.getElementsByName("nombre_actividad")[0].value;
+        var valuefecha=document.getElementsByName("fechaactividad")[0].value;
+        var valuehora=document.getElementsByName("horaactividad")[0].value;
+        var valueduracion=document.getElementsByName("duracionactividad")[0].value;
+        var valuecliente=document.getElementsByName("nombre_cliente")[0].value;
+        var valueempleado=document.getElementsByName("nombre_empleado")[0].value;
+        var valueusuario='<?php echo $id_empleado_actividad; ?>';
 
-            if (valuecliente!=""&&valuefecha!=""&&valueduracion!="") {
+        if (valuecliente!=""&&valuefecha!=""&&valueduracion!="") {
 
-                let fecha = valuefecha.split("/");
-                let hora;
-                if(valuehora.includes("PM") && !valuehora.includes(12)){
-                    hora = valuehora.substring(0,5);
-                    hora = hora.split(":");
-                    hora[0]= (parseInt(hora[0])+12).toString();
-                }else{
-                    hora = valuehora.substring(0,5);
-                    hora = hora.split(":");
-                }
-                let iday= fecha[1];
-                let imonth = fecha[0];
-                let iyear = fecha[2];
-                let ihour = hora[0];
-                let iminutes = hora[1];
-                let iseconds = 00;
-
-                inicio = new Date(iyear, imonth-1, iday, ihour, iminutes, iseconds);
-                final = moment(inicio).add(valueduracion, 'm').toDate();
-
-                let fday = final.getDate();
-                let fmonth = final.getMonth()+1;
-                let fyear = final.getFullYear();
-                let fhour = final.getHours();
-                let fminutes = final.getMinutes();
-                let fseconds = final.getSeconds();
-
-                let srecord = iyear+"-"+imonth+"-"+iday+" "+ihour+":"+iminutes+":"+iseconds;
-                let frecord = fyear+"-"+fmonth+"-"+fday+" "+fhour+":"+fminutes+":"+fseconds;
-
-                $.ajax({                        
-                    type: "POST",                 
-                    url: "funciones/addactividades.php",     
-                    data:{
-                        idtipoactividad:valuetipoactividad,
-                        fechainicial: srecord,
-                        fechafinal: frecord,
-                        idcliente:valuecliente,
-                        idempleado:valueempleado,
-                        idusuario:valueusuario,
-                        completado:'No completado',
-                        nombreactividad:valuenombreactividad
-                    },
-                    beforeSend: function () {
-
-                    },
-                    success:  function (response) {
-                        alertify.set('notifier','position', 'botton-right');
-                        alertify.success('<strong>¡Actividad Agregada!</strong>');
-                        $("#kt_modal_4").modal("hide");
-                        setInterval(function(){
-                            location.reload();
-                        },900)
-                    },
-                    error: function(xhr, status, err) {
-                        alertify.set('notifier','position', 'botton-right');
-                        alertify.error('<strong>Problemas con el servidor</strong>');
-                    }
-                })
+            let fecha = valuefecha.split("/");
+            let hora;
+            if(valuehora.includes("PM") && !valuehora.includes(12)){
+                hora = valuehora.substring(0,5);
+                hora = hora.split(":");
+                hora[0]= (parseInt(hora[0])+12).toString();
             }else{
-                alertify.set('notifier','position', 'botton-right');
-                alertify.error('<strong>No se aceptan campos vacios</strong>');
+                hora = valuehora.substring(0,5);
+                hora = hora.split(":");
             }
+            let iday= fecha[1];
+            let imonth = fecha[0];
+            let iyear = fecha[2];
+            let ihour = hora[0];
+            let iminutes = hora[1];
+            let iseconds = 00;
+
+            inicio = new Date(iyear, imonth-1, iday, ihour, iminutes, iseconds);
+            final = moment(inicio).add(valueduracion, 'm').toDate();
+
+            let fday = final.getDate();
+            let fmonth = final.getMonth()+1;
+            let fyear = final.getFullYear();
+            let fhour = final.getHours();
+            let fminutes = final.getMinutes();
+            let fseconds = final.getSeconds();
+
+            let srecord = iyear+"-"+imonth+"-"+iday+" "+ihour+":"+iminutes+":"+iseconds;
+            let frecord = fyear+"-"+fmonth+"-"+fday+" "+fhour+":"+fminutes+":"+fseconds;
+
+            $.ajax({                        
+                type: "POST",                 
+                url: "funciones/addactividades.php",     
+                data:{
+                    idtipoactividad:valuetipoactividad,
+                    fechainicial: srecord,
+                    fechafinal: frecord,
+                    idcliente:valuecliente,
+                    idempleado:valueempleado,
+                    idusuario:valueusuario,
+                    completado:'No completado',
+                    nombreactividad:valuenombreactividad
+                },
+                beforeSend: function () {
+
+                },
+                success:  function (response) {
+                    alertify.set('notifier','position', 'botton-right');
+                    alertify.success('<strong>¡Actividad Agregada!</strong>');
+                    $("#kt_modal_4").modal("hide");
+                    setInterval(function(){
+                        location.reload();
+                    },900)
+                },
+                error: function(xhr, status, err) {
+                    alertify.set('notifier','position', 'botton-right');
+                    alertify.error('<strong>Problemas con el servidor</strong>');
+                }
+            })
+        }else{
+            alertify.set('notifier','position', 'botton-right');
+            alertify.error('<strong>No se aceptan campos vacios</strong>');
         }
     }
+}
 
-    function btncompletadoactividad(datos){
+function btncompletadoactividad(datos){
 
-        d=datos.split('||');
+    d=datos.split('||');
 
-        $.ajax({                        
-            type: "POST",                 
-            url: "funciones/completaractividad.php",     
-            data:{id_actividad:d[5],id_cliente:d[0]},
-            beforeSend: function () {
-            },
+    $.ajax({                        
+        type: "POST",                 
+        url: "funciones/completaractividad.php",     
+        data:{id_actividad:d[5],id_cliente:d[0]},
+        beforeSend: function () {
+        },
 
-            success:  function (response) {
+        success:  function (response) {
 
-                if (response!="Hay otra actividad") {
+            if (response!="Hay otra actividad") {
 
-                    modaladdactiviti(response);
-                    alertify.set('notifier','position', 'botton-right');
-                    alertify.success('<strong>¡Actividad Completada!</strong>');
-                    setInterval(function(n){
-                        $("#"+d[5]).css("display","none");
-                    },700)
-
-                    $("#kt_modal_4").modal("show");
-
-                }else{
-
-                    alertify.set('notifier','position', 'botton-right');
-                    alertify.success('<strong>¡Actividad Completada!</strong>');
-                    setInterval(function(n){
-                        $("#"+d[5]).css("display","none");
-                    },700)
-                }
-            },
-
-            error: function(xhr, status, err) {
+                modaladdactiviti(response);
                 alertify.set('notifier','position', 'botton-right');
-                alertify.error('<strong>Problemas con el servidor</strong>');
+                alertify.success('<strong>¡Actividad Completada!</strong>');
+                setInterval(function(n){
+                    $("#"+d[5]).css("display","none");
+                },700)
+
+                $("#kt_modal_4").modal("show");
+
+            }else{
+
+                alertify.set('notifier','position', 'botton-right');
+                alertify.success('<strong>¡Actividad Completada!</strong>');
+                setInterval(function(n){
+                    $("#"+d[5]).css("display","none");
+                },700)
             }
-        })
-    }
+        },
+
+        error: function(xhr, status, err) {
+            alertify.set('notifier','position', 'botton-right');
+            alertify.error('<strong>Problemas con el servidor</strong>');
+        }
+    })
+}
 </script>
 </body>
 </html>
