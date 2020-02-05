@@ -913,13 +913,13 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                         <div class="form-group row" id="habilitarsincronizarsms" style="display: none;">
                                                                             <label class="col-xl-3 col-lg-3 col-form-label">Seleccione el tipo de mensaje a sincronizar</label>
                                                                             <div class="col-lg-9 col-xl-6">
-                                                                                <select class="form-control kt-select2" id="kt_select2_5" name="id_sms[]" multiple="multiple" style="width: 200px:">
+                                                                                <select class="form-control kt-select2" id="kt_select2_5" name="id_sms[]" multiple="multiple" style="width: 300px:">
                                                                                     <?php 
                                                                                     $query = "SELECT * FROM sms_tipo ORDER BY etiqueta_sms ASC";
                                                                                     $resultado=$conexion->query($query);
                                                                                     while ($row=$resultado->fetch_assoc()) {
                                                                                         ?>
-                                                                                        <option value="<?php echo $row['id_sms']; ?>"><?php echo $row['etiqueta_sms']; ?></option><?php 
+                                                                                        <option value="<?php echo $row['id_sms']; ?>"><?php echo $row['etiqueta_sms'].' ('.$row['nombre'].')'; ?></option><?php 
                                                                                     }
                                                                                     ?>
                                                                                 </select>
@@ -1127,13 +1127,13 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                         <div class="form-group row" id="updatesmstipoactividad">
                                                                             <label class="col-xl-3 col-lg-3 col-form-label">tipo de sms</label>
                                                                             <div class="col-lg-9 col-xl-6">
-                                                                                <select class="form-control kt-select2" id="kt_select2_10" name="id_sms[]" multiple="multiple" style="width: 200px:">
+                                                                                <select class="form-control kt-select2" id="kt_select2_10" name="id_sms[]" multiple="multiple" style="width: 300px:">
                                                                                     <?php 
                                                                                     $query = "SELECT * FROM sms_tipo ORDER BY etiqueta_sms ASC";
                                                                                     $resultado=$conexion->query($query);
                                                                                     while ($row=$resultado->fetch_assoc()) {
                                                                                         ?>
-                                                                                        <option value="<?php echo $row['id_sms']; ?>"><?php echo $row['etiqueta_sms']; ?></option><?php 
+                                                                                        <option value="<?php echo $row['id_sms']; ?>"><?php echo $row['etiqueta_sms'].' ('.$row['nombre'].')'; ?></option><?php 
                                                                                     }
                                                                                     ?>
                                                                                 </select>
