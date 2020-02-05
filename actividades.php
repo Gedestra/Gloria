@@ -91,11 +91,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 $hoy = date("Y-m-d H:i:s");
                                 $fecha_entrada = $row['fecha_hora_inicio'];
                                 if ($hoy > $fecha_entrada) {
-                                 echo $color="Red;";
-                             }
+                                   echo $color="Red;";
+                               }
 
-                             $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono']."||".$row['id_Actividad']."||".$row['id_tipo_actividad']."||".$row['nombre_actividad']."||".$row['fecha_hora_inicio']."||".$row['fecha_hora_termino']."||".$row['id_empleado'];
-                             switch ($row['id_icon']) {
+                               $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono']."||".$row['id_Actividad']."||".$row['id_tipo_actividad']."||".$row['nombre_actividad']."||".$row['fecha_hora_inicio']."||".$row['fecha_hora_termino']."||".$row['id_empleado'];
+                               switch ($row['id_icon']) {
                                 case '1':
                                 $icon="<i class='la la-file-text-o'></i>";
                                 break;
@@ -134,9 +134,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success" style="margin-bottom: 15px;"><input type="checkbox" onclick="btncompletadoactividad('<?php echo $datos; ?>')"><span></span></label>
                                 </td>
                                 <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>">
-                                 <?php echo $row['fecha_hora_inicio']; ?>
-                             </td>
-                             <td>
+                                   <?php echo $row['fecha_hora_inicio']; ?>
+                               </td>
+                               <td>
                                 <a style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>" href="#" onclick="modaleditactiviti('<?php echo $datos; ?>')" class="dropdown-item" data-toggle="modal" data-target="#modaleditactividad"><?php echo $row['nombre_actividad']; ?></a>
                             </td>
                             <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>">
@@ -307,6 +307,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
                     </div>
                     <div id="inputidiconedit"></div>
+                    <div id="inputidactividadedit"></div>
 
                     <aside class="col-2"></aside>
                 </div>
@@ -341,7 +342,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         </div>
                     </div>
                     <div class="col-4">
-                        <select class="form-control kt-selectpicker" name="duracionactividad" id="duracionactividadedit">
+                        <select class="form-control kt-selectpicker" name="duracionactividadedit" id="duracionactividadedit">
                             <option value="" style="display: none;">Seleccionar</option>
                             <option value="5">5 minutos</option>
                             <option value="15">15 minutos</option>
@@ -366,7 +367,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 <div class="form-group row">
                     <label for="" class="col-form-label col-2">Asignar a</label>
                     <div class="col-10">
-                        <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_empleado" id="nombre_empleado_actividadeditar">
+                        <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_empleado_actividadeditar" id="nombre_empleado_actividadeditar">
                             <?php
                             $query = "SELECT * FROM empleados ORDER BY nombre ASC";
                             $resultado=$conexion->query($query);
@@ -382,7 +383,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 <div class="form-group row">
                     <label for="" class="col-2 col-form-label">Cliente</label>
                     <div class="col-10">
-                        <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_cliente" id="nombre_clienteeditar">
+                        <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_clienteeditar" id="nombre_clienteeditar">
                             <option value="" style="display: none;">Seleccionar</option>
                             <?php 
                             $query = "SELECT * FROM clientes ORDER BY nombres ASC";
@@ -406,7 +407,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="btnguardar" onclick="btnaddactividad()">Guardar</button>
+                    <button type="button" class="btn btn-primary" id="btnguardar" onclick="btneditactividad()">Guardar</button>
                 </div>
             </div>
         </div>
@@ -448,11 +449,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     </div>
 
                                     <div class="kt-widget__action" id="btnshowclie">
-                                       <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="kt-widget__body">
+                                     <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="kt-widget__body">
                             <div class="kt-widget__content">
                                 <div class="kt-widget__info">
                                     <span class="kt-widget__label">Teléfono/Celular</span>
@@ -865,7 +866,6 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
         }
         ?>
         
-        // $(".testiconedit").removeAttr("disabled");
         document.getElementById('edit'+d[6]).disabled = true;
         document.getElementById('nombre_actividad_edit').value=d[7];
         var fecha=d[8].substring(0,10);
@@ -938,6 +938,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
     }
 
     $(".testhora").val(hora);
+    $('.testhora').trigger("change");
     document.getElementById("duracionactividadedit").value=duracionedit;
     $('#duracionactividadedit').trigger("change");
     document.getElementById('nombre_actividad_edit').value=d[7];
@@ -954,6 +955,15 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
     $('#inputidiconedit').empty();
     lugar=document.getElementById('inputidiconedit').appendChild(input);
     $("#iconselectactividadedit").css('display','none');
+
+    var inputid_acticidad = document.createElement('input');
+    inputid_acticidad.type = 'text';
+    inputid_acticidad.name = 'idactividadedit';
+    inputid_acticidad.id = 'idactividadedit';
+    inputid_acticidad.value = d[5];
+    $('#inputidactividadedit').empty();
+    lugar=document.getElementById('inputidactividadedit').appendChild(inputid_acticidad);
+    $("#idactividadedit").css('display','none');
 }
 
 function selecticonedit(datos){
@@ -962,7 +972,7 @@ function selecticonedit(datos){
     $(".testiconedit").removeAttr("disabled");
     document.getElementById('edit'+d[0]).disabled = true;
     document.getElementById('nombre_actividad_edit').setAttribute('placeholder',d[1]);
-
+    document.getElementById("iconselectactividadedit").value=d[0];
 }
 
 function selecticon(datos){
@@ -1078,6 +1088,83 @@ function btnaddactividad(){
             alertify.error('<strong>No se aceptan campos vacios</strong>');
         }
     }
+}
+
+function btneditactividad(){
+    var valueeditfecha=document.getElementsByName("editfechaactividad")[0].value;
+    var valueedittipoactividad=document.getElementsByName("iconselectactividadedit")[0].value;
+    var valueedithora=$(".testhora").val();
+    var valueeditduracion=document.getElementsByName("duracionactividadedit")[0].value;
+    var valueeditnombreactividad=document.getElementsByName("nombre_actividad_edit")[0].value;
+    var valueeditnombreempleado=document.getElementsByName("nombre_empleado_actividadeditar")[0].value;
+    var valueeditnombrecliente=document.getElementsByName("nombre_clienteeditar")[0].value;
+    var valueeditidactividad=document.getElementsByName("idactividadedit")[0].value;
+    var valueusuario='<?php echo $id_empleado_actividad; ?>';
+
+
+    let fecha = valueeditfecha.split("/");
+    let hora;
+    if(valueedithora.includes("PM") && !valueedithora.includes(12)){
+        hora = valueedithora.substring(0,5);
+        hora = hora.split(":");
+        hora[0]= (parseInt(hora[0])+12).toString();
+    }else{
+        hora = valueedithora.substring(0,5);
+        hora = hora.split(":");
+    }
+    let iday= fecha[1];
+    let imonth = fecha[0];
+    let iyear = fecha[2];
+    let ihour = hora[0];
+    let iminutes = hora[1];
+    let iseconds = 00;
+
+    inicio = new Date(iyear, imonth-1, iday, ihour, iminutes, iseconds);
+    final = moment(inicio).add(valueeditduracion, 'm').toDate();
+
+    let fday = final.getDate();
+    let fmonth = final.getMonth()+1;
+    let fyear = final.getFullYear();
+    let fhour = final.getHours();
+    let fminutes = final.getMinutes();
+    let fseconds = final.getSeconds();
+
+    let srecord = iyear+"-"+imonth+"-"+iday+" "+ihour+":"+iminutes+":"+iseconds;
+    let frecord = fyear+"-"+fmonth+"-"+fday+" "+fhour+":"+fminutes+":"+fseconds;
+
+    console.log(srecord+" - "+frecord);
+
+
+    $.ajax({                        
+        type: "POST",                 
+        url: "funciones/editactividades.php",     
+        data:{
+            idtipoactividad:valueedittipoactividad,
+            fechainicial: srecord,
+            fechafinal: frecord,
+            idcliente:valueeditnombrecliente,
+            idempleado:valueeditnombreempleado,
+            idusuario:valueusuario,
+            nombreactividad:valueeditnombreactividad,
+            id_actividad:valueeditidactividad
+        },
+        beforeSend: function () {
+
+        },
+        success:  function (response) {
+            alertify.set('notifier','position', 'botton-right');
+            alertify.success('<strong>¡Actividad Actualizada!</strong>');
+            $("#modaleditactividad").modal("hide");
+            setInterval(function(){
+                location.reload();
+            },900)
+        },
+        error: function(xhr, status, err) {
+            alertify.set('notifier','position', 'botton-right');
+            alertify.error('<strong>Problemas con el servidor</strong>');
+        }
+    })
+    
 }
 
 function btncompletadoactividad(datos){
