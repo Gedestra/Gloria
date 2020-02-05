@@ -91,11 +91,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 $hoy = date("Y-m-d H:i:s");
                                 $fecha_entrada = $row['fecha_hora_inicio'];
                                 if ($hoy > $fecha_entrada) {
-                                   echo $color="Red;";
-                               }
+                                 echo $color="Red;";
+                             }
 
-                               $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono']."||".$row['id_Actividad']."||".$row['id_tipo_actividad']."||".$row['nombre_actividad']."||".$row['fecha_hora_inicio']."||".$row['fecha_hora_termino']."||".$row['id_empleado'];
-                               switch ($row['id_icon']) {
+                             $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono']."||".$row['id_Actividad']."||".$row['id_tipo_actividad']."||".$row['nombre_actividad']."||".$row['fecha_hora_inicio']."||".$row['fecha_hora_termino']."||".$row['id_empleado'];
+                             switch ($row['id_icon']) {
                                 case '1':
                                 $icon="<i class='la la-file-text-o'></i>";
                                 break;
@@ -134,9 +134,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success" style="margin-bottom: 15px;"><input type="checkbox" onclick="btncompletadoactividad('<?php echo $datos; ?>')"><span></span></label>
                                 </td>
                                 <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>">
-                                   <?php echo $row['fecha_hora_inicio']; ?>
-                               </td>
-                               <td>
+                                 <?php echo $row['fecha_hora_inicio']; ?>
+                             </td>
+                             <td>
                                 <a style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>" href="#" onclick="modaleditactiviti('<?php echo $datos; ?>')" class="dropdown-item" data-toggle="modal" data-target="#modaleditactividad"><?php echo $row['nombre_actividad']; ?></a>
                             </td>
                             <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>">
@@ -449,11 +449,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     </div>
 
                                     <div class="kt-widget__action" id="btnshowclie">
-                                     <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="kt-widget__body">
+                                       <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="kt-widget__body">
                             <div class="kt-widget__content">
                                 <div class="kt-widget__info">
                                     <span class="kt-widget__label">Teléfono/Celular</span>
@@ -1101,6 +1101,12 @@ function btneditactividad(){
     var valueeditidactividad=document.getElementsByName("idactividadedit")[0].value;
     var valueusuario='<?php echo $id_empleado_actividad; ?>';
 
+    if (valueeditnombreactividad=="") {
+
+        var textvalueeditnombreactividad=document.getElementById("nombre_actividad_edit").placeholder;
+        valueeditnombreactividad=textvalueeditnombreactividad;
+        
+    }
 
     let fecha = valueeditfecha.split("/");
     let hora;
@@ -1164,7 +1170,7 @@ function btneditactividad(){
             alertify.error('<strong>Problemas con el servidor</strong>');
         }
     })
-    
+
 }
 
 function btncompletadoactividad(datos){
