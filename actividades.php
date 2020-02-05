@@ -91,11 +91,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 $hoy = date("Y-m-d H:i:s");
                                 $fecha_entrada = $row['fecha_hora_inicio'];
                                 if ($hoy > $fecha_entrada) {
-                                 echo $color="Red;";
-                             }
+                                   echo $color="Red;";
+                               }
 
-                             $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono']."||".$row['id_Actividad']."||".$row['id_tipo_actividad']."||".$row['nombre_actividad']."||".$row['fecha_hora_inicio']."||".$row['fecha_hora_termino']."||".$row['id_empleado'];
-                             switch ($row['id_icon']) {
+                               $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono']."||".$row['id_Actividad']."||".$row['id_tipo_actividad']."||".$row['nombre_actividad']."||".$row['fecha_hora_inicio']."||".$row['fecha_hora_termino']."||".$row['id_empleado'];
+                               switch ($row['id_icon']) {
                                 case '1':
                                 $icon="<i class='la la-file-text-o'></i>";
                                 break;
@@ -134,9 +134,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success" style="margin-bottom: 15px;"><input type="checkbox" onclick="btncompletadoactividad('<?php echo $datos; ?>')"><span></span></label>
                                 </td>
                                 <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>">
-                                 <?php echo $row['fecha_hora_inicio']; ?>
-                             </td>
-                             <td>
+                                   <?php echo $row['fecha_hora_inicio']; ?>
+                               </td>
+                               <td>
                                 <a style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>" href="#" onclick="modaleditactiviti('<?php echo $datos; ?>')" class="dropdown-item" data-toggle="modal" data-target="#modaleditactividad"><?php echo $row['nombre_actividad']; ?></a>
                             </td>
                             <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>">
@@ -197,7 +197,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                     </style>
                     <div class="col-4">
                         <div class="input-group date">
-                            <input type="text" class="form-control" readonly="" placeholder="Seleccionar Fecha" name="fechaactividad" id="kt_datepicker_2">
+                            <input type="text" class="form-control addfechaactual" readonly="" placeholder="Seleccionar Fecha" name="fechaactividad" id="kt_datepicker_2">
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="la la-calendar-check-o"></i>
@@ -220,7 +220,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                             <option value="" style="display: none;">Seleccionar</option>
                             <option value="5">5 minutos</option>
                             <option value="15">15 minutos</option>
-                            <option value="30">30 minutos</option>
+                            <option value="30" selected>30 minutos</option>
                             <option value="45">45 minutos</option>
                             <option value="60">1 hora</option>
                             <option value="90">1 hora 30 minutos</option>
@@ -449,11 +449,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     </div>
 
                                     <div class="kt-widget__action" id="btnshowclie">
-                                       <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="kt-widget__body">
+                                     <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="kt-widget__body">
                             <div class="kt-widget__content">
                                 <div class="kt-widget__info">
                                     <span class="kt-widget__label">Teléfono/Celular</span>
@@ -533,7 +533,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 <script src="assets/js/pages/crud/forms/widgets/bootstrap-timepicker.js" type="text/javascript"></script>
 <script>
     $(document).ready(function() {
-
+        
         modaladdactiviti();
 
         $('#example tfoot th').each( function () {
@@ -581,6 +581,10 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
     function modaladdactiviti(response){
 
+        var fecha = moment().format("MM/DD/YYYY");
+        $(".addfechaactual").val(fecha);
+        $('.addfechaactual').trigger("change");
+        
         if (response!=undefined) {
             $('#nombre_cliente').val(response);
             $('#nombre_cliente').trigger("change");
