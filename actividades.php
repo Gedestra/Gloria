@@ -285,6 +285,19 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                             </select>
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-2">¿Confirmar Actividad?</label>
+                        <div class="col-10">
+                            <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
+                                <label>
+                                    <input type="checkbox" name="addconfirmadoactividad" id="addconfirmadoactividad" value="Confirmado">
+                                    <span></span>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="button" class="btn btn-primary" id="btnguardar" onclick="btnaddactividad()">Guardar</button>
@@ -1008,6 +1021,12 @@ echo "$('#nombre_empleado_actividad').val('$id_empleado_actividad');";
 ?>
 function btnaddactividad(){
 
+    var confirmoactividadvalue;
+    if($("#addconfirmadoactividad").is(':checked')) {  
+        confirmoactividadvalue="Confirmada";
+    }else{  
+        confirmoactividadvalue="No confirmada";
+    }
     var nombre_actividad_value=$("#nombre_actividad").val();
     if (nombre_actividad_value=="") {
         if($('#inputidicon').find("#iconselectactividad").length){
@@ -1075,7 +1094,8 @@ function btnaddactividad(){
                     idempleado:valueempleado,
                     idusuario:valueusuario,
                     completado:'No completado',
-                    nombreactividad:valuenombreactividad
+                    nombreactividad:valuenombreactividad,
+                    confirmado:confirmoactividadvalue
                 },
                 beforeSend: function () {
 
@@ -1230,25 +1250,25 @@ function confiactividad(id_actividad){
     if($("#"+d[5]+"confirmar").is(':checked')) {  
        confirmaractividad="Confirmada";
        updateconfirmado(confirmaractividad, actividad);
-    } else {  
-        confirmaractividad="No confirmada";
-        updateconfirmado(confirmaractividad, actividad);
-    }
-    function updateconfirmado(confirmaractividad, actividad){
-        $.ajax({                        
-            type: "POST",                 
-            url: "funciones/confirmaractividad.php",     
-            data:{confirmado:confirmaractividad,id_actividad:actividad},
-            success:  function (response) {
-                alertify.set('notifier','position', 'botton-right');
-                alertify.success('<strong>¡Actividad '+confirmaractividad+'!</strong>');
-            },
-            error: function(xhr, status, err) {
-                alertify.set('notifier','position', 'botton-right');
-                alertify.error('<strong>Problemas con el servidor</strong>');
-            }
-        })  
-    }  
+   }else{  
+    confirmaractividad="No confirmada";
+    updateconfirmado(confirmaractividad, actividad);
+}
+function updateconfirmado(confirmaractividad, actividad){
+    $.ajax({                        
+        type: "POST",                 
+        url: "funciones/confirmaractividad.php",     
+        data:{confirmado:confirmaractividad,id_actividad:actividad},
+        success:  function (response) {
+            alertify.set('notifier','position', 'botton-right');
+            alertify.success('<strong>¡Actividad '+confirmaractividad+'!</strong>');
+        },
+        error: function(xhr, status, err) {
+            alertify.set('notifier','position', 'botton-right');
+            alertify.error('<strong>Problemas con el servidor</strong>');
+        }
+    })  
+}  
 }
 </script>
 </body>
