@@ -83,7 +83,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                             <?php 
                             include("funciones/conexion.php");
                             $conexion->query("SET NAMES 'utf8'");
-                            $query = "SELECT a.id_empleado,ac.id_tipo_actividad,a.id_Actividad,nombre_tipo_Actividad, c.id_cliente, nombres,apellidos,correo,telefono,fecha_hora_inicio,fecha_hora_termino,nombre_actividad, id_icon FROM actividades AS a INNER JOIN clientes AS c ON a.id_cliente=c.id_cliente INNER JOIN tipo_actividad AS ac ON a.id_tipo_actividad=ac.id_tipo_actividad WHERE a.completado='No completado'";
+                            $query = "SELECT a.confirmado,a.id_empleado,ac.id_tipo_actividad,a.id_Actividad,nombre_tipo_Actividad, c.id_cliente, nombres,apellidos,correo,telefono,fecha_hora_inicio,fecha_hora_termino,nombre_actividad, id_icon FROM actividades AS a INNER JOIN clientes AS c ON a.id_cliente=c.id_cliente INNER JOIN tipo_actividad AS ac ON a.id_tipo_actividad=ac.id_tipo_actividad WHERE a.completado='No completado'";
                             $resultado=$conexion->query($query);
                             while ($row=$resultado->fetch_assoc()) {
 
@@ -135,7 +135,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     <td>
                                         <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
                                             <label>
-                                                <input type="checkbox" id="confirmadoactividad" name="confirmadoactividad" value="Activo" onclick="confiactividad('<?php echo $datos; ?>')">
+                                                <input type="checkbox" id="<?php echo $row['id_Actividad'].'confirmar'; ?>" name="confirmadoactividad" value="Activo" onclick="confiactividad('<?php echo $datos; ?>')" <?php if ($row['confirmado']=='Confirmada') {
+                                                    echo "checked";
+                                                } ?>>
                                                 <span></span>
                                             </label>
                                         </span>
@@ -1224,11 +1226,29 @@ function btncompletadoactividad(datos){
 function confiactividad(id_actividad){
     d=id_actividad.split('||');
     const actividad=d[5];
-    if($("#confirmadoactividad").is(':checked')) {  
-            alert("Está activado");  
-        } else {  
-            alert("No está activado");  
-        }  
+    var confirmaractividad;
+    if($("#"+d[5]+"confirmar").is(':checked')) {  
+       confirmaractividad="Confirmada";
+       updateconfirmado(confirmaractividad, actividad);
+    } else {  
+        confirmaractividad="No confirmada";
+        updateconfirmado(confirmaractividad, actividad);
+    }
+    function updateconfirmado(confirmaractividad, actividad){
+        $.ajax({                        
+            type: "POST",                 
+            url: "funciones/confirmaractividad.php",     
+            data:{confirmado:confirmaractividad,id_actividad:actividad},
+            success:  function (response) {
+                alertify.set('notifier','position', 'botton-right');
+                alertify.success('<strong>¡Actividad '+confirmaractividad+'!</strong>');
+            },
+            error: function(xhr, status, err) {
+                alertify.set('notifier','position', 'botton-right');
+                alertify.error('<strong>Problemas con el servidor</strong>');
+            }
+        })  
+    }  
 }
 </script>
 </body>
