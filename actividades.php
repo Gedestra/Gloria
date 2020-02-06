@@ -39,6 +39,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 </head>
 <body>
     <?php include("head.php"); ?>
+    
     <!-- end:: Header -->
     <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
         <!-- begin:: Content -->
@@ -65,7 +66,102 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         </div>
                     </div>
                 </div>
+                
                 <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-3" >
+                        <span class="col-12">tipo de actividad</span>
+                        <div class="col-12">
+                            <i style="cursor:pointer;" class="la fa-2x la-file-text-o" ></i>
+                            <i style="cursor:pointer;" class="la fa-2x la-envelope-o"></i> 
+                            <i style="cursor:pointer;" class="la fa-2x la-phone"></i>      
+                            <i style="cursor:pointer;" class="la fa-2x la-money"></i>      
+                            <i style="cursor:pointer;" class="la fa-2x la-cart-plus"></i>  
+                            <i style="cursor:pointer;" class="la fa-2x la-bell-o"></i>     
+                            <i style="cursor:pointer;" class="la fa-2x la-briefcase"></i>  
+                            <i style="cursor:pointer;" class="la fa-2x la-cog"></i>        
+                            <i style="cursor:pointer;" class="la fa-2x la-cut"></i>        
+                            <i style="cursor:pointer;" class="la fa-2x la-eye"></i>        
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <span class="col-12">completadas</span>
+						<span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success col-12">
+						    <label>
+						        <input type="checkbox" checked="checked" name="">
+						        <span></span>
+						    </label>
+						</span>
+                    </div>
+                    <div class="col-2">
+                        <span>filtrar por</span>
+                        <select class="form-control kt-select2 select2-hidden-accessible" id="kt_select2_1" name="param" data-select2-id="kt_select2_1" tabindex="-1" aria-hidden="true">
+                            <option value="AK" data-select2-id="2">Alaska</option>
+					        <option value="HI" data-select2-id="126">Hawaii</option>
+					        <option value="CA" data-select2-id="127">California</option>
+					        <option value="NV" data-select2-id="128">Nevada</option>
+					        <option value="OR" data-select2-id="129">Oregon</option>
+					        <option value="WA" data-select2-id="130">Washington</option>
+					        <option value="AZ" data-select2-id="131">Arizona</option>
+					        <option value="CO" data-select2-id="132">Colorado</option>
+					        <option value="ID" data-select2-id="133">Idaho</option>
+					        <option value="MT" data-select2-id="134">Montana</option>
+					        <option value="NE" data-select2-id="135">Nebraska</option>
+					        <option value="NM" data-select2-id="136">New Mexico</option>
+					        <option value="ND" data-select2-id="137">North Dakota</option>
+					        <option value="UT" data-select2-id="138">Utah</option>
+					        <option value="WY" data-select2-id="139">Wyoming</option>
+					        <option value="AL" data-select2-id="140">Alabama</option>
+					        <option value="AR" data-select2-id="141">Arkansas</option>
+					        <option value="IL" data-select2-id="142">Illinois</option>
+					        <option value="IA" data-select2-id="143">Iowa</option>
+					        <option value="KS" data-select2-id="144">Kansas</option>
+					        <option value="KY" data-select2-id="145">Kentucky</option>
+					        <option value="LA" data-select2-id="146">Louisiana</option>
+					        <option value="MN" data-select2-id="147">Minnesota</option>
+					        <option value="MS" data-select2-id="148">Mississippi</option>
+					        <option value="MO" data-select2-id="149">Missouri</option>
+					        <option value="OK" data-select2-id="150">Oklahoma</option>
+					        <option value="SD" data-select2-id="151">South Dakota</option>
+					        <option value="TX" data-select2-id="152">Texas</option>
+					        <option value="TN" data-select2-id="153">Tennessee</option>
+					        <option value="WI" data-select2-id="154">Wisconsin</option>
+					        <option value="CT" data-select2-id="155">Connecticut</option>
+					        <option value="DE" data-select2-id="156">Delaware</option>
+					        <option value="FL" data-select2-id="157">Florida</option>
+					        <option value="GA" data-select2-id="158">Georgia</option>
+					        <option value="IN" data-select2-id="159">Indiana</option>
+					        <option value="ME" data-select2-id="160">Maine</option>
+					        <option value="MD" data-select2-id="161">Maryland</option>
+					        <option value="MA" data-select2-id="162">Massachusetts</option>
+					        <option value="MI" data-select2-id="163">Michigan</option>
+					        <option value="NH" data-select2-id="164">New Hampshire</option>
+					        <option value="NJ" data-select2-id="165">New Jersey</option>
+					        <option value="NY" data-select2-id="166">New York</option>
+					        <option value="NC" data-select2-id="167">North Carolina</option>
+					        <option value="OH" data-select2-id="168">Ohio</option>
+					        <option value="PA" data-select2-id="169">Pennsylvania</option>
+					        <option value="RI" data-select2-id="170">Rhode Island</option>
+					        <option value="SC" data-select2-id="171">South Carolina</option>
+					        <option value="VT" data-select2-id="172">Vermont</option>
+					        <option value="VA" data-select2-id="173">Virginia</option>
+					        <option value="WV" data-select2-id="174">West Virginia</option>
+                        </select>
+                        <script src="assets/js/pages/crud/forms/widgets/select2.js" type="text/javascript"></script>
+                    </div>
+                    <div class="col-4" >
+                        <span>buscar por fecha</span>
+                        <div class="input-group date col-8">
+					    	<input type="text" class="form-control" readonly="" placeholder="Select date" id="kt_datepicker_2">
+					    	<div class="input-group-append">
+					    		<span class="input-group-text">
+					    			<i class="la la-calendar-check-o"></i>
+					    		</span>
+					    	</div>
+					    </div>
+                    </div>
+                </div>
+                <br>
                     <!--begin: Datatable -->
                     <table class="table table-bordered table-hover" id="example">
                         <thead>
