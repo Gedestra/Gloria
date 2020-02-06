@@ -131,8 +131,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     <td style="text-align: center;">
                                         <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success" style="margin-bottom: 15px;"><input type="checkbox" onclick="btncompletadoactividad('<?php echo $datos; ?>')"><span></span></label>
                                     </td>
-                                    <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>"><?php echo $row['fecha_hora_inicio']; ?></td>
-                                    <td>
+                                    <td style="text-align: center;">
                                         <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
                                             <label>
                                                 <input type="checkbox" id="<?php echo $row['id_Actividad'].'confirmar'; ?>" name="confirmadoactividad" value="Activo" onclick="confiactividad('<?php echo $datos; ?>')" <?php if ($row['confirmado']=='Confirmada') {
@@ -142,16 +141,17 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                             </label>
                                         </span>
                                     </td>
+                                    <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>"><?php echo $row['fecha_hora_inicio']; ?></td>
                                     <td>
-                                        <a style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>" href="#" onclick="modaleditactiviti('<?php echo $datos; ?>')" class="dropdown-item" data-toggle="modal" data-target="#modaleditactividad"><?php echo $row['nombre_actividad']; ?></a>
+                                        <a style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>" href="#" onclick="modaleditactiviti('<?php echo $datos; ?>')" class="dropdown-item" data-toggle="modal" data-target="#modaleditactividad"><?php echo $row['nombre_actividad']; ?></a>
                                     </td>
-                                    <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>">
+                                    <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>">
                                         <?php echo $icon." ".$row['nombre_tipo_Actividad']; ?>  
                                     </td>
                                     <td>
-                                        <a class="dropdown-item" style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>" href="#" onclick="agregaform('<?php echo $datos; ?>')" data-toggle="modal" data-target="#kt_modal_5"><?php echo $row['nombres']." ".$row['apellidos'];?></a>
+                                        <a class="dropdown-item" style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>" href="#" onclick="agregaform('<?php echo $datos; ?>')" data-toggle="modal" data-target="#kt_modal_5"><?php echo $row['nombres']." ".$row['apellidos'];?></a>
                                     </td>
-                                    <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>">
+                                    <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>">
                                         <?php echo $row['id_transaccion'];?>
 
                                     </td>
@@ -468,11 +468,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                         </div>
 
                                         <div class="kt-widget__action" id="btnshowclie">
-                                           <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="kt-widget__body">
+                                         <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="kt-widget__body">
                                 <div class="kt-widget__content">
                                     <div class="kt-widget__info">
                                         <span class="kt-widget__label">Teléfono/Celular</span>
@@ -1248,9 +1248,9 @@ function confiactividad(id_actividad){
     const actividad=d[5];
     var confirmaractividad;
     if($("#"+d[5]+"confirmar").is(':checked')) {  
-       confirmaractividad="Confirmada";
-       updateconfirmado(confirmaractividad, actividad);
-   }else{  
+     confirmaractividad="Confirmada";
+     updateconfirmado(confirmaractividad, actividad);
+ }else{  
     confirmaractividad="No confirmada";
     updateconfirmado(confirmaractividad, actividad);
 }
