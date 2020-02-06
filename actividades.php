@@ -72,6 +72,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                             <tr>
                                 <th>Completado</th>
                                 <th>Fecha y hora de inicio</th>
+                                <th>Confirmado</th>
                                 <th>Actividad</th>
                                 <th>Tipo de actividad</th>
                                 <th>Cliente</th>
@@ -90,393 +91,396 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 setlocale(LC_TIME, 'es_MX.UTF-8');
                                 $hoy = date("Y-m-d H:i:s");
                                 $fecha_entrada = $row['fecha_hora_inicio'];
-                                if ($hoy > $fecha_entrada) {
-                                   echo $color="Red;";
-                               }
 
-                               $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono']."||".$row['id_Actividad']."||".$row['id_tipo_actividad']."||".$row['nombre_actividad']."||".$row['fecha_hora_inicio']."||".$row['fecha_hora_termino']."||".$row['id_empleado'];
-                               switch ($row['id_icon']) {
-                                case '1':
-                                $icon="<i class='la la-file-text-o'></i>";
-                                break;
-                                case '2':
-                                $icon="<i class='la la-envelope-o'></i>";
-                                break;
-                                case '3':
-                                $icon="<i class='la la-phone'></i>";
-                                break;
-                                case '4':
-                                $icon="<i class='la la-money'></i>";
-                                break;
-                                case '6':
-                                $icon="<i class='la la-bell'></i>";
-                                break;
-                                case '7':
-                                $icon="<i class='la la-briefcase'></i>";
-                                break;
-                                case '8':
-                                $icon="<i class='la la-cog'></i>";
-                                break;
-                                case '9':
-                                $icon="<i class='la la-cut'></i>";
-                                break;
-                                case '10':
-                                $icon="<i class='la la-eye'></i>";
-                                break;
+                                $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono']."||".$row['id_Actividad']."||".$row['id_tipo_actividad']."||".$row['nombre_actividad']."||".$row['fecha_hora_inicio']."||".$row['fecha_hora_termino']."||".$row['id_empleado'];
+                                switch ($row['id_icon']) {
+                                    case '1':
+                                    $icon="<i class='la la-file-text-o'></i>";
+                                    break;
+                                    case '2':
+                                    $icon="<i class='la la-envelope-o'></i>";
+                                    break;
+                                    case '3':
+                                    $icon="<i class='la la-phone'></i>";
+                                    break;
+                                    case '4':
+                                    $icon="<i class='la la-money'></i>";
+                                    break;
+                                    case '6':
+                                    $icon="<i class='la la-bell'></i>";
+                                    break;
+                                    case '7':
+                                    $icon="<i class='la la-briefcase'></i>";
+                                    break;
+                                    case '8':
+                                    $icon="<i class='la la-cog'></i>";
+                                    break;
+                                    case '9':
+                                    $icon="<i class='la la-cut'></i>";
+                                    break;
+                                    case '10':
+                                    $icon="<i class='la la-eye'></i>";
+                                    break;
 
-                                default:
-                                $icon="<i class='la la-cart-plus'></i>";
-                                break;
-                            }
-                            ?>
-                            <tr id="<?php echo $row['id_Actividad'];?>">
-                                <td style="text-align: center;">
-                                    <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success" style="margin-bottom: 15px;"><input type="checkbox" onclick="btncompletadoactividad('<?php echo $datos; ?>')"><span></span></label>
-                                </td>
-                                <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>">
-                                   <?php echo $row['fecha_hora_inicio']; ?>
-                               </td>
-                               <td>
-                                <a style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>" href="#" onclick="modaleditactiviti('<?php echo $datos; ?>')" class="dropdown-item" data-toggle="modal" data-target="#modaleditactividad"><?php echo $row['nombre_actividad']; ?></a>
-                            </td>
-                            <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>">
-                                <?php echo $icon." ".$row['nombre_tipo_Actividad']; ?>  
-                            </td>
-                            <td>
-                                <a class="dropdown-item" style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>" href="#" onclick="agregaform('<?php echo $datos; ?>')" data-toggle="modal" data-target="#kt_modal_5"><?php echo $row['nombres']." ".$row['apellidos'];?></a>
-                            </td>
-                            <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>">
-                                <?php echo $row['id_transaccion'];?>
-
-                            </td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-            <!--end: Datatable -->
-        </div>
-    </div>
-</div>
-<!-- End begin:: Content-->
-</div>
-<!-- end:: Content -->
-<!-- begin::Sticky Toolbar -->
-<?php include("menu.php"); ?>
-<!-- end::Sticky Toolbar -->
-
-<!--begin::Modal agregar-->
-<div class="modal fade" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title cambiotitle" id="exampleModalLabel">Agregar Actividad</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body">
-
-
-                <div class="form-group row">
-                    <aside class="col-2"></aside>
-                    <div class="btn-group col-8" role="group" aria-label="Button group with nested dropdown" id="icontipo">
-
-                    </div>
-                    <div id="inputidicon"></div>
-
-                    <aside class="col-2"></aside>
-                </div>
-
-                <div class="form-group row">
-                    <label for="" class="date col-form-label col-4">Fecha</label>
-                    <label for="" class="date col-form-label col-4">Hora</label>
-                    <label for="" class="date col-form-label col-4">Duración</label>
-                    <style>
-                        .date{
-                            text-align: center;
-                        }
-                    </style>
-                    <div class="col-4">
-                        <div class="input-group date">
-                            <input type="text" class="form-control addfechaactual" readonly="" placeholder="Seleccionar Fecha" name="fechaactividad" id="kt_datepicker_2">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="la la-calendar-check-o"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="input-group timepicker">
-                            <input class="form-control" id="kt_timepicker_1" readonly="" name="horaactividad" type="text">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="la la-clock-o"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <select class="form-control kt-selectpicker" name="duracionactividad">
-                            <option value="" style="display: none;">Seleccionar</option>
-                            <option value="5">5 minutos</option>
-                            <option value="15">15 minutos</option>
-                            <option value="30" selected>30 minutos</option>
-                            <option value="45">45 minutos</option>
-                            <option value="60">1 hora</option>
-                            <option value="90">1 hora 30 minutos</option>
-                            <option value="120">2 horas</option>
-                            <option value="360">6 horas</option>
-                            <option value="720">12 horas</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="" class="col-2 col-form-label">Nombre de la Actividad</label>
-                    <div class="col-10">
-                        <input type="text" class="form-control" name="nombre_actividad" id="nombre_actividad">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="" class="col-form-label col-2">Asignar a</label>
-                    <div class="col-10">
-                        <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_empleado" id="nombre_empleado_actividad">
-                            <?php
-                            $query = "SELECT * FROM empleados ORDER BY nombre ASC";
-                            $resultado=$conexion->query($query);
-                            while ($row3=$resultado->fetch_assoc()) {
+                                    default:
+                                    $icon="<i class='la la-cart-plus'></i>";
+                                    break;
+                                }
                                 ?>
-                                <option value="<?php echo $row3['id_empleado']; ?>"><?php echo $row3['nombre'].$row3['apellidos']; ?></option><?php 
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
+                                <tr id="<?php echo $row['id_Actividad'];?>">
+                                    <td style="text-align: center;">
+                                        <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success" style="margin-bottom: 15px;"><input type="checkbox" onclick="btncompletadoactividad('<?php echo $datos; ?>')"><span></span></label>
+                                    </td>
+                                    <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>"><?php echo $row['fecha_hora_inicio']; ?></td>
+                                    <td>
+                                        <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
+                                            <label>
+                                                <input type="checkbox" id="confirmadoactividad" name="confirmadoactividad" value="Activo" onclick="confiactividad('<?php echo $datos; ?>')">
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>" href="#" onclick="modaleditactiviti('<?php echo $datos; ?>')" class="dropdown-item" data-toggle="modal" data-target="#modaleditactividad"><?php echo $row['nombre_actividad']; ?></a>
+                                    </td>
+                                    <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>">
+                                        <?php echo $icon." ".$row['nombre_tipo_Actividad']; ?>  
+                                    </td>
+                                    <td>
+                                        <a class="dropdown-item" style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>" href="#" onclick="agregaform('<?php echo $datos; ?>')" data-toggle="modal" data-target="#kt_modal_5"><?php echo $row['nombres']." ".$row['apellidos'];?></a>
+                                    </td>
+                                    <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="Red;";} ?>">
+                                        <?php echo $row['id_transaccion'];?>
 
-                <div class="form-group row">
-                    <label for="" class="col-2 col-form-label">Cliente</label>
-                    <div class="col-10">
-                        <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_cliente" id="nombre_cliente">
-                            <option value="" style="display: none;">Seleccionar</option>
-                            <?php 
-                            $query = "SELECT * FROM clientes ORDER BY nombres ASC";
-                            $resultado=$conexion->query($query);
-                            while ($row3=$resultado->fetch_assoc()) {
-                                ?>
-                                <option value="<?php echo $row3['id_cliente']; ?>"><?php echo $row3['nombres'].$row3['apellidos']; ?></option><?php 
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="" class="col-form-label col-2">Transacción</label>
-                    <div class="col-10">
-                        <select class="form-control kt-selectorpicker" name="tipo_actividad">
-                            <option value="" style="display: none;">Seleccionar Transacción</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="btnguardar" onclick="btnaddactividad()">Guardar</button>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                    <!--end: Datatable -->
                 </div>
             </div>
         </div>
+        <!-- End begin:: Content-->
     </div>
-</div>
-<!--End begin::Modal agregar-->
+    <!-- end:: Content -->
+    <!-- begin::Sticky Toolbar -->
+    <?php include("menu.php"); ?>
+    <!-- end::Sticky Toolbar -->
 
-<!--begin::Modal editar-->
-<div class="modal fade" id="modaleditactividad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title editcambiotitle" id="exampleModalLabel">Editar Actividad</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body">
-
-
-                <div class="form-group row">
-                    <aside class="col-2"></aside>
-                    <div class="btn-group col-8" role="group" aria-label="Button group with nested dropdown" id="icontipoedit">
-
-                    </div>
-                    <div id="inputidiconedit"></div>
-                    <div id="inputidactividadedit"></div>
-
-                    <aside class="col-2"></aside>
+    <!--begin::Modal agregar-->
+    <div class="modal fade" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title cambiotitle" id="exampleModalLabel">Agregar Actividad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
                 </div>
+                <div class="modal-body">
 
-                <div class="form-group row">
-                    <label for="" class="date col-form-label col-4">Fecha</label>
-                    <label for="" class="date col-form-label col-4">Hora</label>
-                    <label for="" class="date col-form-label col-4">Duración</label>
-                    <style>
-                        .date{
-                            text-align: center;
-                        }
-                    </style>
-                    <div class="col-4">
-                        <div class="input-group date">
-                            <input type="text" class="form-control testfecha" readonly="" placeholder="Seleccionar Fecha" name="editfechaactividad" id="kt_datepicker_2">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="la la-calendar-check-o"></i>
-                                </span>
-                            </div>
+
+                    <div class="form-group row">
+                        <aside class="col-2"></aside>
+                        <div class="btn-group col-8" role="group" aria-label="Button group with nested dropdown" id="icontipo">
+
                         </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="input-group timepicker">
-                            <input class="form-control testhora" id="kt_timepicker_1" readonly="" name="horaactividad" type="text">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="la la-clock-o"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <select class="form-control kt-selectpicker" name="duracionactividadedit" id="duracionactividadedit">
-                            <option value="" style="display: none;">Seleccionar</option>
-                            <option value="5">5 minutos</option>
-                            <option value="15">15 minutos</option>
-                            <option value="30">30 minutos</option>
-                            <option value="45">45 minutos</option>
-                            <option value="60">1 hora</option>
-                            <option value="90">1 hora 30 minutos</option>
-                            <option value="120">2 horas</option>
-                            <option value="360">6 horas</option>
-                            <option value="720">12 horas</option>
-                        </select>
-                    </div>
-                </div>
+                        <div id="inputidicon"></div>
 
-                <div class="form-group row">
-                    <label for="" class="col-2 col-form-label">Nombre de la Actividad</label>
-                    <div class="col-10">
-                        <input type="text" class="form-control" name="nombre_actividad_edit" id="nombre_actividad_edit">
+                        <aside class="col-2"></aside>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label for="" class="col-form-label col-2">Asignar a</label>
-                    <div class="col-10">
-                        <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_empleado_actividadeditar" id="nombre_empleado_actividadeditar">
-                            <?php
-                            $query = "SELECT * FROM empleados ORDER BY nombre ASC";
-                            $resultado=$conexion->query($query);
-                            while ($row3=$resultado->fetch_assoc()) {
-                                ?>
-                                <option value="<?php echo $row3['id_empleado']; ?>"><?php echo $row3['nombre'].$row3['apellidos']; ?></option><?php 
+                    <div class="form-group row">
+                        <label for="" class="date col-form-label col-4">Fecha</label>
+                        <label for="" class="date col-form-label col-4">Hora</label>
+                        <label for="" class="date col-form-label col-4">Duración</label>
+                        <style>
+                            .date{
+                                text-align: center;
                             }
-                            ?>
-                        </select>
+                        </style>
+                        <div class="col-4">
+                            <div class="input-group date">
+                                <input type="text" class="form-control addfechaactual" readonly="" placeholder="Seleccionar Fecha" name="fechaactividad" id="kt_datepicker_2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="la la-calendar-check-o"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="input-group timepicker">
+                                <input class="form-control" id="kt_timepicker_1" readonly="" name="horaactividad" type="text">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="la la-clock-o"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <select class="form-control kt-selectpicker" name="duracionactividad">
+                                <option value="" style="display: none;">Seleccionar</option>
+                                <option value="5">5 minutos</option>
+                                <option value="15">15 minutos</option>
+                                <option value="30" selected>30 minutos</option>
+                                <option value="45">45 minutos</option>
+                                <option value="60">1 hora</option>
+                                <option value="90">1 hora 30 minutos</option>
+                                <option value="120">2 horas</option>
+                                <option value="360">6 horas</option>
+                                <option value="720">12 horas</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label for="" class="col-2 col-form-label">Cliente</label>
-                    <div class="col-10">
-                        <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_clienteeditar" id="nombre_clienteeditar">
-                            <option value="" style="display: none;">Seleccionar</option>
-                            <?php 
-                            $query = "SELECT * FROM clientes ORDER BY nombres ASC";
-                            $resultado=$conexion->query($query);
-                            while ($row3=$resultado->fetch_assoc()) {
+                    <div class="form-group row">
+                        <label for="" class="col-2 col-form-label">Nombre de la Actividad</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control" name="nombre_actividad" id="nombre_actividad">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-2">Asignar a</label>
+                        <div class="col-10">
+                            <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_empleado" id="nombre_empleado_actividad">
+                                <?php
+                                $query = "SELECT * FROM empleados ORDER BY nombre ASC";
+                                $resultado=$conexion->query($query);
+                                while ($row3=$resultado->fetch_assoc()) {
+                                    ?>
+                                    <option value="<?php echo $row3['id_empleado']; ?>"><?php echo $row3['nombre'].$row3['apellidos']; ?></option><?php 
+                                }
                                 ?>
-                                <option value="<?php echo $row3['id_cliente']; ?>"><?php echo $row3['nombres'].$row3['apellidos']; ?></option><?php 
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="" class="col-form-label col-2">Transacción</label>
-                    <div class="col-10">
-                        <select class="form-control kt-selectorpicker" name="tipo_actividad">
-                            <option value="" style="display: none;">Seleccionar Transacción</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="btnguardar" onclick="btneditactividad()">Guardar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--End begin::Modal editar-->
-
-<!--begin::Modal visualizar cliente-->
-<div class="modal fade show" id="kt_modal_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: transparent;border:none;">
-            <div class="modal-body">
-                <div class="kt-portlet kt-portlet--height-fluid-">
-                    <div class="kt-portlet__head  kt-portlet__head--noborder">
-                        <div class="kt-portlet__head-label">
-                            <h3 class="kt-portlet__head-title">
-                            </h3>
-                        </div>
-                        <div class="kt-portlet__head-toolbar">
-                            <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-dismiss="modal">
-                                <i class="la la-close"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-fit dropdown-menu-md">
-                            </div>
+                            </select>
                         </div>
                     </div>
-                    <div class="kt-portlet__body kt-portlet__body--fit-y">
-                        <!--begin::Widget -->
-                        <div class="kt-widget kt-widget--user-profile-1">
-                            <div class="kt-widget__head">
-                                <div class="kt-widget__media">
-                                    <span class="kt-media kt-media--primary kt-margin-r-2 kt-margin-t-2"><span style="width: 70px; height: 65px">CLI</span></span>
-                                </div>
-                                <div class="kt-widget__content">
-                                    <div class="kt-widget__section">
-                                        <a href="#" class="kt-widget__username" id="acticlinom">
 
-                                        </a>
-                                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-2 col-form-label">Cliente</label>
+                        <div class="col-10">
+                            <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_cliente" id="nombre_cliente">
+                                <option value="" style="display: none;">Seleccionar</option>
+                                <?php 
+                                $query = "SELECT * FROM clientes ORDER BY nombres ASC";
+                                $resultado=$conexion->query($query);
+                                while ($row3=$resultado->fetch_assoc()) {
+                                    ?>
+                                    <option value="<?php echo $row3['id_cliente']; ?>"><?php echo $row3['nombres'].$row3['apellidos']; ?></option><?php 
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
 
-                                    <div class="kt-widget__action" id="btnshowclie">
-                                     <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="kt-widget__body">
-                            <div class="kt-widget__content">
-                                <div class="kt-widget__info">
-                                    <span class="kt-widget__label">Teléfono/Celular</span>
-                                    <a href="#" class="kt-widget__data" id="acticlitel"></a>
-                                </div>
-                                <div class="kt-widget__info">
-                                    <span class="kt-widget__label">Correo</span>
-                                    <a href="#" class="kt-widget__data" id="acticlicor"></a>
-                                </div>
-                            </div>
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-2">Transacción</label>
+                        <div class="col-10">
+                            <select class="form-control kt-selectorpicker" name="tipo_actividad">
+                                <option value="" style="display: none;">Seleccionar Transacción</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="btnguardar" onclick="btnaddactividad()">Guardar</button>
                     </div>
-                    <!--end::Widget -->
                 </div>
             </div>
         </div>
+    </div>
+    <!--End begin::Modal agregar-->
+
+    <!--begin::Modal editar-->
+    <div class="modal fade" id="modaleditactividad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title editcambiotitle" id="exampleModalLabel">Editar Actividad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="form-group row">
+                        <aside class="col-2"></aside>
+                        <div class="btn-group col-8" role="group" aria-label="Button group with nested dropdown" id="icontipoedit">
+
+                        </div>
+                        <div id="inputidiconedit"></div>
+                        <div id="inputidactividadedit"></div>
+
+                        <aside class="col-2"></aside>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="date col-form-label col-4">Fecha</label>
+                        <label for="" class="date col-form-label col-4">Hora</label>
+                        <label for="" class="date col-form-label col-4">Duración</label>
+                        <style>
+                            .date{
+                                text-align: center;
+                            }
+                        </style>
+                        <div class="col-4">
+                            <div class="input-group date">
+                                <input type="text" class="form-control testfecha" readonly="" placeholder="Seleccionar Fecha" name="editfechaactividad" id="kt_datepicker_2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="la la-calendar-check-o"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="input-group timepicker">
+                                <input class="form-control testhora" id="kt_timepicker_1" readonly="" name="horaactividad" type="text">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="la la-clock-o"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <select class="form-control kt-selectpicker" name="duracionactividadedit" id="duracionactividadedit">
+                                <option value="" style="display: none;">Seleccionar</option>
+                                <option value="5">5 minutos</option>
+                                <option value="15">15 minutos</option>
+                                <option value="30">30 minutos</option>
+                                <option value="45">45 minutos</option>
+                                <option value="60">1 hora</option>
+                                <option value="90">1 hora 30 minutos</option>
+                                <option value="120">2 horas</option>
+                                <option value="360">6 horas</option>
+                                <option value="720">12 horas</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-2 col-form-label">Nombre de la Actividad</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control" name="nombre_actividad_edit" id="nombre_actividad_edit">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-2">Asignar a</label>
+                        <div class="col-10">
+                            <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_empleado_actividadeditar" id="nombre_empleado_actividadeditar">
+                                <?php
+                                $query = "SELECT * FROM empleados ORDER BY nombre ASC";
+                                $resultado=$conexion->query($query);
+                                while ($row3=$resultado->fetch_assoc()) {
+                                    ?>
+                                    <option value="<?php echo $row3['id_empleado']; ?>"><?php echo $row3['nombre'].$row3['apellidos']; ?></option><?php 
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-2 col-form-label">Cliente</label>
+                        <div class="col-10">
+                            <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_clienteeditar" id="nombre_clienteeditar">
+                                <option value="" style="display: none;">Seleccionar</option>
+                                <?php 
+                                $query = "SELECT * FROM clientes ORDER BY nombres ASC";
+                                $resultado=$conexion->query($query);
+                                while ($row3=$resultado->fetch_assoc()) {
+                                    ?>
+                                    <option value="<?php echo $row3['id_cliente']; ?>"><?php echo $row3['nombres'].$row3['apellidos']; ?></option><?php 
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-2">Transacción</label>
+                        <div class="col-10">
+                            <select class="form-control kt-selectorpicker" name="tipo_actividad">
+                                <option value="" style="display: none;">Seleccionar Transacción</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="btnguardar" onclick="btneditactividad()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End begin::Modal editar-->
+
+    <!--begin::Modal visualizar cliente-->
+    <div class="modal fade show" id="kt_modal_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: transparent;border:none;">
+                <div class="modal-body">
+                    <div class="kt-portlet kt-portlet--height-fluid-">
+                        <div class="kt-portlet__head  kt-portlet__head--noborder">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                </h3>
+                            </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-dismiss="modal">
+                                    <i class="la la-close"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-fit dropdown-menu-md">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body kt-portlet__body--fit-y">
+                            <!--begin::Widget -->
+                            <div class="kt-widget kt-widget--user-profile-1">
+                                <div class="kt-widget__head">
+                                    <div class="kt-widget__media">
+                                        <span class="kt-media kt-media--primary kt-margin-r-2 kt-margin-t-2"><span style="width: 70px; height: 65px">CLI</span></span>
+                                    </div>
+                                    <div class="kt-widget__content">
+                                        <div class="kt-widget__section">
+                                            <a href="#" class="kt-widget__username" id="acticlinom">
+
+                                            </a>
+                                        </div>
+
+                                        <div class="kt-widget__action" id="btnshowclie">
+                                           <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="kt-widget__body">
+                                <div class="kt-widget__content">
+                                    <div class="kt-widget__info">
+                                        <span class="kt-widget__label">Teléfono/Celular</span>
+                                        <a href="#" class="kt-widget__data" id="acticlitel"></a>
+                                    </div>
+                                    <div class="kt-widget__info">
+                                        <span class="kt-widget__label">Correo</span>
+                                        <a href="#" class="kt-widget__data" id="acticlicor"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                        <!--end::Widget -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
     </div>
-
-</div>
 </div>
 <!--End begin::Modal agregar-->
 <script>
@@ -533,7 +537,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 <script src="assets/js/pages/crud/forms/widgets/bootstrap-timepicker.js" type="text/javascript"></script>
 <script>
     $(document).ready(function() {
-        
+
         modaladdactiviti();
 
         $('#example tfoot th').each( function () {
@@ -1216,6 +1220,15 @@ function btncompletadoactividad(datos){
             alertify.error('<strong>Problemas con el servidor</strong>');
         }
     })
+}
+function confiactividad(id_actividad){
+    d=id_actividad.split('||');
+    const actividad=d[5];
+    if($("#confirmadoactividad").is(':checked')) {  
+            alert("Está activado");  
+        } else {  
+            alert("No está activado");  
+        }  
 }
 </script>
 </body>
