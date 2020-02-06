@@ -72,7 +72,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         <ul class="kt-menu__nav ">
                             <li class="kt-menu__item" aria-haspopup="true"><a href="transacciones.php" class="kt-menu__link "><span class="kt-menu__link-text"><i class="la la-dollar"></i>Transacciones</span></a></li>
                             <li class="kt-menu__item" aria-haspopup="true"><a href="actividades.php" class="kt-menu__link "><span class="kt-menu__link-text"><i class="la la-list"></i>&nbsp;Actividades</span></a></li>
-                            <li class="kt-menu__item" aria-haspopup="true"><a href="inicio.php" class="kt-menu__link "><span class="kt-menu__link-text"><i class="la la-calendar"></i>&nbsp;Disponibilidad</span></a></li>
+                            <li class="kt-menu__item" aria-haspopup="true"><a href="disponibilidad.php" class="kt-menu__link "><span class="kt-menu__link-text"><i class="la la-calendar"></i>&nbsp;Disponibilidad</span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -537,8 +537,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                 <div class="form-group form-group-last">
                                                                                     <textarea class="form-control" id="exampleTextarea" rows="3" name="mensaje" required></textarea>
                                                                                 </div>
-                                                                                <span id="smsCharCounter">160 caracteres restantes</span><br>
-                                                                                <span id="smsCounter">se enviará un mensaje</span>
+                                                                                <span id="smsCharCounter">160 caracteres restantes</span>
+                                                                                <span id="smsCounter">(se cobrará 1 mensaje)</span>
                                                                                 <script src="js/smsCount.js"></script>
                                                                             </div>
                                                                         </div>
