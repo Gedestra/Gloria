@@ -1106,7 +1106,7 @@ echo "$('#nombre_empleado_actividad').val('$id_empleado_actividad');";
 ?>
 function btnaddactividad(){
 
-    document.getElementById("btnguardar").disabled=true;
+    
 
     var confirmoactividadvalue;
     if($("#addconfirmadoactividad").is(':checked')) {  
@@ -1185,6 +1185,7 @@ function btnaddactividad(){
                     confirmado:confirmoactividadvalue
                 },
                 beforeSend: function () {
+                    document.getElementById("btnguardar").disabled=true;
                     document.getElementById("btnguardar").className = "btn btn-primary kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light";
                 },
                 success:  function (response) {
@@ -1211,7 +1212,7 @@ function btnaddactividad(){
 
 function btneditactividad(){
 
-    document.getElementById("editbtnguardar").disabled=true;
+    
     var valueeditfecha=document.getElementsByName("editfechaactividad")[0].value;
     var valueedittipoactividad=document.getElementsByName("iconselectactividadedit")[0].value;
     var valueedithora=$(".testhora").val();
@@ -1284,6 +1285,7 @@ function btneditactividad(){
             confirmada:valueconfirmadaactividad
         },
         beforeSend: function () {
+            document.getElementById("editbtnguardar").disabled=true;
             document.getElementById("editbtnguardar").className = "btn btn-primary kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light";
         },
         success:  function (response) {
