@@ -1319,23 +1319,30 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 var editnombregruposervicio=document.getElementsByName("editnombregruposervicio")[0].value;
                                 var editidgruposervicio=document.getElementsByName("editidgruposervicio")[0].value;
                                 var editrelacionservicios=$("select[name='editgruposervicios[]']").map(function(){return $(this).val();}).get();
-                                $.ajax({                        
-                                    type: "POST",                 
-                                    url: "funciones/editgruposervicios.php",     
-                                    data:{nombregrupo:editnombregruposervicio,servcios:editrelacionservicios,id_grupo:editidgruposervicio},
-                                    success:  function (response) {
-                                        alertify.set('notifier','position', 'botton-right');
-                                        alertify.success('<strong>¡Grupo de Servicios Actualizado!</strong>');
-                                        $("#editgruposervicio").modal("hide");
-                                        setInterval(function(){
-                                            location.reload();
-                                        },900)
-                                    },
-                                    error: function(xhr, status, err) {
-                                        alertify.set('notifier','position', 'botton-right');
-                                        alertify.error('<strong>Problemas con el servidor</strong>');
-                                    }
-                                });  
+                                if (editrelacionservicios.length>0) {
+
+                                    $.ajax({                        
+                                        type: "POST",                 
+                                        url: "funciones/editgruposervicios.php",     
+                                        data:{nombregrupo:editnombregruposervicio,servcios:editrelacionservicios,id_grupo:editidgruposervicio},
+                                        success:  function (response) {
+                                            alertify.set('notifier','position', 'botton-right');
+                                            alertify.success('<strong>¡Grupo de Servicios Actualizado!</strong>');
+                                            $("#editgruposervicio").modal("hide");
+                                            setInterval(function(){
+                                                location.reload();
+                                            },900)
+                                        },
+                                        error: function(xhr, status, err) {
+                                            alertify.set('notifier','position', 'botton-right');
+                                            alertify.error('<strong>Problemas con el servidor</strong>');
+                                        }
+                                    });
+
+                                }else{
+                                    alertify.set('notifier','position', 'botton-right');
+                                    alertify.error('<strong>El grupo de servicios no puedo quedar vacio</strong>');
+                                }  
                             }
                         </script>
                         <script>
