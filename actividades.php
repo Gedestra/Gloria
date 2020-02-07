@@ -97,10 +97,10 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                       <div class="col-2">
                         <span class="col-12">Filtrar Por</span>
                         <select class="form-control kt-select2 select2-hidden-accessible" id="kt_select2_1" name="param" data-select2-id="kt_select2_1" tabindex="-1" aria-hidden="true">
-                         <?php
-                         $query = "SELECT id_sucursal AS id,nombre AS nombre FROM sucursales UNION SELECT id_empleado AS id, concat_ws(' ', nombre, apellidos) AS nombre FROM empleados";
-                         $resultado=$conexion->query($query);
-                         while ($row3=$resultado->fetch_assoc()) {
+                           <?php
+                           $query = "SELECT id_sucursal AS id,nombre AS nombre FROM sucursales UNION SELECT id_empleado AS id, concat_ws(' ', nombre, apellidos) AS nombre FROM empleados";
+                           $resultado=$conexion->query($query);
+                           while ($row3=$resultado->fetch_assoc()) {
                             ?>
                             <option value="<?php echo $row3['id']; ?>"><?php echo $row3['nombre']; ?></option><?php 
                         }
@@ -113,109 +113,109 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                     <div class="input-daterange input-group" id="kt_datepicker_5">
                       <input type="text" class="form-control" name="start" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: pointer;">
                       <div class="input-group-append">
-                       <span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
-                   </div>
-                   <input type="text" class="form-control" name="end">
-               </div>
-           </div>
-       </div>
-       <br>
-       <!--begin: Datatable -->
-       <table class="table table-bordered table-hover" id="example">
-        <thead>
-            <tr>
-                <th>Completado</th>
-                <th>Confirmado</th>
-                <th>Fecha y hora de inicio</th>
-                <th>Actividad</th>
-                <th>Tipo de actividad</th>
-                <th>Cliente</th>
-                <th>Transacción</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php 
-            include("funciones/conexion.php");
-            $conexion->query("SET NAMES 'utf8'");
-            $query = "SELECT ac.confirmar,a.confirmado,a.id_empleado,ac.id_tipo_actividad,a.id_Actividad,nombre_tipo_Actividad, c.id_cliente, nombres,apellidos,correo,telefono,fecha_hora_inicio,fecha_hora_termino,nombre_actividad, id_icon FROM actividades AS a INNER JOIN clientes AS c ON a.id_cliente=c.id_cliente INNER JOIN tipo_actividad AS ac ON a.id_tipo_actividad=ac.id_tipo_actividad WHERE a.completado='No completado'";
-            $resultado=$conexion->query($query);
-            while ($row=$resultado->fetch_assoc()) {
+                         <span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
+                     </div>
+                     <input type="text" class="form-control" name="end">
+                 </div>
+             </div>
+         </div>
+         <br>
+         <!--begin: Datatable -->
+         <table class="table table-bordered table-hover" id="example">
+            <thead>
+                <tr>
+                    <th>Completado</th>
+                    <th>Confirmado</th>
+                    <th>Fecha y hora de inicio</th>
+                    <th>Actividad</th>
+                    <th>Tipo de actividad</th>
+                    <th>Cliente</th>
+                    <th>Transacción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                include("funciones/conexion.php");
+                $conexion->query("SET NAMES 'utf8'");
+                $query = "SELECT ac.confirmar,a.confirmado,a.id_empleado,ac.id_tipo_actividad,a.id_Actividad,nombre_tipo_Actividad, c.id_cliente, nombres,apellidos,correo,telefono,fecha_hora_inicio,fecha_hora_termino,nombre_actividad, id_icon FROM actividades AS a INNER JOIN clientes AS c ON a.id_cliente=c.id_cliente INNER JOIN tipo_actividad AS ac ON a.id_tipo_actividad=ac.id_tipo_actividad WHERE a.completado='No completado'";
+                $resultado=$conexion->query($query);
+                while ($row=$resultado->fetch_assoc()) {
 
-                date_default_timezone_set('America/Mexico_City');
-                setlocale(LC_TIME, 'es_MX.UTF-8');
-                $hoy = date("Y-m-d H:i:s");
-                $fecha_entrada = $row['fecha_hora_inicio'];
+                    date_default_timezone_set('America/Mexico_City');
+                    setlocale(LC_TIME, 'es_MX.UTF-8');
+                    $hoy = date("Y-m-d H:i:s");
+                    $fecha_entrada = $row['fecha_hora_inicio'];
 
-                $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono']."||".$row['id_Actividad']."||".$row['id_tipo_actividad']."||".$row['nombre_actividad']."||".$row['fecha_hora_inicio']."||".$row['fecha_hora_termino']."||".$row['id_empleado']."||".$row['confirmado'];
-                switch ($row['id_icon']) {
-                    case '1':
-                    $icon="<i class='la la-file-text-o'></i>";
-                    break;
-                    case '2':
-                    $icon="<i class='la la-envelope-o'></i>";
-                    break;
-                    case '3':
-                    $icon="<i class='la la-phone'></i>";
-                    break;
-                    case '4':
-                    $icon="<i class='la la-money'></i>";
-                    break;
-                    case '6':
-                    $icon="<i class='la la-bell'></i>";
-                    break;
-                    case '7':
-                    $icon="<i class='la la-briefcase'></i>";
-                    break;
-                    case '8':
-                    $icon="<i class='la la-cog'></i>";
-                    break;
-                    case '9':
-                    $icon="<i class='la la-cut'></i>";
-                    break;
-                    case '10':
-                    $icon="<i class='la la-eye'></i>";
-                    break;
+                    $datos=$row['id_cliente']."||".$row['nombres']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono']."||".$row['id_Actividad']."||".$row['id_tipo_actividad']."||".$row['nombre_actividad']."||".$row['fecha_hora_inicio']."||".$row['fecha_hora_termino']."||".$row['id_empleado']."||".$row['confirmado'];
+                    switch ($row['id_icon']) {
+                        case '1':
+                        $icon="<i class='la la-file-text-o'></i>";
+                        break;
+                        case '2':
+                        $icon="<i class='la la-envelope-o'></i>";
+                        break;
+                        case '3':
+                        $icon="<i class='la la-phone'></i>";
+                        break;
+                        case '4':
+                        $icon="<i class='la la-money'></i>";
+                        break;
+                        case '6':
+                        $icon="<i class='la la-bell'></i>";
+                        break;
+                        case '7':
+                        $icon="<i class='la la-briefcase'></i>";
+                        break;
+                        case '8':
+                        $icon="<i class='la la-cog'></i>";
+                        break;
+                        case '9':
+                        $icon="<i class='la la-cut'></i>";
+                        break;
+                        case '10':
+                        $icon="<i class='la la-eye'></i>";
+                        break;
 
-                    default:
-                    $icon="<i class='la la-cart-plus'></i>";
-                    break;
-                }
-                ?>
-                <tr id="<?php echo $row['id_Actividad'];?>">
-                    <td style="text-align: center;">
-                        <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success" style="margin-bottom: 15px;"><input type="checkbox" onclick="btncompletadoactividad('<?php echo $datos; ?>')"><span></span></label>
+                        default:
+                        $icon="<i class='la la-cart-plus'></i>";
+                        break;
+                    }
+                    ?>
+                    <tr id="<?php echo $row['id_Actividad'];?>">
+                        <td style="text-align: center;">
+                            <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success" style="margin-bottom: 15px;"><input type="checkbox" onclick="btncompletadoactividad('<?php echo $datos; ?>')"><span></span></label>
+                        </td>
+                        <td style="text-align: center;">
+                            <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
+                                <label>
+                                    <input type="checkbox" id="<?php echo $row['id_Actividad'].'confirmar'; ?>" name="confirmadoactividad" value="Activo" onclick="confiactividad('<?php echo $datos; ?>')" <?php if ($row['confirmado']=='Confirmada') {
+                                        echo "checked";
+                                    } if ($row['confirmar']!="Confirmable") {
+                                       echo "disabled";
+                                   } ?>>
+                                   <span></span>
+                               </label>
+                           </span>
+                       </td>
+                       <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>"><?php echo $row['fecha_hora_inicio']; ?></td>
+                       <td>
+                        <a style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>" href="#" onclick="modaleditactiviti('<?php echo $datos; ?>')" class="dropdown-item" data-toggle="modal" data-target="#modaleditactividad"><?php echo $row['nombre_actividad']; ?></a>
                     </td>
-                    <td style="text-align: center;">
-                        <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
-                            <label>
-                                <input type="checkbox" id="<?php echo $row['id_Actividad'].'confirmar'; ?>" name="confirmadoactividad" value="Activo" onclick="confiactividad('<?php echo $datos; ?>')" <?php if ($row['confirmado']=='Confirmada') {
-                                    echo "checked";
-                                } if ($row['confirmar']!="Confirmable") {
-                                 echo "disabled";
-                             } ?>>
-                             <span></span>
-                         </label>
-                     </span>
-                 </td>
-                 <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>"><?php echo $row['fecha_hora_inicio']; ?></td>
-                 <td>
-                    <a style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>" href="#" onclick="modaleditactiviti('<?php echo $datos; ?>')" class="dropdown-item" data-toggle="modal" data-target="#modaleditactividad"><?php echo $row['nombre_actividad']; ?></a>
-                </td>
-                <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>">
-                    <?php echo $icon." ".$row['nombre_tipo_Actividad']; ?>  
-                </td>
-                <td>
-                    <a class="dropdown-item" style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>" href="#" onclick="agregaform('<?php echo $datos; ?>')" data-toggle="modal" data-target="#kt_modal_5"><?php echo $row['nombres']." ".$row['apellidos'];?></a>
-                </td>
-                <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>">
-                    <?php echo $row['id_transaccion'];?>
+                    <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>">
+                        <?php echo $icon." ".$row['nombre_tipo_Actividad']; ?>  
+                    </td>
+                    <td>
+                        <a class="dropdown-item" style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>" href="#" onclick="agregaform('<?php echo $datos; ?>')" data-toggle="modal" data-target="#kt_modal_5"><?php echo $row['nombres']." ".$row['apellidos'];?></a>
+                    </td>
+                    <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>">
+                        <?php echo $row['id_transaccion'];?>
 
-                </td>
-            </tr>
-        <?php } ?>
-    </tbody>
-</table>
-<!--end: Datatable -->
+                    </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+    <!--end: Datatable -->
 </div>
 </div>
 </div>
@@ -495,7 +495,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="btnguardar" onclick="btneditactividad()">Guardar</button>
+                    <button type="button" class="btn btn-primary" id="editbtnguardar" onclick="btneditactividad()">Guardar</button>
                 </div>
             </div>
         </div>
@@ -537,11 +537,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     </div>
 
                                     <div class="kt-widget__action" id="btnshowclie">
-                                     <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="kt-widget__body">
+                                       <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="kt-widget__body">
                             <div class="kt-widget__content">
                                 <div class="kt-widget__info">
                                     <span class="kt-widget__label">Teléfono/Celular</span>
@@ -1106,6 +1106,8 @@ echo "$('#nombre_empleado_actividad').val('$id_empleado_actividad');";
 ?>
 function btnaddactividad(){
 
+    document.getElementById("btnguardar").disabled=true;
+
     var confirmoactividadvalue;
     if($("#addconfirmadoactividad").is(':checked')) {  
         confirmoactividadvalue="Confirmada";
@@ -1183,7 +1185,7 @@ function btnaddactividad(){
                     confirmado:confirmoactividadvalue
                 },
                 beforeSend: function () {
-
+                    document.getElementById("btnguardar").className = "btn btn-primary kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light";
                 },
                 success:  function (response) {
                     alertify.set('notifier','position', 'botton-right');
@@ -1192,6 +1194,7 @@ function btnaddactividad(){
                     setInterval(function(){
                         location.reload();
                     },900)
+                    document.getElementById("btnguardar").disabled=false;
                 },
                 error: function(xhr, status, err) {
                     alertify.set('notifier','position', 'botton-right');
@@ -1201,13 +1204,14 @@ function btnaddactividad(){
         }else{
             alertify.set('notifier','position', 'botton-right');
             alertify.error('<strong>No se aceptan campos vacios</strong>');
+            document.getElementById("btnguardar").disabled=false;
         }
     }
 }
 
 function btneditactividad(){
 
-
+    document.getElementById("editbtnguardar").disabled=true;
     var valueeditfecha=document.getElementsByName("editfechaactividad")[0].value;
     var valueedittipoactividad=document.getElementsByName("iconselectactividadedit")[0].value;
     var valueedithora=$(".testhora").val();
@@ -1280,9 +1284,10 @@ function btneditactividad(){
             confirmada:valueconfirmadaactividad
         },
         beforeSend: function () {
-
+            document.getElementById("editbtnguardar").className = "btn btn-primary kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light";
         },
         success:  function (response) {
+            document.getElementById("btnguardar").disabled=false;
             alertify.set('notifier','position', 'botton-right');
             alertify.success('<strong>¡Actividad Actualizada!</strong>');
             $("#modaleditactividad").modal("hide");
@@ -1293,6 +1298,7 @@ function btneditactividad(){
         error: function(xhr, status, err) {
             alertify.set('notifier','position', 'botton-right');
             alertify.error('<strong>Problemas con el servidor</strong>');
+            document.getElementById("editbtnguardar").disabled=false;
         }
     })
 
@@ -1343,9 +1349,9 @@ function confiactividad(id_actividad){
     const actividad=d[5];
     var confirmaractividad;
     if($("#"+d[5]+"confirmar").is(':checked')) {  
-     confirmaractividad="Confirmada";
-     updateconfirmado(confirmaractividad, actividad);
- }else{  
+       confirmaractividad="Confirmada";
+       updateconfirmado(confirmaractividad, actividad);
+   }else{  
     confirmaractividad="No confirmada";
     updateconfirmado(confirmaractividad, actividad);
 }
