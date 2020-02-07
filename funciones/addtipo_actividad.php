@@ -6,6 +6,12 @@ if ($_POST) {
 	$estatus=$_POST['estatus'];
 	$sincronizar=$_POST['sincronizar'];
 	$idicon=$_POST['idicon'];
+	$confirmar=$_POST['addconfirmar'];
+	if ($confirmar==null) {
+		$addconfirmar="No confirmable";
+	}else{
+		$addconfirmar="Confirmable";
+	}
 	if ($estatus==null) {
 		$conestatus="Inactivo";
 	}else{
@@ -13,14 +19,14 @@ if ($_POST) {
 	}
 	if ($sincronizar==null) {
 		$addsincronizar="Inactivo";
-		$query="INSERT INTO tipo_actividad (id_tipo_actividad, nombre_tipo_actividad, estatus, sincronizar_tipo_actividad, id_icon) VALUES (NULL, '$nombre', '$conestatus', '$addsincronizar', '$idicon')";
+		$query="INSERT INTO tipo_actividad (id_tipo_actividad, nombre_tipo_actividad, estatus, confirmar, sincronizar_tipo_actividad, id_icon) VALUES (NULL, '$nombre', '$conestatus', '$addconfirmar', '$addsincronizar', '$idicon')";
 		$resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
 		if ($resultado) {
 			echo '<META HTTP-EQUIV=Refresh CONTENT="0; URL=../inicio.php?tipo_actividad=add">';
 		}
 	}else{
 		$addsincronizar="Activo";
-		$query="INSERT INTO tipo_actividad (id_tipo_actividad, nombre_tipo_actividad, estatus, sincronizar_tipo_actividad,id_icon) VALUES (NULL, '$nombre', '$conestatus', '$addsincronizar', '$idicon')";
+		$query="INSERT INTO tipo_actividad (id_tipo_actividad, nombre_tipo_actividad, estatus, confirmar, sincronizar_tipo_actividad,id_icon) VALUES (NULL, '$nombre', '$conestatus', '$addconfirmar', '$addsincronizar', '$idicon')";
 		$resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
 		if ($resultado) {
 			$id=$conexion->insert_id;

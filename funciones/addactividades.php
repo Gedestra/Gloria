@@ -12,7 +12,8 @@ $id_empleado = $_POST['idempleado'];
 $id_usuario = $_POST['idusuario'];
 $completado = $_POST['completado'];
 $nombre_actividad = $_POST['nombreactividad'];
-$req = array($idtipoactividad, $origina, $fecha_final, $id_cliente, $id_empleado, $id_usuario, $completado, $nombre_actividad);
+$confirmado= $_POST['confirmado'];
+$req = array($idtipoactividad, $origina, $fecha_final, $id_cliente, $id_empleado, $id_usuario, $completado, $nombre_actividad, $confirmado);
 
 foreach($req as $content){
     if($content == null){
@@ -21,8 +22,8 @@ foreach($req as $content){
 }
 $query = 
 "INSERT INTO actividades 
-(id_actividad, nombre_actividad, fecha_hora_inicio, fecha_hora_termino, id_tipo_actividad, id_cliente, id_empleado, id_usuario, gcal_evento_id, sincronizar_actividad, id_transaccion, completado)
-VALUES (NULL, '$nombre_actividad', '$origina', '$fecha_final', '$idtipoactividad', '$id_cliente', '$id_empleado', '$id_usuario', NULL, NULL, NULL, '$completado' );";
+(id_actividad, nombre_actividad, fecha_hora_inicio, fecha_hora_termino, id_tipo_actividad, id_cliente, id_empleado, id_usuario, gcal_evento_id, sincronizar_actividad, id_transaccion, completado, confirmado)
+VALUES (NULL, '$nombre_actividad', '$origina', '$fecha_final', '$idtipoactividad', '$id_cliente', '$id_empleado', '$id_usuario', NULL, NULL, NULL, '$completado', '$confirmado')";
 $resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
 if($resultado){
     echo "elemento agregado a la consulta!";

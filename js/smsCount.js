@@ -11,8 +11,8 @@ textArea.addEventListener("input", event=>{
     smsCount = Math.ceil(length/160);
     
     if(smsCount <= 1){
-        smsSpan.innerHTML = "se enviará un mensaje";    
+        smsSpan.innerHTML = "(se cobrará 1 mensaje)";    
     }else{
-        smsSpan.innerHTML = "se enviaran " + smsCount + " mensajes";
+        smsSpan.innerHTML = "(se cobrarán " + smsCount + " mensajes)";
     }
 } );
