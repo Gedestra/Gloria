@@ -12,14 +12,15 @@ $id_empleado = $_POST['idempleado'];
 $id_usuario = $_POST['idusuario'];
 $nombre_actividad = $_POST['nombreactividad'];
 $id_actividad = $_POST['id_actividad'];
-$req = array($idtipoactividad, $origina, $fecha_final, $id_cliente, $id_empleado, $id_usuario, $completado, $nombre_actividad);
+$confirmada = $_POST['confirmada'];
+$req = array($idtipoactividad, $origina, $fecha_final, $id_cliente, $id_empleado, $id_usuario, $completado, $nombre_actividad, $confirmada);
 
 foreach($req as $content){
 	if($content == null){
 		echo "hay un campo vacio en la solicitud: ".$content;
 	}
 }
-$query = "UPDATE actividades SET nombre_actividad = '$nombre_actividad', fecha_hora_inicio = '$origina', fecha_hora_termino = '$fecha_final', id_tipo_actividad = '$idtipoactividad', id_cliente = '$id_cliente', id_empleado = '$id_empleado', id_usuario = '$id_usuario' WHERE id_actividad = '$id_actividad'";
+$query = "UPDATE actividades SET nombre_actividad = '$nombre_actividad', fecha_hora_inicio = '$origina', fecha_hora_termino = '$fecha_final', id_tipo_actividad = '$idtipoactividad', id_cliente = '$id_cliente', id_empleado = '$id_empleado', id_usuario = '$id_usuario', confirmado = '$confirmada' WHERE id_actividad = '$id_actividad'";
 $resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
 if($resultado){
 	echo "elemento agregado a la consulta!";

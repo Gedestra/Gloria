@@ -307,7 +307,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                     <div class="row">
                                                                         <label class="col-xl-3"></label>
                                                                         <div class="col-lg-9 col-xl-6">
-                                                                            <h3 class="kt-section__title kt-section__title-sm">Agregar servio a un grupo</h3>
+                                                                            <h3 class="kt-section__title kt-section__title-sm">Agregar servicio a un grupo</h3>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group row">
@@ -346,7 +346,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                         </div>
                                                                         <div id="form2" style="display: none;">
                                                                             <div class="form-group row">
-                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Seleciona el grupo</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Selecciona el grupo</label>
                                                                                 <div class="col-lg-9 col-xl-6">
                                                                                     <select class="form-control kt-selectpicker" name="id_grupo_servicio">
                                                                                         <option value="" style="display: none;">Seleccinar</option>
