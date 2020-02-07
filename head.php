@@ -1473,7 +1473,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     },
                                     success:  function (response) {
                                         alertify.set('notifier','position', 'botton-right');
-                                        alertify.success('<strong>¡Grupo de Servicios Actualizado!</strong>');
+                                        alertify.success('<strong>¡Mensaje Actualizado!</strong>');
                                         $("#editsmstipo").modal("hide");
                                         setInterval(function(){
                                             location.reload();
@@ -1481,7 +1481,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     },
                                     error: function(xhr, status, err) {
                                         alertify.set('notifier','position', 'botton-right');
-                                        alertify.error('<strong>Problemas con el servidor</strong>');
+                                        alertify.error('<strong>Problemas con el Servidor</strong>');
                                     }
                                 });
 
