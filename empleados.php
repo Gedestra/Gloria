@@ -53,13 +53,13 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 <!-- begin::Body -->
 <body >
 	<?php include("head.php"); 
-	if ($_GET['empleado']=='update') {
+	/*if ($_GET['empleado']=='update') {
 		echo "<script>alertify.set('notifier','position', 'botton-right');
 		alertify.success('<strong>Empleado Actualizado!</strong>');</script>";
 	}else if($_GET['empleado']=='add'){
 		echo "<script>alertify.set('notifier','position', 'botton-right');
 		alertify.success('<strong>¡Empleado Agregado!</strong>');</script>";
-	} 
+	}*/ 
 
 	?>
 <!----------------------------------------------------------------------------------------------------------------------------------------------------------------------->
@@ -121,8 +121,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 						</select>
 						<button type="submit">Filtrar</button>
 					</form>-->
+					
+					
 				</div>
 				<div class="kt-portlet__body">
+					
 					<!--begin: Datatable -->
 					<table class="table table-bordered table-hover" id="example">
 						<thead>
