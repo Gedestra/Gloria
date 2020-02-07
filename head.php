@@ -757,13 +757,10 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                     <?php 
                                                                     include("funciones/conexion.php");
                                                                     $conexion->query("SET NAMES 'utf8'");
-                                                                    $query = "SELECT GROUP_CONCAT(' ',smstipo.etiqueta_sms), GROUP_CONCAT"
-                                                                    ."(smstipo.id_sms),tipo.nombre_tipo_actividad, tipo.estatus, tipo.sincronizar_tipo_actividad, tipo.id_tipo_actividad, id_icon "
-                                                                    ."FROM sms_relacion AS sms RIGHT JOIN tipo_actividad AS tipo ON sms.id_tipo_actividad=tipo.id_tipo_actividad LEFT JOIN sms_tipo AS "
-                                                                    ."smstipo ON sms.id_sms=smstipo.id_sms GROUP BY tipo.id_tipo_actividad";
+                                                                    $query = "SELECT confirmar, GROUP_CONCAT(' ',smstipo.etiqueta_sms), GROUP_CONCAT(smstipo.id_sms),tipo.nombre_tipo_actividad, tipo.estatus, tipo.sincronizar_tipo_actividad, tipo.id_tipo_actividad, id_icon FROM sms_relacion AS sms RIGHT JOIN tipo_actividad AS tipo ON sms.id_tipo_actividad=tipo.id_tipo_actividad LEFT JOIN sms_tipo AS smstipo ON sms.id_sms=smstipo.id_sms GROUP BY tipo.id_tipo_actividad";
                                                                     $resultado=$conexion->query($query);
                                                                     while ($row=$resultado->fetch_assoc()) {
-                                                                        $datostipo_actividad=$row['id_tipo_actividad']."||".$row['nombre_tipo_actividad']."||".$row['estatus']."||".$row['sincronizar_tipo_actividad']."||".$row['GROUP_CONCAT(smstipo.id_sms)'];
+                                                                        $datostipo_actividad=$row['id_tipo_actividad']."||".$row['nombre_tipo_actividad']."||".$row['estatus']."||".$row['sincronizar_tipo_actividad']."||".$row['GROUP_CONCAT(smstipo.id_sms)']."||".$row['confirmar'];
                                                                         $sincronizar_tipo_actividad=$row['sincronizar_tipo_actividad'];
                                                                         $nombre=$row['nombre_tipo_actividad'];
                                                                         $estatus=$row['estatus'];
@@ -887,6 +884,25 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                             <label class="col-xl-3 col-lg-3 col-form-label">Nombre del tipo de actividad</label>
                                                                             <div class="col-lg-9 col-xl-6">
                                                                                 <input type="text" class="form-control" name="nombre" required>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group row">
+                                                                            <label class="col-xl-3 col-lg-3 col-form-label">Confirmable</label>
+                                                                            <div class="col-lg-9 col-xl-6">
+                                                                                <!-- <label class="kt-radio kt-radio--tick kt-radio--success">
+                                                                                    <input type="radio" name="confirmar">Si&nbsp;
+                                                                                    <span></span>
+                                                                                </label>&nbsp;
+                                                                                <label class="kt-radio kt-radio--tick kt-radio--success">
+                                                                                    <input type="radio" name="confirmar">No
+                                                                                    <span></span>
+                                                                                </label> -->
+                                                                                <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
+                                                                                    <label>
+                                                                                        <input type="checkbox" name="addconfirmar" value="Activo">
+                                                                                        <span></span>
+                                                                                    </label>
+                                                                                </span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group row">
@@ -1101,6 +1117,17 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                             <label for="" class="col-2 col-form-label">Nombre de tipo de actividad</label>
                                                                             <div class="col-10">
                                                                                 <input type="text" name="nombre" class="form-control" id="upnombretipoactividad">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group row">
+                                                                            <label class="col-xl-3 col-lg-3 col-form-label">Confirmable</label>
+                                                                            <div class="col-lg-9 col-xl-6">
+                                                                                <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
+                                                                                    <label>
+                                                                                        <input type="checkbox" name="editconfirmar" id="modaleditconfirmar" value="Activo">
+                                                                                        <span></span>
+                                                                                    </label>
+                                                                                </span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group row">
@@ -1364,6 +1391,16 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                         
                                         
                                     });
+                                }
+
+                                if (d[5]=="Confirmable") {
+
+                                    $("#modaleditconfirmar").prop("checked", true);
+
+                                }else{
+
+                                    $("#modaleditconfirmar").prop("checked", false);
+
                                 }
 
                                 if (d[2]=='Activo') {
