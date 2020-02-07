@@ -473,9 +473,10 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                     <?php 
                                                                     include("funciones/conexion.php");
                                                                     $conexion->query("SET NAMES 'utf8'");
-                                                                    $query = "SELECT * FROM sms_tipo";
+                                                                    $query = "SELECT * FROM sms_tipo WHERE estatus='activo'";
                                                                     $resultado=$conexion->query($query);
                                                                     while ($row=$resultado->fetch_assoc()) {
+                                                                        $datos=$row['id_sms']."||".$row['etiqueta_sms']."||".$row['nombre']."||".$row['body']."||".$row['estatus'];
                                                                         ?>
                                                                         <div class="kt-section kt-section--first">
                                                                             <div class="kt-timeline-v3">
@@ -487,7 +488,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                         </span><br>
                                                                                         <span class="kt-timeline-v3__item-user-name">
                                                                                             <a href="#" class="kt-link kt-link--dark kt-timeline-v3__item-link">
-                                                                                                <?php echo $row['etiqueta_sms']; ?>
+                                                                                                <?php echo $row['etiqueta_sms']; ?>&nbsp;<a href="#" onclick="editarsmstipo('<?php echo $datos; ?>')" data-toggle="modal" data-target="#editsmstipo" data-dismiss="modal"><i class="la la-pencil-square-o"></i></a>
                                                                                             </a>
                                                                                         </span>
                                                                                     </div>
@@ -1314,8 +1315,178 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 </div>
                             </div>
                         </div>
+                        <div class="modal fade" id="editsmstipo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl" role="document">
+                                <div class="modal-content" style="background-color: transparent;border:none;">
+                                    <div class="kt-portlet kt-portlet--tabs">
+                                        <div class="kt-portlet__head">
+                                            <div class="kt-portlet__head-toolbar">
+                                                <ul class="nav nav-tabs nav-tabs-space-xl nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-brand" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" data-toggle="tab" href="#kt_user_edit_tab_18" role="tab">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                    <rect x="0" y="0" width="24" height="24"/>
+                                                                    <path d="M12.9835977,18 C12.7263047,14.0909841 9.47412135,11 5.5,11 C4.98630124,11 4.48466491,11.0516454 4,11.1500272 L4,7 C4,5.8954305 4.8954305,5 6,5 L20,5 C21.1045695,5 22,5.8954305 22,7 L22,16 C22,17.1045695 21.1045695,18 20,18 L12.9835977,18 Z M19.1444251,6.83964668 L13,10.1481833 L6.85557487,6.83964668 C6.4908718,6.6432681 6.03602525,6.77972206 5.83964668,7.14442513 C5.6432681,7.5091282 5.77972206,7.96397475 6.14442513,8.16035332 L12.6444251,11.6603533 C12.8664074,11.7798822 13.1335926,11.7798822 13.3555749,11.6603533 L19.8555749,8.16035332 C20.2202779,7.96397475 20.3567319,7.5091282 20.1603533,7.14442513 C19.9639747,6.77972206 19.5091282,6.6432681 19.1444251,6.83964668 Z" fill="#000000"/>
+                                                                    <path d="M6.5,14 C7.05228475,14 7.5,14.4477153 7.5,15 L7.5,17 C7.5,17.5522847 7.05228475,18 6.5,18 C5.94771525,18 5.5,17.5522847 5.5,17 L5.5,15 C5.5,14.4477153 5.94771525,14 6.5,14 Z M6.5,21 C5.94771525,21 5.5,20.5522847 5.5,20 C5.5,19.4477153 5.94771525,19 6.5,19 C7.05228475,19 7.5,19.4477153 7.5,20 C7.5,20.5522847 7.05228475,21 6.5,21 Z" fill="#000000" opacity="0.3"/>
+                                                                </g>
+                                                            </svg> Editar sms
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="kt-portlet__body">
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="kt_user_edit_tab_18" role="tabpanel">
+                                                    <div class="kt-form kt-form--label-right">
+                                                        <div class="kt-form__body">
+                                                            <div class="kt-section kt-section--first">
+                                                                <div class="kt-section__body">
+
+                                                                    <div class="form-group row">
+                                                                        <label class="col-xl-3 col-lg-3 col-form-label">Nombre del Mensaje</label>
+                                                                        <div class="col-lg-9 col-xl-6">
+                                                                            <input type="text" class="form-control" name="editnombresms" id="editnombresms">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-xl-3 col-lg-3 col-form-label">Programación de envío</label>
+                                                                        <div class="col-lg-9 col-xl-6">
+                                                                            <select class="form-control kt-selectpicker" name="editprogramacionsms" id="editprogramacionsms">
+                                                                                <option value="" style="display: none;">Seleccionar</option>
+                                                                                <option value="1 día antes">1 día antes</option>
+                                                                                <option value="2 días antes">2 días antes</option>
+                                                                                <option value="3 días antes">3 días antes</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group form-group-last row">
+                                                                        <label class="col-xl-3 col-lg-3 col-form-label">Cuerpo del mensaje</label>
+                                                                        <div class="col-lg-9 col-xl-6">
+                                                                            <div class="form-group form-group-last">
+                                                                                <textarea class="form-control" id="exampleTextarea2" rows="3" name="editmensajesms"></textarea>
+                                                                            </div>
+                                                                            <span id="smsCharCounter2">160 caracteres restantes</span>
+                                                                            <span id="smsCounter2">(se cobrará 1 mensaje)</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="editidsmscampo"></div>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-xl-3 col-lg-3 col-form-label">Estatus</label>
+                                                                        <div class="col-lg-9 col-xl-6">
+                                                                            <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
+                                                                                <label>
+                                                                                    <input type="checkbox" name="estatussms" id="estatussms" value="Activo">
+                                                                                    <span></span>
+                                                                                </label>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-label-brand btn-bold" id="btnaddeditsms" onclick="editsmstiposave()">Guardar</button>
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!--begin::Page Scripts(used by this page) -->
                         <script src="assets/js/pages/crud/forms/widgets/select2.js" type="text/javascript"></script>
+                        <script>
+                            function editarsmstipo(datos){
+                                d=datos.split('||');
+                                $('#editnombresms').val(d[1]);
+                                $('#editprogramacionsms').val(d[2]);
+                                $('#editprogramacionsms').trigger("change");
+                                $('#exampleTextarea2').val(d[3]);
+                                var input = document.createElement('input');
+                                input.type = 'text';
+                                input.name = 'editidsms';
+                                input.id = 'editidsms';
+                                input.value = d[0];
+                                $('#editidsmscampo').empty();
+                                lugar=document.getElementById('editidsmscampo').appendChild(input);
+                                $("#editidsms").css('display','none');
+                                if (d[4]=="activo") {
+
+                                    $("#estatussms").prop("checked", true);
+
+                                }else{
+
+                                    $("#estatussms").prop("checked", false);
+
+                                }
+
+                                textArea2 = document.getElementById("exampleTextarea2");
+                                charSpan2 = document.getElementById("smsCharCounter2");
+                                smsSpan2 = document.getElementById("smsCounter2");
+                                valor=d[3].length
+                                smsCount2 = Math.ceil(valor/160);;
+                                charSpan2.innerHTML = valor + " caracteres escritos";
+                                
+                                if(smsCount2 <= 1){
+                                    smsSpan2.innerHTML = "(se cobrará 1 mensaje)";    
+                                }else{
+                                    smsSpan2.innerHTML = "(se cobrarán " + smsCount2 + " mensajes)";
+                                }
+                                textArea2.addEventListener("input", event=>{
+                                    let target2 = event.currentTarget;
+                                    let length2  = target2.value.length;
+                                    charSpan2.innerHTML = length2 + " caracteres escritos";
+                                    smsCount2 = Math.ceil(length2/160);
+
+                                    if(smsCount2 <= 1){
+                                        smsSpan2.innerHTML = "(se cobrará 1 mensaje)";    
+                                    }else{
+                                        smsSpan2.innerHTML = "(se cobrarán " + smsCount2 + " mensajes)";
+                                    }
+                                } );        
+                            }
+
+                            function editsmstiposave(){
+                                var editnombresms=document.getElementsByName("editnombresms")[0].value;
+                                var editprogramacionsms=document.getElementsByName("editprogramacionsms")[0].value;
+                                var editmensajesms=document.getElementsByName("editmensajesms")[0].value;
+                                var editidsms=document.getElementsByName("editidsms")[0].value;
+
+                                if($("#estatussms").is(':checked')) {  
+                                    var editestatussms="activo";
+                                }else{
+                                    var editestatussms="inactivo";
+                                }
+
+                                $.ajax({                        
+                                    type: "POST",                 
+                                    url: "funciones/updatesms.php",     
+                                    data:{id_sms:editidsms,etiqueta_sms:editnombresms,nombre:editprogramacionsms,body:editmensajesms,estatus:editestatussms},
+                                    beforeSend: function () {
+                                        document.getElementById("btnaddeditsms").disabled=true;
+                                        document.getElementById("btnaddeditsms").className = "btn btn-label-brand btn-bold kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light";
+                                    },
+                                    success:  function (response) {
+                                        alertify.set('notifier','position', 'botton-right');
+                                        alertify.success('<strong>¡Grupo de Servicios Actualizado!</strong>');
+                                        $("#editsmstipo").modal("hide");
+                                        setInterval(function(){
+                                            location.reload();
+                                        },900)
+                                    },
+                                    error: function(xhr, status, err) {
+                                        alertify.set('notifier','position', 'botton-right');
+                                        alertify.error('<strong>Problemas con el servidor</strong>');
+                                    }
+                                });
+
+                            }
+                        </script>
                         <script>
                             function editargrupoactividad(datos){
                                 d=datos.split('||');
@@ -1337,9 +1508,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
                                         $('#kt_select2_8 option[value='+valor+']').attr('selected',true);
                                         $('#kt_select2_8').trigger("change");
-                                        
+
                                     });
-                                    
+
                                 }
                             }
                             function editgruposervicios(){
@@ -1388,8 +1559,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
                                         $('#kt_select2_10 option[value='+valor+']').attr('selected',true);
                                         $('#kt_select2_10').trigger("change");
-                                        
-                                        
+
+
                                     });
                                 }
 
