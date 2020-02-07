@@ -395,11 +395,12 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                     <?php 
                                                                     include("funciones/conexion.php");
                                                                     $conexion->query("SET NAMES 'utf8'");
-                                                                    $query = "SELECT GROUP_CONCAT(ser.nombre_servicio), gru.nombre_grupo_servicio FROM relacion_servicio_grupo AS rela INNER JOIN servicios AS ser ON rela.id_servicio=ser.id_servicio INNER JOIN grupo_servicio AS gru ON rela.id_grupo_servicio=gru.id_grupo_servicio GROUP BY gru.id_grupo_servicio";
+                                                                    $query = "SELECT GROUP_CONCAT(ser.nombre_servicio), GROUP_CONCAT(ser.id_servicio), gru.nombre_grupo_servicio, gru.id_grupo_servicio FROM relacion_servicio_grupo AS rela INNER JOIN servicios AS ser ON rela.id_servicio=ser.id_servicio INNER JOIN grupo_servicio AS gru ON rela.id_grupo_servicio=gru.id_grupo_servicio GROUP BY gru.id_grupo_servicio";
                                                                     $resultado=$conexion->query($query);
                                                                     while ($row=$resultado->fetch_assoc()) {
                                                                         $nombre_servicio=$row['GROUP_CONCAT(ser.nombre_servicio)'];
                                                                         $nombre_grupo_servicio=$row['nombre_grupo_servicio'];
+                                                                        $datos=$row['GROUP_CONCAT(ser.id_servicio)']."||".$row['nombre_grupo_servicio']."||".$row['id_grupo_servicio'];
                                                                         ?>
                                                                         <div class="kt-section kt-section--first">
                                                                             <div class="kt-timeline-v3">
@@ -410,7 +411,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                             <?php echo $nombre_servicio; ?>
                                                                                         </span><br>
                                                                                         <span class='kt-timeline-v3__item-user-name'>
-                                                                                            <?php echo $nombre_grupo_servicio; ?>
+                                                                                            <?php echo $nombre_grupo_servicio; ?> <a href="#" onclick="editargrupoactividad('<?php echo $datos; ?>')" data-toggle="modal" data-target="#editgruposervicio" data-dismiss="modal"><i class="la la-pencil-square-o"></i></a>
                                                                                         </span>
                                                                                     </div>
                                                                                 </div>
@@ -757,9 +758,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                     include("funciones/conexion.php");
                                                                     $conexion->query("SET NAMES 'utf8'");
                                                                     $query = "SELECT GROUP_CONCAT(' ',smstipo.etiqueta_sms), GROUP_CONCAT"
-                                                                            ."(smstipo.id_sms),tipo.nombre_tipo_actividad, tipo.estatus, tipo.sincronizar_tipo_actividad, tipo.id_tipo_actividad, id_icon "
-                                                                            ."FROM sms_relacion AS sms RIGHT JOIN tipo_actividad AS tipo ON sms.id_tipo_actividad=tipo.id_tipo_actividad LEFT JOIN sms_tipo AS "
-                                                                            ."smstipo ON sms.id_sms=smstipo.id_sms GROUP BY tipo.id_tipo_actividad";
+                                                                    ."(smstipo.id_sms),tipo.nombre_tipo_actividad, tipo.estatus, tipo.sincronizar_tipo_actividad, tipo.id_tipo_actividad, id_icon "
+                                                                    ."FROM sms_relacion AS sms RIGHT JOIN tipo_actividad AS tipo ON sms.id_tipo_actividad=tipo.id_tipo_actividad LEFT JOIN sms_tipo AS "
+                                                                    ."smstipo ON sms.id_sms=smstipo.id_sms GROUP BY tipo.id_tipo_actividad";
                                                                     $resultado=$conexion->query($query);
                                                                     while ($row=$resultado->fetch_assoc()) {
                                                                         $datostipo_actividad=$row['id_tipo_actividad']."||".$row['nombre_tipo_actividad']."||".$row['estatus']."||".$row['sincronizar_tipo_actividad']."||".$row['GROUP_CONCAT(smstipo.id_sms)'];
@@ -781,22 +782,22 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                             $icon="<i class='la la-money'></i>";
                                                                             break;
                                                                             case '6':
-                                                                                $icon="<i class='la la-bell'></i>";
+                                                                            $icon="<i class='la la-bell'></i>";
                                                                             break;
                                                                             case '7':
-                                                                                $icon = "<i class='la la-briefcase'></i>";
+                                                                            $icon = "<i class='la la-briefcase'></i>";
                                                                             break;
                                                                             case '8':
-                                                                                $icon = "<i class='la la-cog'></i>";
+                                                                            $icon = "<i class='la la-cog'></i>";
                                                                             break;
                                                                             case '9':
-                                                                                $icon = "<i class='la la-cut'></i>";
+                                                                            $icon = "<i class='la la-cut'></i>";
                                                                             break;
                                                                             case '10':
-                                                                                $icon = "<i class='la la-eye'></i>";
+                                                                            $icon = "<i class='la la-eye'></i>";
                                                                             break;
                                                                             default:
-                                                                                $icon="<i class='la la-cart-plus'></i>";
+                                                                            $icon="<i class='la la-cart-plus'></i>";
                                                                             break;
                                                                         }
                                                                         if ($sincronizar_tipo_actividad=='Activo') {
@@ -1219,8 +1220,124 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 </div>
                             </div>
                         </div>
+                        <div class="modal fade" id="editgruposervicio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl" role="document">
+                                <div class="modal-content" style="background-color: transparent;border:none;">
+                                    <div class="kt-portlet kt-portlet--tabs">
+                                        <div class="kt-portlet__head">
+                                            <div class="kt-portlet__head-toolbar">
+                                                <ul class="nav nav-tabs nav-tabs-space-xl nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-brand" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" data-toggle="tab" href="#kt_user_edit_tab_18" role="tab">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                    <rect x="0" y="0" width="24" height="24"/>
+                                                                    <path d="M20.4061385,6.73606154 C20.7672665,6.89656288 21,7.25468437 21,7.64987309 L21,16.4115967 C21,16.7747638 20.8031081,17.1093844 20.4856429,17.2857539 L12.4856429,21.7301984 C12.1836204,21.8979887 11.8163796,21.8979887 11.5143571,21.7301984 L3.51435707,17.2857539 C3.19689188,17.1093844 3,16.7747638 3,16.4115967 L3,7.64987309 C3,7.25468437 3.23273352,6.89656288 3.59386153,6.73606154 L11.5938615,3.18050598 C11.8524269,3.06558805 12.1475731,3.06558805 12.4061385,3.18050598 L20.4061385,6.73606154 Z" fill="#000000" opacity="0.3"/>
+                                                                    <polygon fill="#000000" points="14.9671522 4.22441676 7.5999999 8.31727912 7.5999999 12.9056825 9.5999999 13.9056825 9.5999999 9.49408582 17.25507 5.24126912"/>
+                                                                </g>
+                                                            </svg> Editar Grupo de Servicio
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="kt-portlet__body">
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="kt_user_edit_tab_18" role="tabpanel">
+                                                    <div class="kt-form kt-form--label-right">
+                                                        <div class="kt-form__body">
+                                                            <div class="kt-section kt-section--first">
+                                                                <div class="kt-section__body">
+
+                                                                    <div class="form-group row">
+                                                                        <label for="" class="col-2 col-form-label">Nombre Grupo de Servicio</label>
+                                                                        <div class="col-8">
+                                                                            <input type="text" name="editnombregruposervicio" class="form-control" id="editnombregruposervicio">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="campoeditidgruposervicio"></div>
+                                                                    <div class="form-group row" id="updatesmstipoactividad">
+                                                                        <label class="col-2 col-form-label">Servicios</label>
+                                                                        <div class="col-8">
+                                                                            <select class="form-control kt-select2" id="kt_select2_8" name="editgruposervicios[]" multiple="multiple" style="width: 300px:">
+                                                                                <?php 
+                                                                                $query = "SELECT * FROM servicios";
+                                                                                $resultado=$conexion->query($query);
+                                                                                while ($row=$resultado->fetch_assoc()) {
+                                                                                    ?>
+                                                                                    <option value="<?php echo $row['id_servicio']; ?>"><?php echo $row['nombre_servicio']; ?></option><?php 
+                                                                                }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <input type="text" name="id_razon_perdido" id="upidrazonperdido" style="display: none;">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-label-brand btn-bold" onclick="editgruposervicios()">Guardar</button>
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!--begin::Page Scripts(used by this page) -->
                         <script src="assets/js/pages/crud/forms/widgets/select2.js" type="text/javascript"></script>
+                        <script>
+                            function editargrupoactividad(datos){
+                                d=datos.split('||');
+                                editnombregruposervicio
+                                $('#editnombregruposervicio').val(d[1]);
+                                var input = document.createElement('input');
+                                input.type = 'text';
+                                input.name = 'editidgruposervicio';
+                                input.id = 'editidgruposervicio';
+                                input.value = d[2];
+                                $('#campoeditidgruposervicio').empty();
+                                lugar=document.getElementById('campoeditidgruposervicio').appendChild(input);
+                                $("#editidgruposervicio").css('display','none');
+
+                                $("#kt_select2_8 option:selected").removeAttr("selected");
+                                if (d[0]!="") {
+                                    var servicios=d[0].split(',');
+                                    servicios.forEach( function(valor, indice, array) {
+
+                                        $('#kt_select2_8 option[value='+valor+']').attr('selected',true);
+                                        $('#kt_select2_8').trigger("change");
+                                        
+                                    });
+                                    
+                                }
+                            }
+                            function editgruposervicios(){
+                                var editnombregruposervicio=document.getElementsByName("editnombregruposervicio")[0].value;
+                                var editidgruposervicio=document.getElementsByName("editidgruposervicio")[0].value;
+                                var editrelacionservicios=$("select[name='editgruposervicios[]']").map(function(){return $(this).val();}).get();
+                                $.ajax({                        
+                                    type: "POST",                 
+                                    url: "funciones/editgruposervicios.php",     
+                                    data:{nombregrupo:editnombregruposervicio,servcios:editrelacionservicios,id_grupo:editidgruposervicio},
+                                    success:  function (response) {
+                                        alertify.set('notifier','position', 'botton-right');
+                                        alertify.success('<strong>¡Grupo de Servicios Actualizado!</strong>');
+                                        $("#editgruposervicio").modal("hide");
+                                        setInterval(function(){
+                                            location.reload();
+                                        },900)
+                                    },
+                                    error: function(xhr, status, err) {
+                                        alertify.set('notifier','position', 'botton-right');
+                                        alertify.error('<strong>Problemas con el servidor</strong>');
+                                    }
+                                });  
+                            }
+                        </script>
                         <script>
                             function editartipoactividad(datos){
 
@@ -1237,7 +1354,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
                                         $('#kt_select2_10 option[value='+valor+']').attr('selected',true);
                                         $('#kt_select2_10').trigger("change");
-                                        console.log(valor);
+                                        
                                         
                                     });
                                 }
