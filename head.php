@@ -307,7 +307,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                     <div class="row">
                                                                         <label class="col-xl-3"></label>
                                                                         <div class="col-lg-9 col-xl-6">
-                                                                            <h3 class="kt-section__title kt-section__title-sm">Agregar servio a un grupo</h3>
+                                                                            <h3 class="kt-section__title kt-section__title-sm">Agregar servicio a un grupo</h3>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group row">
@@ -346,7 +346,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                         </div>
                                                                         <div id="form2" style="display: none;">
                                                                             <div class="form-group row">
-                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Seleciona el grupo</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Selecciona el grupo</label>
                                                                                 <div class="col-lg-9 col-xl-6">
                                                                                     <select class="form-control kt-selectpicker" name="id_grupo_servicio">
                                                                                         <option value="" style="display: none;">Seleccinar</option>
@@ -1319,23 +1319,30 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 var editnombregruposervicio=document.getElementsByName("editnombregruposervicio")[0].value;
                                 var editidgruposervicio=document.getElementsByName("editidgruposervicio")[0].value;
                                 var editrelacionservicios=$("select[name='editgruposervicios[]']").map(function(){return $(this).val();}).get();
-                                $.ajax({                        
-                                    type: "POST",                 
-                                    url: "funciones/editgruposervicios.php",     
-                                    data:{nombregrupo:editnombregruposervicio,servcios:editrelacionservicios,id_grupo:editidgruposervicio},
-                                    success:  function (response) {
-                                        alertify.set('notifier','position', 'botton-right');
-                                        alertify.success('<strong>¡Grupo de Servicios Actualizado!</strong>');
-                                        $("#editgruposervicio").modal("hide");
-                                        setInterval(function(){
-                                            location.reload();
-                                        },900)
-                                    },
-                                    error: function(xhr, status, err) {
-                                        alertify.set('notifier','position', 'botton-right');
-                                        alertify.error('<strong>Problemas con el servidor</strong>');
-                                    }
-                                });  
+                                if (editrelacionservicios.length>0) {
+
+                                    $.ajax({                        
+                                        type: "POST",                 
+                                        url: "funciones/editgruposervicios.php",     
+                                        data:{nombregrupo:editnombregruposervicio,servcios:editrelacionservicios,id_grupo:editidgruposervicio},
+                                        success:  function (response) {
+                                            alertify.set('notifier','position', 'botton-right');
+                                            alertify.success('<strong>¡Grupo de Servicios Actualizado!</strong>');
+                                            $("#editgruposervicio").modal("hide");
+                                            setInterval(function(){
+                                                location.reload();
+                                            },900)
+                                        },
+                                        error: function(xhr, status, err) {
+                                            alertify.set('notifier','position', 'botton-right');
+                                            alertify.error('<strong>Problemas con el servidor</strong>');
+                                        }
+                                    });
+
+                                }else{
+                                    alertify.set('notifier','position', 'botton-right');
+                                    alertify.error('<strong>El grupo de servicios no puedo quedar vacio</strong>');
+                                }  
                             }
                         </script>
                         <script>
