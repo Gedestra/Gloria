@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 06-02-2020 a las 18:09:36
+-- Tiempo de generación: 07-02-2020 a las 17:01:43
 -- Versión del servidor: 5.7.26
 -- Versión de PHP: 7.3.8
 
@@ -41,14 +41,12 @@ CREATE TABLE `actividades` (
 --
 
 INSERT INTO `actividades` (`id_actividad`, `nombre_actividad`, `fecha_hora_inicio`, `fecha_hora_termino`, `id_tipo_actividad`, `id_cliente`, `id_empleado`, `id_usuario`, `gcal_evento_id`, `sincronizar_actividad`, `id_transaccion`, `completado`, `confirmado`) VALUES
-(1, 'Llamada', '2020-02-19 11:30:00', '2020-02-19 11:45:00', 1, 4, 1, 1, NULL, NULL, NULL, 'No completado', 'Confirmada'),
-(2, 'test editar', '2020-02-05 12:00:00', '2020-02-05 14:00:00', 13, 4, 1, 1, NULL, NULL, NULL, 'No completado', 'No confirmada'),
-(3, 'limpiar sucursal', '2020-02-05 11:30:00', '2020-02-05 13:00:00', 23, 1, 5, 1, NULL, NULL, NULL, 'Completado', NULL),
-(4, 'Comprar', '2020-02-03 14:30:00', '2020-02-04 02:30:00', 22, 4, 1, 1, NULL, NULL, NULL, 'No completado', 'No confirmada'),
-(5, 'enviar correos', '2020-02-06 07:00:00', '2020-02-06 07:45:00', 13, 3, 7, 1, NULL, NULL, NULL, 'No completado', 'No confirmada'),
-(6, 'Enviar facturas', '2020-02-28 17:30:00', '2020-02-28 18:00:00', 4, 1, 1, 1, NULL, NULL, NULL, 'Completado', 'Confirmada'),
-(7, 'probando', '2020-02-05 11:45:00', '2020-02-05 12:15:00', 13, 3, 7, 1, NULL, NULL, NULL, 'No completado', 'No confirmada'),
-(8, 'tuerca', '2020-02-06 12:00:00', '2020-02-06 12:30:00', 24, 3, 1, 1, NULL, NULL, NULL, 'No completado', 'No confirmada');
+(1, 'Llamada', '2020-02-19 11:30:00', '2020-02-19 11:45:00', 2, 3, 6, 1, NULL, NULL, NULL, 'No completado', 'No confirmada'),
+(2, 'test editar', '2020-02-20 12:00:00', '2020-02-20 14:00:00', 13, 4, 1, 1, NULL, NULL, NULL, 'No completado', 'Confirmada'),
+(3, 'limpiar sucursal', '2020-02-05 11:30:00', '2020-02-05 13:00:00', 23, 1, 5, 1, NULL, NULL, NULL, 'No completado', NULL),
+(4, 'Comprar', '2020-02-03 14:30:00', '2020-02-04 02:30:00', 22, 4, 1, 1, NULL, NULL, NULL, 'No completado', 'Confirmada'),
+(5, 'enviar correos', '2020-02-05 20:15:00', '2020-02-05 21:00:00', 13, 3, 7, 1, NULL, NULL, NULL, 'No completado', 'No confirmada'),
+(6, 'Enviar facturas', '2020-02-28 17:30:00', '2020-02-28 18:00:00', 4, 1, 1, 1, NULL, NULL, NULL, 'No completado', 'Confirmada');
 
 -- --------------------------------------------------------
 
@@ -135,7 +133,7 @@ CREATE TABLE `grupo_servicio` (
 
 INSERT INTO `grupo_servicio` (`id_grupo_servicio`, `nombre_grupo_servicio`) VALUES
 (1, 'Pestañas'),
-(2, 'Aparotologia');
+(2, 'Aparotologias');
 
 -- --------------------------------------------------------
 
@@ -218,12 +216,10 @@ CREATE TABLE `relacion_servicio_grupo` (
 --
 
 INSERT INTO `relacion_servicio_grupo` (`id_relacion_servicio`, `id_servicio`, `id_grupo_servicio`) VALUES
-(1, 1, 1),
-(2, 2, 1),
-(3, 3, 2),
-(4, 4, 2),
-(5, 2, 2),
-(6, 3, 1);
+(30, 1, 2),
+(31, 5, 2),
+(40, 2, 1),
+(41, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -273,11 +269,12 @@ INSERT INTO `sms_relacion` (`id_relacion_sms`, `id_sms`, `id_tipo_actividad`, `e
 (18, 2, 22, 'Activo'),
 (19, 4, 22, 'Activo'),
 (27, 2, 12, 'Activo'),
-(28, 2, 1, 'Activo'),
-(29, 4, 1, 'Activo'),
 (30, 2, 23, 'Activo'),
 (31, 1, 23, 'Activo'),
-(32, 5, 24, 'Activo');
+(32, 5, 24, 'Activo'),
+(34, 2, 1, 'Activo'),
+(35, 4, 1, 'Activo'),
+(37, 1, 26, 'Activo');
 
 -- --------------------------------------------------------
 
@@ -335,6 +332,7 @@ CREATE TABLE `tipo_actividad` (
   `id_tipo_actividad` int(11) NOT NULL,
   `nombre_tipo_actividad` varchar(255) NOT NULL,
   `estatus` varchar(255) NOT NULL,
+  `confirmar` varchar(255) DEFAULT NULL,
   `sincronizar_tipo_actividad` varchar(255) NOT NULL,
   `id_icon` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -343,18 +341,20 @@ CREATE TABLE `tipo_actividad` (
 -- Volcado de datos para la tabla `tipo_actividad`
 --
 
-INSERT INTO `tipo_actividad` (`id_tipo_actividad`, `nombre_tipo_actividad`, `estatus`, `sincronizar_tipo_actividad`, `id_icon`) VALUES
-(1, 'Llamada', 'Activo', 'Activo', '3'),
-(2, 'Envio de correo', 'Inactivo', 'Inactivo', '2'),
-(3, 'Enviar sms', 'Activo', 'Activo', '2'),
-(4, 'Enviar facturas', 'Activo', 'Inactivo', '4'),
-(11, 'test 2', 'Inactivo', 'Inactivo', '5'),
-(12, 'test 3', 'Inactivo', 'Activo', '3'),
-(13, 'enviar correos', 'Activo', 'Activo', '2'),
-(14, 'llamar cliente', 'Activo', 'Inactivo', '3'),
-(22, 'Comprar', 'Activo', 'Inactivo', '5'),
-(23, 'tuerca', 'Activo', 'Inactivo', '8'),
-(24, 'test duracion', 'Activo', 'Activo', '10');
+INSERT INTO `tipo_actividad` (`id_tipo_actividad`, `nombre_tipo_actividad`, `estatus`, `confirmar`, `sincronizar_tipo_actividad`, `id_icon`) VALUES
+(1, 'Llamada', 'Activo', 'Confirmable', 'Activo', '3'),
+(2, 'Envio de correo', 'Inactivo', '', 'Inactivo', '2'),
+(3, 'Enviar sms', 'Activo', '', 'Activo', '2'),
+(4, 'Enviar facturas', 'Activo', 'Confirmable', 'Inactivo', '4'),
+(11, 'test 2', 'Inactivo', '', 'Inactivo', '5'),
+(12, 'test 3', 'Inactivo', '', 'Activo', '3'),
+(13, 'enviar correos', 'Activo', '', 'Activo', '2'),
+(14, 'llamar cliente', 'Activo', '', 'Inactivo', '3'),
+(22, 'Comprar', 'Activo', 'Confirmable', 'Inactivo', '5'),
+(23, 'tuerca', 'Activo', '', 'Inactivo', '8'),
+(24, 'test duracion', 'Activo', '', 'Activo', '10'),
+(25, 'test confirmable', 'Activo', 'No confirmable', 'Inactivo', '7'),
+(26, 'test de no confirmable', 'Inactivo', 'Confirmable', 'Activo', '9');
 
 -- --------------------------------------------------------
 
@@ -486,7 +486,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `actividades`
 --
 ALTER TABLE `actividades`
-  MODIFY `id_actividad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_actividad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
@@ -528,7 +528,7 @@ ALTER TABLE `razon_perdido`
 -- AUTO_INCREMENT de la tabla `relacion_servicio_grupo`
 --
 ALTER TABLE `relacion_servicio_grupo`
-  MODIFY `id_relacion_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_relacion_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `servicios`
@@ -540,7 +540,7 @@ ALTER TABLE `servicios`
 -- AUTO_INCREMENT de la tabla `sms_relacion`
 --
 ALTER TABLE `sms_relacion`
-  MODIFY `id_relacion_sms` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_relacion_sms` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de la tabla `sms_tipo`
@@ -558,7 +558,7 @@ ALTER TABLE `sucursales`
 -- AUTO_INCREMENT de la tabla `tipo_actividad`
 --
 ALTER TABLE `tipo_actividad`
-  MODIFY `id_tipo_actividad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_tipo_actividad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
