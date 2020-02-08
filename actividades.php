@@ -651,8 +651,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
         } );
     } );
-    function agregaform(datos){
-        d=datos.split('||');
+    //function agregaform(datos){
+      //  console.log("Hola mundo!");
+        /*d=datos.split('||');
         $('#upusername').val(d[0]);
         $('#acticlinom').text(d[1]);
         $('#acticlitel').text(d[4]);
@@ -664,8 +665,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
         boton.id = 'btnshowclivi';
         boton.setAttribute('target', '_blank');
         $('#btnshowclie').empty();
-        lugar=document.getElementById('btnshowclie').appendChild(boton);
-    }
+        lugar=document.getElementById('btnshowclie').appendChild(boton);*/
+    //}
 
     function modaladdactiviti(response){
 

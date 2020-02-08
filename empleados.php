@@ -53,15 +53,16 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 <!-- begin::Body -->
 <body >
 	<?php include("head.php"); 
-	if ($_GET['empleado']=='update') {
+	/*if ($_GET['empleado']=='update') {
 		echo "<script>alertify.set('notifier','position', 'botton-right');
 		alertify.success('<strong>Empleado Actualizado!</strong>');</script>";
 	}else if($_GET['empleado']=='add'){
 		echo "<script>alertify.set('notifier','position', 'botton-right');
 		alertify.success('<strong>¡Empleado Agregado!</strong>');</script>";
-	} 
+	}*/ 
 
 	?>
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 	<!-- end:: Header -->
 	<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
 		<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
@@ -111,17 +112,37 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 						</div>
 					</div>
 				</div>
-				<div style="display: flex; justify-content: center; align-items: center; flex-direction: row; margin: 5px;">
-					<form action="" method="POST">
-						<select name="filtrado" id="todos">
-							<option value="*">Todos</option>
-							<option value="Activos">Activos</option>
-							<option value="Inactivos">Inactivos</option>
+				
+				<!--<form action="" method="POST">
+					<select name="filtrado" id="todos">
+						<option value="*">Todos</option>
+						<option value="Activos">Activos</option>
+						<option value="Inactivos">Inactivos</option>
+					</select>
+					<button type="submit">Filtrar</button>
+				</form>-->
+				<div class="row">
+					<div class="col-4" style="margin-left:15px;">
+						<span class="col-12 row">Filtrar por sucursal</span>
+						<select class="col-8 form-control kt-select2 select2-hidden-accessible" id="kt_select2_1" name="param" data-select2-id="kt_select2_1" tabindex="-1" aria-hidden="true">
 						</select>
-						<button type="submit">Filtrar</button>
-					</form>
+						<button onclick="filterByValue()" class="btn btn-secondary">aplicar</button>
+					</div>
+						<script src="js/empleadostable.filtro.js"></script>
+					<div class="col-6"></div>
+					<div class="col-2" style="margin-left:-15px;">
+						<span class="col-12">Filtrar por activos</span>
+						<span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success col-12">
+							<label>
+								<input type="checkbox" id="filtroActividad">
+								<span></span>
+							</label>
+						</span>
+					</div>
 				</div>
+				<script src="assets/js/pages/crud/forms/widgets/select2.js" type="text/javascript"></script>
 				<div class="kt-portlet__body">
+					
 					<!--begin: Datatable -->
 					<table class="table table-bordered table-hover" id="example">
 						<thead>
@@ -134,88 +155,24 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 								<th>Acciones</th>
 							</tr>
 						</thead>
-						<tbody>
-							<?php 
-							include("funciones/conexion.php");
-							$conexion->query("SET NAMES 'utf8'");
-							$filtro=$_POST['filtrado'];
-							if ($filtro=="*") {
-								$query = "SELECT * FROM empleados WHERE estatus='Activo' OR estatus='Inactivo' ORDER BY estatus ASC";
-								echo "<script>
-								$('#todos').val('*');
-								</script>";
-							}else if ($filtro=='Activos') {
-								$query = "SELECT * FROM empleados WHERE estatus='Activo'";
-								echo "<script>
-								$('#todos').val('Activos');
-								</script>";
-							}else if ($filtro=='Inactivos') {
-								$query = "SELECT * FROM empleados WHERE estatus='Inactivo'";
-								echo "<script>
-								$('#todos').val('Inactivos');
-								</script>";
-							}else{
-								$query = "SELECT * FROM empleados WHERE estatus='Activo'";
-								echo "<script>
-								$('#todos').val('Activos');
-								</script>";
-							}
-							$resultado=$conexion->query($query);
-							while ($row=$resultado->fetch_assoc()) {
-								$fecha_nacimiento_cumple=strtotime($row['fecha_nacimiento']);
-								$mes = date("m", $fecha_nacimiento_cumple);
-								
-								$cumple=$mes;
-								$fechaActual = strtotime(date('d-m-Y'));
-								$mesactual = date("m", $fechaActual);
-								$compara=$mesactual;
-								$sucursal=$row['id_sucursal'];
-								$query3 = "SELECT nombre FROM sucursales WHERE id_sucursal='$sucursal'";
-								$resultado3=$conexion->query($query3);
-								$row2=$resultado3->fetch_assoc();
-								$datos=$row['id_empleado']."||".$row['nombre']."||".$row['apellidos']."||".$row['correo']."||".$row['telefono']."||".$row['sexo']."||".$row['fecha_nacimiento']."||".$row['escolaridad']."||".$row['estado_civil']."||".$row['numero_hijos']."||".$row['fecha_ingreso']."||".$row['numero_imss']."||".$row['curp']."||".$row['rfc']."||".$row['puesto']."||".$row['estatus']."||".$row['id_sucursal']."||".$row2['nombre']."||".$cumple;
-								?>
-								<tr>
-									<td><a class="dropdown-item" href="#" onclick="agregaform('<?php echo $datos ?>')" data-toggle="modal" data-target="#kt_modal_5"><?php 
-									if ($cumple==$compara) {
-										echo "<i class='la la-birthday-cake fa-1x' style='color: #1dc9b7'></i> ";
-										$cumple="Activo";
-									}else{
-										$cumple="Inactivo";
-									}
-									echo $row['nombre'].' '.$row['apellidos']; ?></a></td>
-									<td><?php echo $row['correo']; ?></td>
-									<td><?php echo $row['telefono']; ?></td>
-									<td><?php echo $row2['nombre']; ?></td>
-									<td><?php if($row['estatus']=='Activo'){
-										echo "<span class='btn btn-bold btn-sm btn-font-sm  btn-label-success'>Activo</span>";
-									}else{
-										echo "<span class='btn btn-bold btn-sm btn-font-sm  btn-label-danger'>Inactivo</span>";
-									} ?></td>
-									<td>
-										<div class="btn-group" role="group">
-											<div class="btn-group" role="group">
-												<a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="la la-ellipsis-h"></i></a>
-												<div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
-													<a class="dropdown-item" href="#" onclick="agregaform('<?php echo $datos ?>')" data-toggle="modal" data-target="#kt_modal_5"><i class="la la-eye"></i>Ver detalles</a>
-													<a class="dropdown-item" href="#" onclick="editarform('<?php echo $datos ?>')" data-toggle="modal" data-target="#kt_modal_4"><i class="la la-edit"></i>Editar Empleado</a>
-												</div>
-											</div>
-										</div>
-									</td>
-								</tr>
-							<?php } ?>
+						<tbody id="tableBody">
+							
+							<script src="js/empleados.table.js"></script>
+							
+							<?php
+							//include("empleados.table.php");
+							?>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 		<?php include("menu.php"); ?>
-		
 	</div>
 </div>
 </div>
 </div>
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 <!--begin::Modal-->
 <div class="modal fade" id="kt_modal_7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
@@ -698,77 +655,6 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
 					} );
 				} );
-			</script>
-			<script>
-				function agregaform(datos){
-					d=datos.split('||');
-					$('#nombre').text(d[1]);
-					$('#puesto').text(d[14]);
-					$('#correo').text(d[3]);
-					$('#telefono').text(d[4]);
-					$('#sexo').text(d[5]);
-					$('#fecha_nacimiento').text(d[6]);
-					$('#escolaridad').text(d[7]);
-					$('#estado_civil').text(d[8]);
-					$('#numero_hijos').text(d[9]);
-					$('#fecha_ingreso').text(d[10]);
-					$('#numero_imss').text(d[11]);
-					$('#curp').text(d[12]);
-					$('#rfc').text(d[13]);
-					$('#id_sucursal').text(d[17]);
-					if (d[15]=="Activo") {
-						$("#verestatus").empty();
-						var parrafo = document.createElement("span");
-						var contenido = document.createTextNode("Activo");
-						var mostrar=parrafo.appendChild(contenido);
-						document.body.appendChild(parrafo);
-						var contenedor = document.getElementById("verestatus");
-						contenedor.appendChild(parrafo);
-						$('#verestatus').removeClass( "btn btn-bold btn-sm btn-font-sm  btn-label-danger" ).addClass( "btn btn-bold btn-sm btn-font-sm  btn-label-success" );
-					}else{
-						$("#verestatus").empty();
-						var parrafo = document.createElement("span");
-						var contenido = document.createTextNode("Inactivo");
-						var mostrar=parrafo.appendChild(contenido);
-						document.body.appendChild(parrafo);
-						var contenedor = document.getElementById("verestatus");
-						contenedor.appendChild(parrafo);
-						$('#verestatus').removeClass( "btn btn-bold btn-sm btn-font-sm  btn-label-success" ).addClass( "btn btn-bold btn-sm btn-font-sm  btn-label-danger" );
-					}
-					if (d[18]=="Activo") {
-						$("#iconcumple").empty();
-						$("#iconcumple").show();
-						var parrafo = document.createElement("i");
-						var contenido = document.createTextNode("");
-						var mostrar=parrafo.appendChild(contenido);
-						document.body.appendChild(parrafo);
-						var contenedor = document.getElementById("iconcumple");
-						contenedor.appendChild(parrafo);
-						$('#iconcumple').addClass('la la-birthday-cake fa-2x');
-						$('#iconcumple').css('color', '#1dc9b7')
-						confetti.start(3000);
-					}else{
-						$("#iconcumple").empty();
-						$("#iconcumple").hide();
-					}
-				}
-			</script>
-			<script>
-				function editarform(datos){
-					d=datos.split('||');
-					$('#id_empleado').val(d[0]);
-					$('#upnombre').val(d[1]);
-					$('#upapellido').val(d[2]);
-					$('#upcorreo').val(d[3]);
-					$('#uptelefono').val(d[4]);
-					$('#uppuesto').val(d[14]);
-					$('#upsucursal').val(d[16]);
-					if (d[15]=="Activo") {
-						$("#upestatus").prop("checked", true);
-					}else{
-						$("#upestatus").prop("checked", false);
-					}
-				}
 			</script>
 		</body>				
 		<!-- end::Body -->
