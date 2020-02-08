@@ -1,4 +1,6 @@
 var HTMLtable = document.getElementById("tableBody");
+var contentTable;
+
 var table = $.ajax({
     type : "GET",
     url : "funciones/empleados.table.php",
@@ -10,6 +12,9 @@ var table = $.ajax({
         console.error(err);     
     }
 });
+
+//var activeFiltro = document.getElementById("activeFilter");
+//activeFiltro.setAttribute("checked",false);
 
 function createTable(res){
     
@@ -65,8 +70,7 @@ function createTable(res){
         sub_menu1.setAttribute('href','#');
         sub_menu1.setAttribute('data-toggle','modal');
         sub_menu1.setAttribute('data-target','#kt_modal_5');
-        sub_menu1.setAttribute('onclick', agregaform());
-        sub_menu1.addEventListener('click', agregaform());
+        sub_menu1.setAttribute('onclick', 'agregaform()');
         let sub_icon1 = document.createElement('i');
         sub_icon1.setAttribute( 'class','la la-eye');
         sub_menu1.appendChild(sub_icon1);
@@ -80,8 +84,7 @@ function createTable(res){
         sub_menu2.setAttribute('href','#');
         sub_menu2.setAttribute('data-toggle','modal');
         sub_menu2.setAttribute('data-target','#kt_modal_5');
-        sub_menu2.setAttribute('onclick', editarform());
-        sub_menu2.addEventListener('click', editarform());
+        sub_menu2.setAttribute('onclick', 'editarform()');
         let sub_icon2 = document.createElement('i');
         sub_icon2.setAttribute( 'class','la la-edit');
         sub_menu2.appendChild(sub_icon2);
@@ -100,85 +103,75 @@ function createTable(res){
         row.appendChild(acciones);
         HTMLtable.appendChild(row);
     })
-
-    function agregaform(){
-        console.log("Hola! desde ver form")
-        /*d=datos.split('||');
-        $('#upusername').val(d[0]);
-        $('#acticlinom').text(d[1]);
-        $('#acticlitel').text(d[4]);
-        $('#acticlicor').text(d[3]);
-        var boton = document.createElement('a');
-        boton.text = 'Ver Detalles';
-        boton.href = "showcliente.php?cliente="+d[0];
-        boton.className = 'btn btn-success btn-sm';
-        boton.id = 'btnshowclivi';
-        boton.setAttribute('target', '_blank');
-        $('#btnshowclie').empty();
-        lugar=document.getElementById('btnshowclie').appendChild(boton);*/
-    }
-
-    function editarform(){
-        console.log("Hola desde edicion")
-    }
-
-    /*for(let i = 0; i<100; i++){
-        let row = document.createElement('tr');
-        row.setAttribute('id','row1');
-        
-        for(let i=0; i<6; i++){
-            let data = document.createElement('td');
-            data.innerHTML = "lorem";
-            row.appendChild(data);
-        }
-        
-        HTMLtable.appendChild(row);
-    }*/
-
-    /*res.forEach(element => {
-        rowCounter++;
-        
-        dataTable.push("<tr>" + "<td>" + element[0] + "</td>" + 
-                        "<td>" + element[1] + "</td>" 
-                        + "<td>" + element[2] + "</td>" +
-                        "<td>" + element[3] + "</td>" +
-                        "<td>" + element[4] + "</td>"
-                        + "</tr>")
-    });*/
-
-    //let print = "";
-    //dataTable.forEach(element => print = print + element);
-
-    //HTMLtable.innerHTML = print;
 }
 
-/*var content = [
-    {
-        message: "hello",
-        content: "hello world!"
-    },
-    {
-        message: "with love",
-        content: "with love from me to you"
-    },
-    {
-        message: "can't buy me love!",
-        content: "can't buy me love! can't buy me love!"
-    },
-    {
-        message: "help!",
-        content: "i need somebody, help!"
-    },
-];
+function agregaform(datos){
+    console.log("Hola mundo!");
+    /*d=datos.split('||');
+    $('#nombre').text(d[1]);
+    $('#puesto').text(d[14]);
+    $('#correo').text(d[3]);
+    $('#telefono').text(d[4]);
+    $('#sexo').text(d[5]);
+    $('#fecha_nacimiento').text(d[6]);
+    $('#escolaridad').text(d[7]);
+    $('#estado_civil').text(d[8]);
+    $('#numero_hijos').text(d[9]);
+    $('#fecha_ingreso').text(d[10]);
+    $('#numero_imss').text(d[11]);
+    $('#curp').text(d[12]);
+    $('#rfc').text(d[13]);
+    $('#id_sucursal').text(d[17]);
+    if (d[15]=="Activo") {
+        $("#verestatus").empty();
+        var parrafo = document.createElement("span");
+        var contenido = document.createTextNode("Activo");
+        var mostrar=parrafo.appendChild(contenido);
+        document.body.appendChild(parrafo);
+        var contenedor = document.getElementById("verestatus");
+        contenedor.appendChild(parrafo);
+        $('#verestatus').removeClass( "btn btn-bold btn-sm btn-font-sm  btn-label-danger" ).addClass( "btn btn-bold btn-sm btn-font-sm  btn-label-success" );
+    }else{
+        $("#verestatus").empty();
+        var parrafo = document.createElement("span");
+        var contenido = document.createTextNode("Inactivo");
+        var mostrar=parrafo.appendChild(contenido);
+        document.body.appendChild(parrafo);
+        var contenedor = document.getElementById("verestatus");
+        contenedor.appendChild(parrafo);
+        $('#verestatus').removeClass( "btn btn-bold btn-sm btn-font-sm  btn-label-success" ).addClass( "btn btn-bold btn-sm btn-font-sm  btn-label-danger" );
+    }
+    if (d[18]=="Activo") {
+        $("#iconcumple").empty();
+        $("#iconcumple").show();
+        var parrafo = document.createElement("i");
+        var contenido = document.createTextNode("");
+        var mostrar=parrafo.appendChild(contenido);
+        document.body.appendChild(parrafo);
+        var contenedor = document.getElementById("iconcumple");
+        contenedor.appendChild(parrafo);
+        $('#iconcumple').addClass('la la-birthday-cake fa-2x');
+        $('#iconcumple').css('color', '#1dc9b7')
+        confetti.start(3000);
+    }else{
+        $("#iconcumple").empty();
+        $("#iconcumple").hide();
+    }*/
+}
 
-let datatable = [];
-content.forEach(element => {
-    datatable.push("<tr>" + "<td>" + element.message + "</td>" + "<td>" + element.content + "</td>" + "</tr>");
-})
-
-let print = ""; 
-datatable.forEach(element => {
-    print = print + element;
-});
-
-table.innerHTML = print;*/
+function editarform(datos){
+    console.log("Hola mundo! desde edicion!");
+    /*d=datos.split('||');
+    $('#id_empleado').val(d[0]);
+    $('#upnombre').val(d[1]);
+    $('#upapellido').val(d[2]);
+    $('#upcorreo').val(d[3]);
+    $('#uptelefono').val(d[4]);
+    $('#uppuesto').val(d[14]);
+    $('#upsucursal').val(d[16]);
+    if (d[15]=="Activo") {
+        $("#upestatus").prop("checked", true);
+    }else{
+        $("#upestatus").prop("checked", false);
+    }*/
+}

@@ -112,18 +112,35 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 						</div>
 					</div>
 				</div>
-				<div style="display: flex; justify-content: center; align-items: center; flex-direction: row; margin: 5px;">
-					<!--<form action="" method="POST">
-						<select name="filtrado" id="todos">
-							<option value="*">Todos</option>
-							<option value="Activos">Activos</option>
-							<option value="Inactivos">Inactivos</option>
+				
+				<!--<form action="" method="POST">
+					<select name="filtrado" id="todos">
+						<option value="*">Todos</option>
+						<option value="Activos">Activos</option>
+						<option value="Inactivos">Inactivos</option>
+					</select>
+					<button type="submit">Filtrar</button>
+				</form>-->
+				<div class="row">
+					<div class="col-4" style="margin-left:15px;">
+						<span class="col-12 row">Filtrar por sucursal</span>
+						<select class="col-8 form-control kt-select2 select2-hidden-accessible" id="kt_select2_1" name="param" data-select2-id="kt_select2_1" tabindex="-1" aria-hidden="true">
 						</select>
-						<button type="submit">Filtrar</button>
-					</form>-->
-					
-					
+						<button onclick="filterByValue()" class="btn btn-secondary">aplicar</button>
+					</div>
+						<script src="js/empleadostable.filtro.js"></script>
+					<div class="col-6"></div>
+					<div class="col-2" style="margin-left:-15px;">
+						<span class="col-12">Filtrar por activos</span>
+						<span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success col-12">
+							<label>
+								<input type="checkbox" id="filtroActividad">
+								<span></span>
+							</label>
+						</span>
+					</div>
 				</div>
+				<script src="assets/js/pages/crud/forms/widgets/select2.js" type="text/javascript"></script>
 				<div class="kt-portlet__body">
 					
 					<!--begin: Datatable -->
@@ -638,77 +655,6 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
 					} );
 				} );
-			</script>
-			<script>
-				function agregaform(datos){
-					d=datos.split('||');
-					$('#nombre').text(d[1]);
-					$('#puesto').text(d[14]);
-					$('#correo').text(d[3]);
-					$('#telefono').text(d[4]);
-					$('#sexo').text(d[5]);
-					$('#fecha_nacimiento').text(d[6]);
-					$('#escolaridad').text(d[7]);
-					$('#estado_civil').text(d[8]);
-					$('#numero_hijos').text(d[9]);
-					$('#fecha_ingreso').text(d[10]);
-					$('#numero_imss').text(d[11]);
-					$('#curp').text(d[12]);
-					$('#rfc').text(d[13]);
-					$('#id_sucursal').text(d[17]);
-					if (d[15]=="Activo") {
-						$("#verestatus").empty();
-						var parrafo = document.createElement("span");
-						var contenido = document.createTextNode("Activo");
-						var mostrar=parrafo.appendChild(contenido);
-						document.body.appendChild(parrafo);
-						var contenedor = document.getElementById("verestatus");
-						contenedor.appendChild(parrafo);
-						$('#verestatus').removeClass( "btn btn-bold btn-sm btn-font-sm  btn-label-danger" ).addClass( "btn btn-bold btn-sm btn-font-sm  btn-label-success" );
-					}else{
-						$("#verestatus").empty();
-						var parrafo = document.createElement("span");
-						var contenido = document.createTextNode("Inactivo");
-						var mostrar=parrafo.appendChild(contenido);
-						document.body.appendChild(parrafo);
-						var contenedor = document.getElementById("verestatus");
-						contenedor.appendChild(parrafo);
-						$('#verestatus').removeClass( "btn btn-bold btn-sm btn-font-sm  btn-label-success" ).addClass( "btn btn-bold btn-sm btn-font-sm  btn-label-danger" );
-					}
-					if (d[18]=="Activo") {
-						$("#iconcumple").empty();
-						$("#iconcumple").show();
-						var parrafo = document.createElement("i");
-						var contenido = document.createTextNode("");
-						var mostrar=parrafo.appendChild(contenido);
-						document.body.appendChild(parrafo);
-						var contenedor = document.getElementById("iconcumple");
-						contenedor.appendChild(parrafo);
-						$('#iconcumple').addClass('la la-birthday-cake fa-2x');
-						$('#iconcumple').css('color', '#1dc9b7')
-						confetti.start(3000);
-					}else{
-						$("#iconcumple").empty();
-						$("#iconcumple").hide();
-					}
-				}
-			</script>
-			<script>
-				function editarform(datos){
-					d=datos.split('||');
-					$('#id_empleado').val(d[0]);
-					$('#upnombre').val(d[1]);
-					$('#upapellido').val(d[2]);
-					$('#upcorreo').val(d[3]);
-					$('#uptelefono').val(d[4]);
-					$('#uppuesto').val(d[14]);
-					$('#upsucursal').val(d[16]);
-					if (d[15]=="Activo") {
-						$("#upestatus").prop("checked", true);
-					}else{
-						$("#upestatus").prop("checked", false);
-					}
-				}
 			</script>
 		</body>				
 		<!-- end::Body -->
