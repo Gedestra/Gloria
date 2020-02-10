@@ -124,9 +124,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 				<div class="row">
 					<div class="col-4" style="margin-left:15px;">
 						<span class="col-12 row">Filtrar por sucursal</span>
-						<select class="col-8 form-control kt-select2 select2-hidden-accessible" id="kt_select2_1" name="param" data-select2-id="kt_select2_1" tabindex="-1" aria-hidden="true">
+						<select class="col-8 form-control kt-select2 select2-hidden-accessible" id="kt_select2_1" name="param" data-select2-id="kt_select2_1" tabindex="-1" aria-hidden="true" onchange="filterByValue()">
 						</select>
-						<button onclick="filterByValue()" class="btn btn-secondary">aplicar</button>
+						<!--<button onclick="filterByValue()" class="btn btn-secondary">aplicar</button>-->
 					</div>
 						<script src="js/empleadostable.filtro.js"></script>
 					<div class="col-6"></div>
