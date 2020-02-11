@@ -55,10 +55,13 @@ function printTable(content){
     let contadorEmpleados = 0;
     if(content.length == 0){
         let row = document.createElement('tr');
-        row.style.textAlign = "center";
-        row.style.color = "red";
-        row.innerHTML = "sin resultados";
+        let data = document.createElement('td');
+        data.setAttribute('colspan','6');
+        data.style.textAlign = "center";
+        data.style.color = "red";
+        data.innerHTML = "sin resultados";
         HTMLtable.innerHTML = "";
+        row.appendChild(data);
         HTMLtable.appendChild(row);
     }else{
         content.forEach(empleado => {
