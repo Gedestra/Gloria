@@ -4,6 +4,7 @@
     $empleados = array();
     //$query = "SELECT s.nombre as nombre_sucursal, e.nombre as nombre_cliente, e.correo  FROM empleados AS e INNER JOIN sucursales AS s ON e.id_sucursal = s.id_sucursal ";
     $query = "SELECT 
+        e.id_empleado as id,
         e.nombre as nombre_empleado,
         e.apellidos as apellido,
         e.correo as correo,
@@ -22,7 +23,8 @@
           $correo = $res['correo'],
           $telefono = $res['telefono'],
           $sucursal = $res['nombre_sucursal'],
-          $estatus = $res['estatus']
+          $estatus = $res['estatus'],
+          $id = $res['id']
       );
 
       //echo $res['apellido'];
