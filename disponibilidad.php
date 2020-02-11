@@ -63,15 +63,15 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         </div>
                         <div class="kt-portlet__body">
                             <div id="kt_calendar_external_events" class="fc-unthemed">
-                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--primary kt-badge--inline kt-margin-b-15' data-color="fc-event-primary">Meeting</div><br>
-                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--brand kt-badge--inline kt-margin-b-15' data-color="fc-event-brand">Conference Call</div><br>
-                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--success kt-badge--inline kt-margin-b-15' data-color="fc-event-success">Dinner</div><br>
-                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--warning kt-badge--inline kt-margin-b-15' data-color="fc-event-warning">Product Launch</div><br>
-                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--danger kt-badge--inline kt-margin-b-15' data-color="fc-event-danger">Reporting</div><br>
+                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--primary kt-badge--inline kt-margin-b-15' data-color="fc-event-primary">Gloria Lilia</div><br>
+                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--brand kt-badge--inline kt-margin-b-15' data-color="fc-event-brand">Jorge Luis</div><br>
+                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--success kt-badge--inline kt-margin-b-15' data-color="fc-event-success">test nombre</div><br>
+                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--warning kt-badge--inline kt-margin-b-15' data-color="fc-event-warning">Patricia Martinez</div><br>
+                                <!-- <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--danger kt-badge--inline kt-margin-b-15' data-color="fc-event-danger">Reporting</div><br> -->
                                 <div class="kt-separator kt-separator--border-dashed kt-separator--space-md"></div>
-                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--success kt-badge--inline kt-margin-b-15' data-color="fc-event-success">Project Update</div><br>
-                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--info kt-badge--inline kt-margin-b-15' data-color="fc-event-info">Staff Meeting</div><br>
-                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--dark kt-badge--inline kt-margin-b-15' data-color="fc-event-dark">Lunch</div>
+                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--danger kt-badge--inline kt-margin-b-15' data-color="fc-event-danger">Sucursal 1</div><br>
+                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--info kt-badge--inline kt-margin-b-15' data-color="fc-event-info">Sucursal 2</div><br>
+                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--dark kt-badge--inline kt-margin-b-15' data-color="fc-event-dark">Plaza Aleman</div>
                                 <div class="kt-separator kt-separator--border-dashed kt-separator--space-md"></div>
                                 <div>
                                     <label class="kt-checkbox kt-checkbox--brand">
