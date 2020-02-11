@@ -86,6 +86,7 @@ function printTable(content){
     
             //-----------------------------------------acciones table data------------------------------------------------------------------------
             let acciones = document.createElement('td');
+            acciones.setAttribute('id','acciones'+contadorEmpleados);
     
             let btn_group = document.createElement('div');
             btn_group.setAttribute('class', 'btn-group');
@@ -111,7 +112,7 @@ function printTable(content){
             sub_menu1.setAttribute('href','#');
             sub_menu1.setAttribute('data-toggle','modal');
             sub_menu1.setAttribute('data-target','#kt_modal_5');
-            sub_menu1.setAttribute('onclick', 'agregaform()');
+            sub_menu1.setAttribute('onclick', 'agregaform('+'empleado'+contadorEmpleados+')');
             let sub_icon1 = document.createElement('i');
             sub_icon1.setAttribute( 'class','la la-eye');
             sub_menu1.appendChild(sub_icon1);
@@ -124,8 +125,8 @@ function printTable(content){
             sub_menu2.setAttribute('class','dropdown-item');
             sub_menu2.setAttribute('href','#');
             sub_menu2.setAttribute('data-toggle','modal');
-            sub_menu2.setAttribute('data-target','#kt_modal_5');
-            sub_menu2.setAttribute('onclick', 'editarform()');
+            sub_menu2.setAttribute('data-target','#kt_modal_4');
+            sub_menu2.setAttribute('onclick', 'editarform('+'empleado'+contadorEmpleados+')');
             let sub_icon2 = document.createElement('i');
             sub_icon2.setAttribute( 'class','la la-edit');
             sub_menu2.appendChild(sub_icon2);
