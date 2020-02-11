@@ -168,7 +168,7 @@ async function agregaform(item){
         }
     })
 
-    $('#nombre').text(empleado.nombre+ " " + empleado.apellido);
+    $('#nombre').text(empleado.nombre_empleado + " " + empleado.apellido);
     $('#puesto').text(empleado.puesto);
     $('#correo').text(empleado.correo);
     $('#telefono').text(empleado.telefono);
