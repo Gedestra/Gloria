@@ -24,6 +24,7 @@ var table = $.ajax({
     }
 });
 var empleado;
+var sucursales = [];
 
 function createTable(res){
     res = JSON.parse(res);
@@ -168,7 +169,7 @@ async function agregaform(item){
         }
     })
 
-    $('#nombre').text(empleado.nombre+ " " + empleado.apellido);
+    $('#nombre').text(empleado.nombre_empleado + " " + empleado.apellido);
     $('#puesto').text(empleado.puesto);
     $('#correo').text(empleado.correo);
     $('#telefono').text(empleado.telefono);
@@ -221,7 +222,7 @@ async function agregaform(item){
 }
 
 async function editarform(item){
-
+    
     let nombre = item.childNodes[0].innerHTML;
     let empleadoAuxiliar;
     
@@ -248,8 +249,30 @@ async function editarform(item){
             console.error(err);     
         }
     })
+    
+    if(this.sucursales.length == 0){
+        await $.ajax({
+            type: "GET",
+            url : "funciones/getsucursales.php",
+            success: res => {
+                res = JSON.parse(res);
+                res.forEach(element => {
+                    let sucursal = document.createElement('option');
+                    sucursal.setAttribute('value',element.id_sucursal);
+                    sucursal.innerHTML = element.nombre;
+                    this.sucursales.push(sucursal);
+                })
+                sucursales.forEach(element => {
+                    $('#upsucursal').append(element);
+                })
+            },
+            error : err => {
+                console.error(err);
+            }
+        });
+    }
 
-    console.log(this.empleado);
+    //console.log(this.empleado);
     $('#id_empleado').val(empleado.id);
     $('#upnombre').val(empleado.nombre_empleado);
     $('#upapellido').val(empleado.apellido);

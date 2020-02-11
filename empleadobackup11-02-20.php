@@ -390,6 +390,14 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 							<label for="" class="col-2 col-form-label">Sucursal</label>
 							<div class="col-10">
 								<select class="form-control kt-selectpicker" name="sucursal" id="upsucursal" required>
+									<?php 
+									$query = "SELECT * FROM sucursales WHERE estatus='Activo'";
+									$resultado=$conexion->query($query);
+									while ($row3=$resultado->fetch_assoc()) {
+										?>
+										<option value="<?php echo $row3['id_sucursal']; ?>"><?php echo $row3['nombre']; ?></option><?php 
+									}
+									?>
 								</select>
 							</div>
 						</div>
@@ -399,9 +407,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					<button type="button" class="btn btn-primary" onclick="updateEmployee()" data-dismiss="modal">Guardar</button>
+					<button type="button" class="btn btn-primary">Guardar</button>
 				</div>
-				<script src="js/empleado.edit.js"></script>
 			<!--</form>-->
 			</div>
 		</div>
