@@ -93,6 +93,10 @@
   /*! no static exports found */
   /***/ (function(module, exports, __webpack_require__) {
 
+  	
+  	var data;
+
+
   	var KTCalendarExternalEvents = function() {    
   		var initExternalEvents = function() {
   			$('#kt_calendar_external_events .fc-draggable-handle').each(function() {
@@ -106,23 +110,63 @@
         });
   		}    
   		var initCalendar = function() {
+
   			var todayDate = moment().startOf('day');
+  			var momentoActual = new Date()
+  			var hora = momentoActual.getHours()
+  			var minuto = momentoActual.getMinutes()
+  			var segundo = momentoActual.getSeconds()
+  			if ((hora >= 0)&&(hora <= 9)){ 
+  				var horas="0"+hora; 
+  			}
+
+  			if ((minuto >= 0)&&(minuto <= 9)){ 
+  				minuto="0"+minuto; 
+  			}
+
+  			if ((segundo >= 0)&&(segundo <= 9)){ 
+  				segundo="0"+segundo; 
+  			}
+  			var horaImprimible = hora+":"+minuto+":00";
   			var YM = todayDate.format('YYYY-MM');
   			var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');
   			var TODAY = todayDate.format('YYYY-MM-DD');
   			var TOMORROW = todayDate.clone().add(1, 'day').format('YYYY-MM-DD');        
   			var calendarEl = document.getElementById('kt_calendar');
   			var containerEl = document.getElementById('kt_calendar_external_events');        
-  			var Draggable = FullCalendarInteraction.Draggable;        
+  			var Draggable = FullCalendarInteraction.Draggable;  
+  			
   			new Draggable(containerEl, 
   			{
   				itemSelector: '.fc-draggable-handle',
   				eventData: function(eventEl) {
   					return $(eventEl).data('event');
   				}   
-  			});        
+  			});
+  			
+  			
+  			var table = $.ajax({
+  				type : "GET",
+  				url : "funciones/actividades.calendario.php",
+  				success : res => {
+  					res = JSON.parse(res);
+  					res.forEach(element => {
+  						data = {
+  							actividad: element[0],
+  							nombreEmpleado: element[1],
+  							apellidoEmpleado: element[2]
+  						}
+  						console.log(data.actividad);
+  					})
+  				},
+  				error : err => {
+  					console.error(err);     
+  				}
+  			});    
+  			
   			var calendar = new FullCalendar.Calendar(calendarEl, {
-  				plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],            isRTL: KTUtil.isRTL(),
+  				plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],            
+  				isRTL: KTUtil.isRTL(),
   				header: {
   					left: 'prev,next today',
   					center: 'title',
@@ -130,14 +174,15 @@
   				},    
   				height: 800,
   				contentHeight: 780,
-            aspectRatio: 3,  // see: https://fullcalendar.io/docs/aspectRatio            nowIndicator: true,
-            now: TODAY + 'T09:25:00', // just for demo            
+            aspectRatio: 3,  // see: https://fullcalendar.io/docs/aspectRatio            
+            nowIndicator: true,
+            now: TODAY + 'T'+ horaImprimible, // just for demo            
             views: {
-            	dayGridMonth: { buttonText: 'month' },
-            	timeGridWeek: { buttonText: 'week' },
-            	timeGridDay: { buttonText: 'day' }
+            	dayGridMonth: { buttonText: 'Mes' },
+            	timeGridWeek: { buttonText: 'Semana' },
+            	timeGridDay: { buttonText: 'día' }
             },            
-            defaultView: 'dayGridMonth',
+            defaultView: 'timeGridWeek',
             defaultDate: TODAY,            
             droppable: true, // this allows things to be dropped onto the calendar
             editable: true,
@@ -145,8 +190,15 @@
             navLinks: true,
             events: [
             {
-            	title: 'Aplicar servicio al cliente',
+            	title: 'test',
             	start: YM + '-01',
+            	description: 'Mantenimiento de pestallas a Fatima',
+            	className: "fc-event-danger fc-event-solid-warning"  
+            },
+            {
+            	title: 'test ocejo',
+            	start:'2020-02-11T11:00:00',
+            	end:'2020-02-11T12:00:00',
             	description: 'Mantenimiento de pestallas a Fatima',
             	className: "fc-event-danger fc-event-solid-warning"  
             }
