@@ -97,10 +97,10 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                       <div class="col-2">
                         <span class="col-12">Filtrar Por</span>
                         <select class="form-control kt-select2 select2-hidden-accessible" id="kt_select2_1" name="param" data-select2-id="kt_select2_1" tabindex="-1" aria-hidden="true">
-                           <?php
-                           $query = "SELECT id_sucursal AS id,nombre AS nombre FROM sucursales UNION SELECT id_empleado AS id, concat_ws(' ', nombre, apellidos) AS nombre FROM empleados";
-                           $resultado=$conexion->query($query);
-                           while ($row3=$resultado->fetch_assoc()) {
+                         <?php
+                         $query = "SELECT id_sucursal AS id,nombre AS nombre FROM sucursales UNION SELECT id_empleado AS id, concat_ws(' ', nombre, apellidos) AS nombre FROM empleados";
+                         $resultado=$conexion->query($query);
+                         while ($row3=$resultado->fetch_assoc()) {
                             ?>
                             <option value="<?php echo $row3['id']; ?>"><?php echo $row3['nombre']; ?></option><?php 
                         }
@@ -113,21 +113,23 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                     <div class="input-daterange input-group" id="kt_datepicker_5">
                       <input type="text" class="form-control" name="start" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: pointer;">
                       <div class="input-group-append">
-                         <span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
-                     </div>
-                     <input type="text" class="form-control" name="end">
-                 </div>
-             </div>
-         </div>
-         <br>
-         <!--begin: Datatable -->
-         <script src="js/actividades.filtro.js"></script>
-         <table class="table table-bordered table-hover" id="example">
+                       <span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
+                   </div>
+                   <input type="text" class="form-control" name="end">
+               </div>
+           </div>
+       </div>
+       <br>
+       <!--begin: Datatable -->
+       <div class="table-responsive">
+           <script src="js/actividades.filtro.js"></script>
+           <table class="table table-bordered table-hover" id="example">
             <thead>
                 <tr>
                     <th>Completado</th>
                     <th>Confirmado</th>
                     <th>Fecha y hora de inicio</th>
+                    <th>Fecha y hora termino</th>
                     <th>Actividad</th>
                     <th>Tipo de actividad</th>
                     <th>Cliente</th>
@@ -192,14 +194,15 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     <input type="checkbox" id="<?php echo $row['id_Actividad'].'confirmar'; ?>" name="confirmadoactividad" value="Activo" onclick="confiactividad('<?php echo $datos; ?>')" <?php if ($row['confirmado']=='Confirmada') {
                                         echo "checked";
                                     } if ($row['confirmar']!="Confirmable") {
-                                       echo "disabled";
-                                   } ?>>
-                                   <span></span>
-                               </label>
-                           </span>
-                       </td>
-                       <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>"><?php echo $row['fecha_hora_inicio']; ?></td>
-                       <td>
+                                     echo "disabled";
+                                 } ?>>
+                                 <span></span>
+                             </label>
+                         </span>
+                     </td>
+                     <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>"><?php echo $row['fecha_hora_inicio']; ?></td>
+                     <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>"><?php echo $row['fecha_hora_termino']; ?></td>
+                     <td>
                         <a style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>" href="#" onclick="modaleditactiviti('<?php echo $datos; ?>')" class="dropdown-item" data-toggle="modal" data-target="#modaleditactividad"><?php echo $row['nombre_actividad']; ?></a>
                     </td>
                     <td style="color: <?php if ($hoy > $fecha_entrada) {echo $color="#fd397a";} ?>">
@@ -216,7 +219,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
             <?php } ?>
         </tbody>
     </table>
-    <!--end: Datatable -->
+</div>
+<!--end: Datatable -->
 </div>
 </div>
 </div>
@@ -538,11 +542,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     </div>
 
                                     <div class="kt-widget__action" id="btnshowclie">
-                                       <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="kt-widget__body">
+                                     <!--  <a href="showcliente.php?cliente=" class="btn btn-success btn-sm">Ver Detalles</a> -->
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="kt-widget__body">
                             <div class="kt-widget__content">
                                 <div class="kt-widget__info">
                                     <span class="kt-widget__label">Teléfono/Celular</span>
@@ -652,9 +656,10 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
         } );
     } );
-    //function agregaform(datos){
-      //  console.log("Hola mundo!");
-        /*d=datos.split('||');
+
+    function agregaform(datos){
+
+        d=datos.split('||');
         $('#upusername').val(d[0]);
         $('#acticlinom').text(d[1]);
         $('#acticlitel').text(d[4]);
@@ -666,8 +671,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
         boton.id = 'btnshowclivi';
         boton.setAttribute('target', '_blank');
         $('#btnshowclie').empty();
-        lugar=document.getElementById('btnshowclie').appendChild(boton);*/
-    //}
+        lugar=document.getElementById('btnshowclie').appendChild(boton);
+    }
 
     function modaladdactiviti(response){
 
@@ -1108,7 +1113,7 @@ echo "$('#nombre_empleado_actividad').val('$id_empleado_actividad');";
 ?>
 function btnaddactividad(){
 
-    
+
 
     var confirmoactividadvalue;
     if($("#addconfirmadoactividad").is(':checked')) {  
@@ -1214,7 +1219,7 @@ function btnaddactividad(){
 
 function btneditactividad(){
 
-    
+
     var valueeditfecha=document.getElementsByName("editfechaactividad")[0].value;
     var valueedittipoactividad=document.getElementsByName("iconselectactividadedit")[0].value;
     var valueedithora=$(".testhora").val();
@@ -1353,9 +1358,9 @@ function confiactividad(id_actividad){
     const actividad=d[5];
     var confirmaractividad;
     if($("#"+d[5]+"confirmar").is(':checked')) {  
-       confirmaractividad="Confirmada";
-       updateconfirmado(confirmaractividad, actividad);
-   }else{  
+     confirmaractividad="Confirmada";
+     updateconfirmado(confirmaractividad, actividad);
+ }else{  
     confirmaractividad="No confirmada";
     updateconfirmado(confirmaractividad, actividad);
 }
