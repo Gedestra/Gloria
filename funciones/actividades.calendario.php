@@ -39,7 +39,9 @@ while($res = $resultado->fetch_assoc()){
 	$row = array(
 		$nombre_actividad = $res['nombre_actividad'],
 		$nombre_empleado = $res['nombre_empleado'],
-		$apellido_empleado = $res['apellidos_empleados']
+		$apellido_empleado = $res['apellidos_empleados'],
+		$fecha_inicio=$res['fecha_hora_inicio'],
+		$fecha_termino=$res['fecha_hora_termino']
 	);
 	array_push($actividades, $row);
 }

@@ -93,10 +93,6 @@
   /*! no static exports found */
   /***/ (function(module, exports, __webpack_require__) {
 
-  	
-  	var data;
-
-
   	var KTCalendarExternalEvents = function() {    
   		var initExternalEvents = function() {
   			$('#kt_calendar_external_events .fc-draggable-handle').each(function() {
@@ -143,27 +139,7 @@
   					return $(eventEl).data('event');
   				}   
   			});
-  			
-  			
-  			var table = $.ajax({
-  				type : "GET",
-  				url : "funciones/actividades.calendario.php",
-  				success : res => {
-  					res = JSON.parse(res);
-  					res.forEach(element => {
-  						data = {
-  							actividad: element[0],
-  							nombreEmpleado: element[1],
-  							apellidoEmpleado: element[2]
-  						}
-  						console.log(data.actividad);
-  					})
-  				},
-  				error : err => {
-  					console.error(err);     
-  				}
-  			});    
-  			
+
   			var calendar = new FullCalendar.Calendar(calendarEl, {
   				plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],            
   				isRTL: KTUtil.isRTL(),
@@ -171,7 +147,8 @@
   					left: 'prev,next today',
   					center: 'title',
   					right: 'dayGridMonth,timeGridWeek,timeGridDay'
-  				},    
+  				}, 
+
   				height: 800,
   				contentHeight: 780,
             aspectRatio: 3,  // see: https://fullcalendar.io/docs/aspectRatio            
@@ -188,21 +165,43 @@
             editable: true,
             eventLimit: true, // allow "more" link when too many events
             navLinks: true,
-            events: [
+
+            events: function (start,callback)
             {
-            	title: 'test',
-            	start: YM + '-01',
-            	description: 'Mantenimiento de pestallas a Fatima',
-            	className: "fc-event-danger fc-event-solid-warning"  
+            	var table = $.ajax({
+            		type : "GET",
+            		url : "funciones/actividades.calendario.php",
+            		success : res => {
+
+            			res = JSON.parse(res);
+            			let actividades =[];
+            			res.forEach(element => {  
+
+            				let fechainicio=element[3].substring(0,10);
+            				let horainicio=element[3].substring(11,19);
+            				let fechainicioactividad=fechainicio+'T'+horainicio; 
+            				let fechatermino=element[4].substring(0,10);
+            				let horatermino=element[4].substring(11,19);
+            				let fechaterminoactividad=fechatermino+'T'+horatermino;
+
+            				actividades.push({
+
+            					title:element[0],
+            					start:fechainicioactividad,
+            					end:fechaterminoactividad,
+            					className: "fc-event-solid-info fc-event-light"
+            					
+            				});
+            			});
+            			callback(actividades);
+            		},
+
+            		error : err => {
+            			console.error(err);     
+            		}
+            	});
             },
-            {
-            	title: 'test ocejo',
-            	start:'2020-02-11T11:00:00',
-            	end:'2020-02-11T12:00:00',
-            	description: 'Mantenimiento de pestallas a Fatima',
-            	className: "fc-event-danger fc-event-solid-warning"  
-            }
-            ],            
+
             drop: function(arg) {
                 // is the "remove after drop" checkbox checked?
                 if ($('#kt_calendar_external_events_remove').is(':checked')) {
@@ -224,8 +223,10 @@
             		}
             	} 
             }
-        });        
-  			calendar.render();        
+        });
+  			calendar.setOption('locale','es');
+  			calendar.render(); 
+
   		}    
   		return {
         //main function to initiate the module
