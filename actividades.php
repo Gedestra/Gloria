@@ -121,6 +121,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
          </div>
          <br>
          <!--begin: Datatable -->
+         <script src="js/actividades.filtro.js"></script>
          <table class="table table-bordered table-hover" id="example">
             <thead>
                 <tr>
@@ -133,7 +134,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                     <th>Transacción</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="content">
                 <?php 
                 include("funciones/conexion.php");
                 $conexion->query("SET NAMES 'utf8'");
