@@ -72,23 +72,23 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         <div class="col-3" >
                             <span class="col-12">Tipo de Actividad</span>
                             <div class="col-12">
-                                <i style="cursor:pointer; border: 1px #ccc solid" class="la fa-2x la-file-text-o" ></i>
-                                <i style="cursor:pointer; border: 1px #ccc solid" class="la fa-2x la-envelope-o"></i> 
-                                <i style="cursor:pointer; border: 1px #ccc solid" class="la fa-2x la-phone"></i>      
-                                <i style="cursor:pointer; border: 1px #ccc solid" class="la fa-2x la-money"></i>      
-                                <i style="cursor:pointer; border: 1px #ccc solid" class="la fa-2x la-cart-plus"></i>  
-                                <i style="cursor:pointer; border: 1px #ccc solid" class="la fa-2x la-bell-o"></i>     
-                                <i style="cursor:pointer; border: 1px #ccc solid" class="la fa-2x la-briefcase"></i>  
-                                <i style="cursor:pointer; border: 1px #ccc solid" class="la fa-2x la-cog"></i>        
-                                <i style="cursor:pointer; border: 1px #ccc solid" class="la fa-2x la-cut"></i>        
-                                <i style="cursor:pointer; border: 1px #ccc solid" class="la fa-2x la-eye"></i>        
+                                <i style="cursor:pointer; border: 1px #ccc solid" onclick="filterByIcon(1)" id="btn-icon-1" class="la fa-2x la-file-text-o" ></i>
+                                <i style="cursor:pointer; border: 1px #ccc solid" onclick="filterByIcon(2)" id="btn-icon-2" class="la fa-2x la-envelope-o"></i> 
+                                <i style="cursor:pointer; border: 1px #ccc solid" onclick="filterByIcon(3)" id="btn-icon-3" class="la fa-2x la-phone"></i>      
+                                <i style="cursor:pointer; border: 1px #ccc solid" onclick="filterByIcon(4)" id="btn-icon-4" class="la fa-2x la-money"></i>      
+                                <i style="cursor:pointer; border: 1px #ccc solid" onclick="filterByIcon(5)" id="btn-icon-5" class="la fa-2x la-cart-plus"></i>  
+                                <i style="cursor:pointer; border: 1px #ccc solid" onclick="filterByIcon(6)" id="btn-icon-6" class="la fa-2x la-bell-o"></i>     
+                                <i style="cursor:pointer; border: 1px #ccc solid" onclick="filterByIcon(7)" id="btn-icon-7" class="la fa-2x la-briefcase"></i>  
+                                <i style="cursor:pointer; border: 1px #ccc solid" onclick="filterByIcon(8)" id="btn-icon-8" class="la fa-2x la-cog"></i>        
+                                <i style="cursor:pointer; border: 1px #ccc solid" onclick="filterByIcon(9)" id="btn-icon-9" class="la fa-2x la-cut"></i>        
+                                <i style="cursor:pointer; border: 1px #ccc solid" onclick="filterByIcon(10)" id="btn-icon-10" class="la fa-2x la-eye"></i>        
                             </div>
                         </div>
                         <div class="col-1">
                             <span class="col-12">Completado</span>
                             <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success col-12">
                               <label>
-                                  <input type="checkbox" checked="checked" name="">
+                                  <input type="checkbox" id="completado" name="">
                                   <span></span>
                               </label>
                           </span>
