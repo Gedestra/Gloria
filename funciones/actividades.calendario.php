@@ -105,7 +105,8 @@ while($res = $resultado->fetch_assoc()){
 		$apellido_empleado = $res['apellidos_empleados'],
 		$fecha_inicio=$res['fecha_hora_inicio'],
 		$fecha_termino=$res['fecha_hora_termino'],
-		$id_empleado=$color
+		$id_empleado=$color,
+		$nombre_actividad=$res['nombre_tipo_Actividad']
 	);
 	array_push($actividades, $row);
 }
