@@ -4,16 +4,16 @@
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+	/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
+	/******/ 			return installedModules[moduleId].exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
+	/******/ 			i: moduleId,
+	/******/ 			l: false,
+	/******/ 			exports: {}
 /******/ 		};
 /******/
 /******/ 		// Execute the module function
@@ -35,17 +35,17 @@
 /******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
+	/******/ 		if(!__webpack_require__.o(exports, name)) {
+		/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+	/******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+	/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+		/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+	/******/ 		}
+	/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 	};
 /******/
 /******/ 	// create a fake namespace object
@@ -54,23 +54,23 @@
 /******/ 	// mode & 4: return value when already ns object
 /******/ 	// mode & 8|1: behave like require
 /******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
+	/******/ 		if(mode & 1) value = __webpack_require__(value);
+	/******/ 		if(mode & 8) return value;
+	/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+	/******/ 		var ns = Object.create(null);
+	/******/ 		__webpack_require__.r(ns);
+	/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+	/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+	/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
+	/******/ 		var getter = module && module.__esModule ?
+	/******/ 			function getDefault() { return module['default']; } :
+	/******/ 			function getModuleExports() { return module; };
+	/******/ 		__webpack_require__.d(getter, 'a', getter);
+	/******/ 		return getter;
 /******/ 	};
 /******/
 /******/ 	// Object.prototype.hasOwnProperty.call
@@ -86,15 +86,164 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "../src/assets/js/pages/components/calendar/external-events.js":
-/*!*********************************************************************!*\
+	/***/ "../src/assets/js/pages/components/calendar/external-events.js":
+/*!*********************************************************************!*
   !*** ../src/assets/js/pages/components/calendar/external-events.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+  *********************************************************************/
+  /*! no static exports found */
+  /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-eval("\r\n\r\nvar KTCalendarExternalEvents = function() {\r\n\r\n    var initExternalEvents = function() {\r\n        $('#kt_calendar_external_events .fc-draggable-handle').each(function() {\r\n            // store data so the calendar knows to render an event upon drop\r\n            $(this).data('event', {\r\n                title: $.trim($(this).text()), // use the element's text as the event title\r\n                stick: true, // maintain when user navigates (see docs on the renderEvent method)\r\n                classNames: [$(this).data('color')],\r\n                description: 'Lorem ipsum dolor eius mod tempor labore'\r\n            });\r\n        });\r\n    }\r\n\r\n    var initCalendar = function() {\r\n        var todayDate = moment().startOf('day');\r\n        var YM = todayDate.format('YYYY-MM');\r\n        var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');\r\n        var TODAY = todayDate.format('YYYY-MM-DD');\r\n        var TOMORROW = todayDate.clone().add(1, 'day').format('YYYY-MM-DD');\r\n\r\n        var calendarEl = document.getElementById('kt_calendar');\r\n        var containerEl = document.getElementById('kt_calendar_external_events');\r\n\r\n        var Draggable = FullCalendarInteraction.Draggable;\r\n\r\n        new Draggable(containerEl, {\r\n            itemSelector: '.fc-draggable-handle',\r\n            eventData: function(eventEl) {\r\n                return $(eventEl).data('event');\r\n            }   \r\n        });\r\n\r\n        var calendar = new FullCalendar.Calendar(calendarEl, {\r\n            plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],\r\n\r\n            isRTL: KTUtil.isRTL(),\r\n            header: {\r\n                left: 'prev,next today',\r\n                center: 'title',\r\n                right: 'dayGridMonth,timeGridWeek,timeGridDay'\r\n            },\r\n\r\n            height: 800,\r\n            contentHeight: 780,\r\n            aspectRatio: 3,  // see: https://fullcalendar.io/docs/aspectRatio\r\n\r\n            nowIndicator: true,\r\n            now: TODAY + 'T09:25:00', // just for demo\r\n\r\n            views: {\r\n                dayGridMonth: { buttonText: 'month' },\r\n                timeGridWeek: { buttonText: 'week' },\r\n                timeGridDay: { buttonText: 'day' }\r\n            },\r\n\r\n            defaultView: 'dayGridMonth',\r\n            defaultDate: TODAY,\r\n\r\n            droppable: true, // this allows things to be dropped onto the calendar\r\n            editable: true,\r\n            eventLimit: true, // allow \"more\" link when too many events\r\n            navLinks: true,\r\n            events: [\r\n                {\r\n                    title: 'Aplicar servicio al cliente',\r\n                    start: YM + '-01',\r\n                    description: 'Mantenimiento de pestallas a Fatima',\r\n                    className: \"fc-event-danger fc-event-solid-warning\"  \r\n                },\r\n                {\r\n                    title: 'Limpieza de sucursal',\r\n                    start: YM + '-14T13:30:00',\r\n                    description: 'Limpieza y mantenimiento de la sucursal 1',\r\n                    end: YM + '-14',\r\n                    className: \"fc-event-success\"\r\n                },\r\n                {\r\n                    title: 'Reunion',\r\n                    start: YM + '-02',\r\n                    description: 'Reunirse con el equipo para ver las metas alcanzadas',\r\n                    end: YM + '-03',\r\n                    className: \"fc-event-primary\"\r\n                },\r\n                {\r\n                    title: 'Celebración',\r\n                    start: YM + '-03',\r\n                    description: 'Fiesta de aniversario de 3d Lashes',\r\n                    end: YM + '-05',\r\n                    className: \"fc-event-light fc-event-solid-primary\"\r\n                },\r\n                {\r\n                    title: 'Llamada al cliente',\r\n                    start: YM + '-12',\r\n                    description: 'Aplicar servicio de técnica perfecta a Gloria',\r\n                    end: YM + '-10'\r\n                },\r\n                {\r\n                    id: 999,\r\n                    title: 'Aplicar servicio al cliente',\r\n                    start: YM + '-09T16:00:00',\r\n                    description: 'Aplicar tecnicar perfecta a Gloria',\r\n                    className: \"fc-event-danger\"\r\n                },\r\n                {\r\n                    id: 1000,\r\n                    title: 'Enviar Facturas',\r\n                    description: 'Enviar facturas al cliente',\r\n                    start: YM + '-16T16:00:00'\r\n                },\r\n                {\r\n                    title: 'Comprar',\r\n                    start: YESTERDAY,\r\n                    end: TOMORROW,\r\n                    description: 'Ir ala tienda a comprar los insumos faltantes',\r\n                    className: \"fc-event-brand\"\r\n                },\r\n                {\r\n                    title: 'Enviar sms',\r\n                    start: TODAY + 'T10:30:00',\r\n                    end: TODAY + 'T12:30:00',\r\n                    description: 'Enviar mensajes a todos los clientes de promo del mes'\r\n                },\r\n                {\r\n                    title: 'Servicio cliente',\r\n                    start: TODAY + 'T12:00:00',\r\n                    className: \"fc-event-info\",\r\n                    description: 'Aplicar servicio de tecnica elite a Claudia'\r\n                },\r\n                {\r\n                    title: 'Seguimiento',\r\n                    start: TODAY + 'T14:30:00',\r\n                    className: \"fc-event-warning\",\r\n                    description: 'Llamar a los clientes que cancelaron su cita'\r\n                },\r\n                {\r\n                    title: 'Comida',\r\n                    start: TODAY + 'T17:30:00',\r\n                    className: \"fc-event-info\",\r\n                    description: 'Hora de la comida para los empleados'\r\n                },\r\n                {\r\n                    title: 'Aplicacion Servicio',\r\n                    start: TOMORROW + 'T05:00:00',\r\n                    className: \"fc-event-solid-danger fc-event-light\",\r\n                    description: 'Aplicacion Facial a Martina'\r\n                },\r\n                {\r\n                    title: 'Enviar factura',\r\n                    start: TOMORROW + 'T07:00:00',\r\n                    className: \"fc-event-primary\",\r\n                    description: 'Mandar factura a Gloria de servicio'\r\n                },\r\n                {\r\n                    title: 'Click for Google',\r\n                    url: 'http://google.com/',\r\n                    start: YM + '-28',\r\n                    className: \"fc-event-solid-info fc-event-light\",\r\n                    description: 'Lorem ipsum dolor sit amet, labore'\r\n                }\r\n            ],\r\n\r\n            drop: function(arg) {\r\n                // is the \"remove after drop\" checkbox checked?\r\n                if ($('#kt_calendar_external_events_remove').is(':checked')) {\r\n                    // if so, remove the element from the \"Draggable Events\" list\r\n                    $(arg.draggedEl).remove();\r\n                }\r\n            },\r\n\r\n            eventRender: function(info) {\r\n                var element = $(info.el);\r\n\r\n                if (info.event.extendedProps && info.event.extendedProps.description) {\r\n                    if (element.hasClass('fc-day-grid-event')) {\r\n                        element.data('content', info.event.extendedProps.description);\r\n                        element.data('placement', 'top');\r\n                        KTApp.initPopover(element);\r\n                    } else if (element.hasClass('fc-time-grid-event')) {\r\n                        element.find('.fc-title').append('<div class=\"fc-description\">' + info.event.extendedProps.description + '</div>'); \r\n                    } else if (element.find('.fc-list-item-title').lenght !== 0) {\r\n                        element.find('.fc-list-item-title').append('<div class=\"fc-description\">' + info.event.extendedProps.description + '</div>'); \r\n                    }\r\n                } \r\n            }\r\n        });\r\n\r\n        calendar.render();        \r\n    }\r\n\r\n    return {\r\n        //main function to initiate the module\r\n        init: function() {\r\n            initExternalEvents();\r\n            initCalendar(); \r\n        }\r\n    };\r\n}();\r\n\r\njQuery(document).ready(function() {\r\n    KTCalendarExternalEvents.init();\r\n});\n\n//# sourceURL=webpack:///../src/assets/js/pages/components/calendar/external-events.js?");
+  	var KTCalendarExternalEvents = function() {    
+  		var initExternalEvents = function() {
+  			$('#kt_calendar_external_events .fc-draggable-handle').each(function() {
+            // store data so the calendar knows to render an event upon drop
+            $(this).data('event', {
+                title: $.trim($(this).text()), // use the element's text as the event title
+                stick: true, // maintain when user navigates (see docs on the renderEvent method)
+                classNames: [$(this).data('color')],
+                description: 'Agregar actividad'
+            });
+        });
+  		}    
+  		var initCalendar = function() {
+
+  			var todayDate = moment().startOf('day');
+  			var momentoActual = new Date()
+  			var hora = momentoActual.getHours()
+  			var minuto = momentoActual.getMinutes()
+  			var segundo = momentoActual.getSeconds()
+  			if ((hora >= 0)&&(hora <= 9)){ 
+  				var horas="0"+hora; 
+  			}
+
+  			if ((minuto >= 0)&&(minuto <= 9)){ 
+  				minuto="0"+minuto; 
+  			}
+
+  			if ((segundo >= 0)&&(segundo <= 9)){ 
+  				segundo="0"+segundo; 
+  			}
+  			var horaImprimible = hora+":"+minuto+":00";
+  			var YM = todayDate.format('YYYY-MM');
+  			var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');
+  			var TODAY = todayDate.format('YYYY-MM-DD');
+  			var TOMORROW = todayDate.clone().add(1, 'day').format('YYYY-MM-DD');        
+  			var calendarEl = document.getElementById('kt_calendar');
+  			var containerEl = document.getElementById('kt_calendar_external_events');        
+  			var Draggable = FullCalendarInteraction.Draggable;  
+  			
+  			new Draggable(containerEl, 
+  			{
+  				itemSelector: '.fc-draggable-handle',
+  				eventData: function(eventEl) {
+  					return $(eventEl).data('event');
+  				}   
+  			});
+
+  			var calendar = new FullCalendar.Calendar(calendarEl, {
+  				plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],            
+  				isRTL: KTUtil.isRTL(),
+  				header: {
+  					left: 'prev,next today',
+  					center: 'title',
+  					right: 'dayGridMonth,timeGridWeek,timeGridDay'
+  				}, 
+
+  				height: 800,
+  				contentHeight: 780,
+            aspectRatio: 3,  // see: https://fullcalendar.io/docs/aspectRatio            
+            nowIndicator: true,
+            now: TODAY + 'T'+ horaImprimible, // just for demo            
+            views: {
+            	dayGridMonth: { buttonText: 'Mes' },
+            	timeGridWeek: { buttonText: 'Semana' },
+            	timeGridDay: { buttonText: 'día' }
+            },            
+            defaultView: 'timeGridWeek',
+            defaultDate: TODAY,            
+            droppable: true, // this allows things to be dropped onto the calendar
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            navLinks: true,
+
+            events: function (start,callback)
+            {
+            	var table = $.ajax({
+            		type : "GET",
+            		url : "funciones/actividades.calendario.php",
+            		success : res => {
+
+            			res = JSON.parse(res);
+            			let actividades =[];
+            			res.forEach(element => {
+
+            				let fechainicio=element[3].substring(0,10);
+            				let horainicio=element[3].substring(11,19);
+            				let fechainicioactividad=fechainicio+'T'+horainicio; 
+            				let fechatermino=element[4].substring(0,10);
+            				let horatermino=element[4].substring(11,19);
+            				let fechaterminoactividad=fechatermino+'T'+horatermino;
+
+            				actividades.push({
+
+            					title:element[0],
+            					start:fechainicioactividad,
+            					end:fechaterminoactividad,
+            					color:element[5],
+            					// className: "fc-event-success"
+           
+            				});
+
+            			});
+            			
+            			callback(actividades);
+
+            		},
+
+            		error : err => {
+            			console.error(err);     
+            		}
+            	});
+
+            },
+            drop: function(arg) {
+                // is the "remove after drop" checkbox checked?
+                if ($('#kt_calendar_external_events_remove').is(':checked')) {
+                    // if so, remove the element from the "Draggable Events" list
+                    $(arg.draggedEl).remove();
+                }
+            },
+
+            eventRender: function(info) {
+            	var element = $(info.el);                
+            	if (info.event.extendedProps && info.event.extendedProps.description) {
+            		if (element.hasClass('fc-day-grid-event')) {
+            			element.data('content', info.event.extendedProps.description);
+            			element.data('placement', 'top');
+            			KTApp.initPopover(element);
+            		} else if (element.hasClass('fc-time-grid-event')) {
+            			element.find('.fc-title').append('<div class="fc-description">' + info.event.extendedProps.description + '</div>'); 
+            		} else if (element.find('.fc-list-item-title').lenght !== 0) {
+            			element.find('.fc-list-item-title').append('<div class="fc-description">' + info.event.extendedProps.description + '</div>'); 
+            		}
+            	} 
+            }
+        });
+  			calendar.setOption('locale','es');
+  			calendar.render(); 
+
+  		}    
+  		return {
+        //main function to initiate the module
+        init: function() {
+        	initExternalEvents();
+        	initCalendar(); 
+        }
+    }
+}();
+jQuery(document).ready(function() {
+	KTCalendarExternalEvents.init();
+});
 
 /***/ })
 
