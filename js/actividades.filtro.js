@@ -4,11 +4,60 @@ var FilterIcon;
 var filter = false;
 var activities_filtered_by_icons = [];
 var activities_filtered_by_completed = [];
+var filtro_especifico = [];
 var completado = document.getElementById('completado');
 
+
+//filtro por rango de fecha
+function pickDateRange(id){
+    var date_range = $('#kt_datepicker_5').val();
+    console.log(console.log(date_range));
+}
+
 //filtro por select variado
-function filterBySelect(){
-    console.log('cries in javascript');
+//primero obtendre la lista de las sucursales y de los empleados para poder hacer el filtro 
+async function filterBySelect(){
+    filtro_especifico = [];
+    let sucursales;
+    let empleados;
+    //peticion para obtener las empleados
+    await $.ajax({
+        type: 'GET',
+        url: 'funciones/empleados.get.php',
+        success: res => {
+            empleados = JSON.parse(res);
+        },
+        error : err => {
+            console.log(err);
+        }
+    });
+
+    //peticion para obtener los empleados sucursales
+    await $.ajax({
+        type: 'GET',
+        url: 'funciones/getsucursales.php',
+        success: res => {
+            sucursales = JSON.parse(res);
+        },
+        error: err => {
+            console.log(err);
+        }
+    });
+    
+    let filter = document.getElementById('kt_select2_1').options[document.getElementById("kt_select2_1").selectedIndex].text;
+    
+    actividades.forEach(element => {
+        if(element.nombre_empleado+" "+element.apellido_empleado == filter || element.nombre_sucursal == filter){
+            filtro_especifico.push(element);
+        }
+    });
+
+    console.log(filtro_especifico);
+
+    //magia de filtrado ocurre aqui
+    //tabla.forEach(element => {
+        //if(element.nombre_empleado == )
+    //});
 }
 
 //filtro por completado
