@@ -188,9 +188,9 @@
 
             					title:element[0],
             					start:fechainicioactividad,
+                      description:element[6],
             					end:fechaterminoactividad,
-            					color:element[5],
-            					// className: "fc-event-success"
+            					color:element[5]
            
             				});
 
