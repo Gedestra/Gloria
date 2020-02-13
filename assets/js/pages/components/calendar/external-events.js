@@ -101,7 +101,7 @@
                 title: $.trim($(this).text()), // use the element's text as the event title
                 stick: true, // maintain when user navigates (see docs on the renderEvent method)
                 classNames: [$(this).data('color')],
-                description: 'Lorem ipsum dolor eius mod tempor labore'
+                description: 'Agregar actividad'
             });
         });
   		}    
@@ -175,7 +175,7 @@
 
             			res = JSON.parse(res);
             			let actividades =[];
-            			res.forEach(element => {  
+            			res.forEach(element => {
 
             				let fechainicio=element[3].substring(0,10);
             				let horainicio=element[3].substring(11,19);
@@ -189,26 +189,31 @@
             					title:element[0],
             					start:fechainicioactividad,
             					end:fechaterminoactividad,
-            					className: "fc-event-solid-info fc-event-light"
-            					
+            					color:element[5],
+            					// className: "fc-event-success"
+           
             				});
+
             			});
+            			
             			callback(actividades);
+
             		},
 
             		error : err => {
             			console.error(err);     
             		}
             	});
-            },
 
+            },
             drop: function(arg) {
                 // is the "remove after drop" checkbox checked?
                 if ($('#kt_calendar_external_events_remove').is(':checked')) {
                     // if so, remove the element from the "Draggable Events" list
                     $(arg.draggedEl).remove();
                 }
-            },            
+            },
+
             eventRender: function(info) {
             	var element = $(info.el);                
             	if (info.event.extendedProps && info.event.extendedProps.description) {
