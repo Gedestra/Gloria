@@ -706,7 +706,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 input.type= 'button'
                 input.title= '$nombre_tipo_actividad'
                 input.className = 'la la-file-text-o btn btn-secondary testicon';
-                input.id='$idtipoactividad'
+                input.id='add$idtipoactividad'
                 input.setAttribute('onclick','selecticon($comas$datostipoactividad$comas)');
 
                 lugar=document.getElementById('icontipo').appendChild(input);
@@ -718,7 +718,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 input.type= 'button'
                 input.title= '$nombre_tipo_actividad'
                 input.className = 'la la-envelope-o btn btn-secondary testicon';
-                input.id='$idtipoactividad'
+                input.id='add$idtipoactividad'
                 input.setAttribute('onclick','selecticon($comas$datostipoactividad$comas)');
 
                 lugar=document.getElementById('icontipo').appendChild(input);
@@ -730,7 +730,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 input.type= 'button'
                 input.title= '$nombre_tipo_actividad'
                 input.className = 'la la-phone btn btn-secondary testicon';
-                input.id='$idtipoactividad'
+                input.id='add$idtipoactividad'
                 input.setAttribute('onclick','selecticon($comas$datostipoactividad$comas)');
 
                 lugar=document.getElementById('icontipo').appendChild(input);
@@ -742,7 +742,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 input.type= 'button'
                 input.title= '$nombre_tipo_actividad'
                 input.className = 'la la-money btn btn-secondary testicon';
-                input.id='$idtipoactividad'
+                input.id='add$idtipoactividad'
                 input.setAttribute('onclick','selecticon($comas$datostipoactividad$comas)');
 
                 lugar=document.getElementById('icontipo').appendChild(input);
@@ -754,7 +754,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 input.type= 'button'
                 input.title= '$nombre_tipo_actividad'
                 input.className = 'la la-bell btn btn-secondary testicon';
-                input.id='$idtipoactividad'
+                input.id='add$idtipoactividad'
                 input.setAttribute('onclick','selecticon($comas$datostipoactividad$comas)');
 
                 lugar=document.getElementById('icontipo').appendChild(input);
@@ -766,7 +766,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 input.type= 'button'
                 input.title= '$nombre_tipo_actividad'
                 input.className = 'la la-briefcase btn btn-secondary testicon';
-                input.id='$idtipoactividad'
+                input.id='add$idtipoactividad'
                 input.setAttribute('onclick','selecticon($comas$datostipoactividad$comas)');
 
                 lugar=document.getElementById('icontipo').appendChild(input);
@@ -778,7 +778,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 input.type= 'button'
                 input.title= '$nombre_tipo_actividad'
                 input.className = 'la la-cog btn btn-secondary testicon';
-                input.id='$idtipoactividad'
+                input.id='add$idtipoactividad'
                 input.setAttribute('onclick','selecticon($comas$datostipoactividad$comas)');
 
                 lugar=document.getElementById('icontipo').appendChild(input);
@@ -790,7 +790,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 input.type= 'button'
                 input.title= '$nombre_tipo_actividad'
                 input.className = 'la la-cut btn btn-secondary testicon';
-                input.id='$idtipoactividad'
+                input.id='add$idtipoactividad'
                 input.setAttribute('onclick','selecticon($comas$datostipoactividad$comas)');
 
                 lugar=document.getElementById('icontipo').appendChild(input);
@@ -802,7 +802,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 input.type= 'button'
                 input.title= '$nombre_tipo_actividad'
                 input.className = 'la la-eye btn btn-secondary testicon';
-                input.id='$idtipoactividad'
+                input.id='add$idtipoactividad'
                 input.setAttribute('onclick','selecticon($comas$datostipoactividad$comas)');
 
                 lugar=document.getElementById('icontipo').appendChild(input);
@@ -815,7 +815,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                 input.type= 'button'
                 input.title= '$nombre_tipo_actividad'
                 input.className = 'la la-cart-plus btn btn-secondary testicon';
-                input.id='$idtipoactividad'
+                input.id='add$idtipoactividad'
                 input.setAttribute('onclick','selecticon($comas$datostipoactividad$comas)');
 
                 lugar=document.getElementById('icontipo').appendChild(input);
@@ -848,7 +848,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 
         <?php
         $conexion->query("SET NAMES 'utf8'");
-        $query = "SELECT * FROM tipo_actividad";
+        $query = "SELECT * FROM tipo_actividad WHERE estatus='Activo'";
         $resultado=$conexion->query($query);
         while ($row=$resultado->fetch_assoc()) {
             $datostipoactividad=$row['id_tipo_actividad']."||".$row['nombre_tipo_actividad'];
@@ -1093,7 +1093,7 @@ function selecticonedit(datos){
 function selecticon(datos){
     d=datos.split('||');
     $(".testicon").removeAttr("disabled");
-    document.getElementById(d[0]).disabled = true;
+    document.getElementById('add'+d[0]).disabled = true;
     var input = document.createElement('input');
     input.type = 'text';
     input.name = 'iconselectactividad';
