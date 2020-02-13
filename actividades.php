@@ -96,7 +96,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                       <div class="col-2"></div>
                       <div class="col-2">
                         <span class="col-12">Filtrar Por</span>
-                        <select class="form-control kt-select2 select2-hidden-accessible" id="kt_select2_1" name="param" data-select2-id="kt_select2_1" tabindex="-1" aria-hidden="true">
+                        <select class="form-control kt-select2 select2-hidden-accessible" id="kt_select2_1" name="param" data-select2-id="kt_select2_1" tabindex="-1" aria-hidden="true" onchange="filterBySelect()">
                          <?php
                          $query = "SELECT id_sucursal AS id,nombre AS nombre FROM sucursales UNION SELECT id_empleado AS id, concat_ws(' ', nombre, apellidos) AS nombre FROM empleados";
                          $resultado=$conexion->query($query);

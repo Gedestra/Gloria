@@ -19,12 +19,15 @@
     c.apellidos                 AS apellido_cliente,
     e.nombre                    AS nombre_empleado,
     e.apellidos                 AS apellido_empleado,
+    e.id_sucursal               AS id_sucursal,
+    s.nombre                    AS nombre_sucursal,
     t.id_icon                   as id_icon,
     t.nombre_tipo_actividad     as nombre_tipo_actividad
     FROM actividades AS a
     INNER JOIN clientes AS c ON  a.id_cliente  = c.id_cliente
     INNER JOIN empleados AS e ON a.id_empleado = e.id_empleado
-    INNER JOIN tipo_actividad AS t ON a.id_tipo_actividad = t.id_tipo_actividad";
+    INNER JOIN tipo_actividad AS t ON a.id_tipo_actividad = t.id_tipo_actividad
+    INNER JOIN sucursales AS s ON s.id_sucursal = e.id_sucursal";
     $actividades = array();
     $resultado = $conexion->query($query);
     while($res = $resultado->fetch_assoc()){

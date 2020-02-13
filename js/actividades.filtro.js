@@ -3,19 +3,38 @@ var tabla;             //variable cambiante para que pueda reescribirse la tabla
 var FilterIcon;
 var filter = false;
 var activities_filtered_by_icons = [];
+var activities_filtered_by_completed = [];
 var completado = document.getElementById('completado');
 
-//$('#completado').checked(false);
+//filtro por select variado
+function filterBySelect(){
+    console.log('cries in javascript');
+}
 
 //filtro por completado
 completado.addEventListener('change', ()=>{
     if(completado.checked){
-        console.log('debo filtrar por completados');
+        filterByCompleted();
     }else{
-        console.log('no debo filtrar por completados');
+        //aqui se imprime la lista original sin filtro
+        unfilterByCompleted();
     }
 })
 
+function filterByCompleted(){
+    //console.log("si voy a filtrar actividades por completadas y no completadas");
+    activities_filtered_by_completed = [];
+    tabla.forEach(element => {
+        if(element.completado == 'Completado'){
+            activities_filtered_by_completed.push(element);
+        }
+    });
+    console.log(activities_filtered_by_completed);
+}
+
+function unfilterByCompleted(){
+    //console.log('no voy a filtrar por completado');
+}
 
 //preparativos previos del filtro de actividades
 $(document).ready(()=>{
@@ -34,25 +53,53 @@ $(document).ready(()=>{
 
 //filtro por iconos
 function filterByIcon(id_icon){
+    let icono = document.getElementById('btn-icon-'+id_icon);
     if(FilterIcon != null){
         if(id_icon == FilterIcon){
             filter = !filter;
             if(filter){
                 iconFilter(id_icon);
+                setIconColor(id_icon);                
             }else{
                 tabla = actividades;
                 console.log(tabla);
+                deSelectIconColor(id_icon);
             }
         }else{
             FilterIcon = id_icon;
             filter = true;
             iconFilter(id_icon);
+            setIconColor(id_icon);
         }
     }else{
         FilterIcon = id_icon;
         filter = !filter;
         iconFilter(id_icon);
+        setIconColor(id_icon);
     }
+}
+
+//funciones esteticas relacionadas con los filtros de iconos y su ilustracion
+function setIconColor(id_icon){
+    let icon = document.getElementById('btn-icon-'+id_icon);
+    for(let i = 1; i<=10; i++){
+        if('btn-icon-'+id_icon == 'btn-icon-'+i){
+            icon.style.background = "#ececf5";
+            icon.style.color      = "#6f7275";
+            icon.style.transition = "0.3s";
+        }else{
+            document.getElementById('btn-icon-'+i).style.background = "white";
+            document.getElementById('btn-icon-'+i).style.color = "#646c9a";
+            document.getElementById('btn-icon-'+i).style.transition = "0.3s";
+        }
+    }
+}
+
+function deSelectIconColor(id_icon){
+    let icon = document.getElementById('btn-icon-'+id_icon);
+    icon.style.background = "white";
+    icon.style.color = "#646c9a";
+    icon.style.transition = "0.5s";
 }
 
 function iconFilter(id_icon){
