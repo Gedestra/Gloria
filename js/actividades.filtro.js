@@ -6,12 +6,26 @@ var activities_filtered_by_icons = [];
 var activities_filtered_by_completed = [];
 var filtro_especifico = [];
 var completado = document.getElementById('completado');
-
+var activities_filtered_by_date = [];
 
 //filtro por rango de fecha
-function pickDateRange(id){
-    var date_range = $('#kt_datepicker_5').val();
-    console.log(console.log(date_range));
+function pickDateRange(){
+    activities_filtered_by_date = [];
+    let dates = document.getElementById('rangoBusqueda').value.split('/');
+    begin = dates[0].substring(0, dates[0].length -1)
+    end = dates[1].substring(1, dates[0].length );
+    begin = new Date(begin);
+    end = new Date(end);
+    actividades.forEach(element => {
+        let auxDate = element.fecha_inicio;
+        auxDate = auxDate.split(" ");
+        auxDate = auxDate[0];
+        auxDate = new Date(auxDate);
+        if(auxDate.getTime() > begin.getTime() || auxDate.getTime < end.getTime()){
+            activities_filtered_by_date.push(element);
+        }
+    });
+    console.log(activities_filtered_by_date);
 }
 
 //filtro por select variado

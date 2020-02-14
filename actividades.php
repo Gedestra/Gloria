@@ -93,7 +93,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                               </label>
                           </span>
                       </div>
-                      <div class="col-2"></div>
+                      
                       <div class="col-2">
                         <span class="col-12">Filtrar Por</span>
                         <select class="form-control kt-select2 select2-hidden-accessible" id="kt_select2_1" name="param" data-select2-id="kt_select2_1" tabindex="-1" aria-hidden="true" onchange="filterBySelect()">
@@ -108,15 +108,19 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                     </select>
                     <script src="assets/js/pages/crud/forms/widgets/select2.js" type="text/javascript"></script>
                 </div>
-                <div class="col-3" style="margin-left:15px;" >
-                    <span>Buscar Por Fecha</span>
-                    <div class="input-daterange input-group" id="kt_datepicker_5">
-                      <input type="text" id="datePicker" onchange="pickDateRange('datePicker')" class="form-control" name="start" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: pointer;">
-                      <div class="input-group-append">
-                       <span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
-                   </div>
-                   <input type="text" class="form-control" name="end">
+                <div class="col-4">
+                    <span class="col-12">Buscar Por Fecha</span>
+                    <div class="col-12">
+                        <div class="input-group" style="background: #aaf;" id="kt_daterangepicker_2">
+					    	<input type="text" class="form-control" id="rangoBusqueda" readonly="" placeholder="Select date range">
+					    	<div class="input-group-append">
+					    		<span class="input-group-text"><i class="la la-calendar-check-o"></i></span>
+					    	</div>
+					    </div>
+                    </div>
+                    <script src="./assets/js/pages/crud/forms/widgets/bootstrap-daterangepicker.js" type="text/javascript"></script>
                </div>
+               <button style="height: 38px; margin-top:19px; margin-left:-22px;" type="submit" onclick="pickDateRange()" class="btn btn-brand">aplicar</button>
            </div>
        </div>
        <br>
