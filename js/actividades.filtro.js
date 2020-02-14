@@ -41,7 +41,7 @@ async function filterBySelect(){
         }
     });
 
-    console.log(filtro_especifico);
+    printTable(filtro_especifico);
 
     //magia de filtrado ocurre aqui
     //tabla.forEach(element => {
@@ -67,7 +67,7 @@ function filterByCompleted(){
             activities_filtered_by_completed.push(element);
         }
     });
-    console.log(activities_filtered_by_completed);
+    printTable(activities_filtered_by_completed);
 }
 
 function unfilterByCompleted(){
@@ -99,7 +99,7 @@ function filterByIcon(id_icon){
                 setIconColor(id_icon);                
             }else{
                 tabla = actividades;
-                console.log(tabla);
+                printTable(tabla);
                 deSelectIconColor(id_icon);
             }
         }else{
@@ -147,6 +147,11 @@ function iconFilter(id_icon){
         }
     });
     tabla = activities_filtered_by_icons;
-    console.log(tabla);
+    printTable(tabla);
 }
 
+function printTable(content){
+    let table = document.getElementById('content');
+    console.log(table);
+    console.log(content);
+}
