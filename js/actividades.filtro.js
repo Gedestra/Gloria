@@ -16,7 +16,7 @@ function pickDateRange(){
     end = dates[1].substring(1, dates[0].length );
     begin = new Date(begin);
     end = new Date(end);
-    actividades.forEach(element => {
+    tabla.forEach(element => {
         let auxDate = element.fecha_inicio;
         auxDate = auxDate.split(" ");
         auxDate = auxDate[0];
@@ -32,35 +32,10 @@ function pickDateRange(){
 //primero obtendre la lista de las sucursales y de los empleados para poder hacer el filtro 
 async function filterBySelect(){
     filtro_especifico = [];
-    let sucursales;
-    let empleados;
-    //peticion para obtener las empleados
-    await $.ajax({
-        type: 'GET',
-        url: 'funciones/empleados.get.php',
-        success: res => {
-            empleados = JSON.parse(res);
-        },
-        error : err => {
-            console.log(err);
-        }
-    });
-
-    //peticion para obtener los empleados sucursales
-    await $.ajax({
-        type: 'GET',
-        url: 'funciones/getsucursales.php',
-        success: res => {
-            sucursales = JSON.parse(res);
-        },
-        error: err => {
-            console.log(err);
-        }
-    });
     
     let filter = document.getElementById('kt_select2_1').options[document.getElementById("kt_select2_1").selectedIndex].text;
     
-    actividades.forEach(element => {
+    tabla.forEach(element => {
         if(element.nombre_empleado+" "+element.apellido_empleado == filter || element.nombre_sucursal == filter){
             filtro_especifico.push(element);
         }
@@ -85,7 +60,7 @@ completado.addEventListener('change', ()=>{
 })
 
 function filterByCompleted(){
-    //console.log("si voy a filtrar actividades por completadas y no completadas");
+    
     activities_filtered_by_completed = [];
     tabla.forEach(element => {
         if(element.completado == 'Completado'){
@@ -116,7 +91,6 @@ $(document).ready(()=>{
 
 //filtro por iconos
 function filterByIcon(id_icon){
-    let icono = document.getElementById('btn-icon-'+id_icon);
     if(FilterIcon != null){
         if(id_icon == FilterIcon){
             filter = !filter;
