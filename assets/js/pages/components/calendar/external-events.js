@@ -188,14 +188,14 @@
 
             					title:element[0],
             					start:fechainicioactividad,
+                      description:element[6]+" - "+element[1],
             					end:fechaterminoactividad,
-            					color:element[5],
-            					// className: "fc-event-success"
-           
+            					color:element[5]
+                    
             				});
 
             			});
-            			
+  
             			callback(actividades);
 
             		},
