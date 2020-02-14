@@ -38,6 +38,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="http://momentjs.com/downloads/moment.min.js"></script>
+    <script src="js/mostrar.empleados.js"></script>
 </head>
 <body>
     <?php include("head.php"); ?>
@@ -54,7 +55,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         <div class="kt-portlet__head">
                             <div class="kt-portlet__head-label">
                                 <span class="kt-portlet__head-icon">
-                                    <i class="flaticon-map-location"></i>
+                                    <i class="flaticon-users"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
                                     Empleados
@@ -63,12 +64,13 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         </div>
                         <div class="kt-portlet__body">
                             <div id="kt_calendar_external_events" class="fc-unthemed">
-                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--primary kt-badge--inline kt-margin-b-15' data-color="fc-event-primary">Gloria Lilia</div><br>
-                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--brand kt-badge--inline kt-margin-b-15' data-color="fc-event-brand">Jorge Luis</div><br>
-                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--success kt-badge--inline kt-margin-b-15' data-color="fc-event-success">test nombre</div><br>
-                                <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--warning kt-badge--inline kt-margin-b-15' data-color="fc-event-warning">Patricia Martinez</div><br>
-                                <!-- <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--danger kt-badge--inline kt-margin-b-15' data-color="fc-event-danger">Reporting</div><br> -->
+                                <div class="form-group row" id="nombreempleados" style="display: flex;flex-direction: column;">
+                                </div>
                                 <div class="kt-separator kt-separator--border-dashed kt-separator--space-md"></div>
+                                <div class="form-group row" id="nombresucursales" style="display: flex;flex-direction: column;">
+                                </div>
+                                <!-- <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--danger kt-badge--inline kt-margin-b-15' data-color="fc-event-danger">Reporting</div><br>
+                                
                                 <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--danger kt-badge--inline kt-margin-b-15' data-color="fc-event-danger">Sucursal 1</div><br>
                                 <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--info kt-badge--inline kt-margin-b-15' data-color="fc-event-info">Sucursal 2</div><br>
                                 <div class='fc-draggable-handle kt-badge kt-badge--lg kt-badge--dark kt-badge--inline kt-margin-b-15' data-color="fc-event-dark">Plaza Aleman</div>
@@ -78,7 +80,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                         <input type="checkbox" id='kt_calendar_external_events_remove'> Remove after drop
                                         <span></span>
                                     </label>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -92,7 +94,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         <div class="kt-portlet__head">
                             <div class="kt-portlet__head-label">
                                 <span class="kt-portlet__head-icon">
-                                    <i class="flaticon-map-location"></i>
+                                    <i class="flaticon-notes"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
                                     Disponibilidad
