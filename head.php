@@ -51,7 +51,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         <li class="kt-menu__item " aria-haspopup="true"><a href="clientes.php" class="kt-menu__link" title="Clientes"><i class="kt-menu__link-icon flaticon-customer"></i><span class="kt-menu__link-text">Clientes</span></a></li>
                         <li class="kt-menu__item " aria-haspopup="true"><a href="servicios.php" class="kt-menu__link" title="Servicios"><i class="kt-menu__link-icon flaticon-medical"></i><span class="kt-menu__link-text">Servicios</span></a></li>
                         <li class="kt-menu__item " aria-haspopup="true"><a href="promociones.php" class="kt-menu__link" title="Promociones"><i class="kt-menu__link-icon flaticon2-tag"></i><span class="kt-menu__link-text">Promociones</span></a></li>
-                        <li class="kt-menu__item " aria-haspopup="true"><a href="promociones.php" class="kt-menu__link" title="Promociones"><i class="kt-menu__link-icon flaticon-gift"></i><span class="kt-menu__link-text">gift card</span></a></li>
+                        <li class="kt-menu__item " aria-haspopup="true"><a href="giftcard.php" class="kt-menu__link" title="Giftcard"><i class="kt-menu__link-icon flaticon-gift"></i><span class="kt-menu__link-text">Gift card</span></a></li>
+                        <li class="kt-menu__item " aria-haspopup="true"><a href="programacionesSMS.php" class="kt-menu__link" title="sms"><i class="kt-menu__link-icon flaticon3-gift"></i><span class="kt-menu__link-text">Programaciones SMS</span></a></li>
                     </ul>
                 </div>
             </div>
