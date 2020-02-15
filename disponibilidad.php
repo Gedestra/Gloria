@@ -40,6 +40,28 @@ $id_usuario=$row['id_usuario'];
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="http://momentjs.com/downloads/moment.min.js"></script>
     <script src="js/mostrar.empleados.js"></script>
+    <style>
+        input[class="testradio"]:checked + span:after {    
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: white;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            border-radius: 100%;
+        }
+        input[class="testradio2"]:checked + span:after {    
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: white;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            border-radius: 100%;
+        }      
+    </style>
 </head>
 <body>
     <?php include("head.php"); ?>
@@ -59,11 +81,11 @@ $id_usuario=$row['id_usuario'];
                                     <i class="flaticon-users"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    Empleados
+                                    Empleados / Sucursales
                                 </h3>
                             </div>
                         </div>
-                        <div class="kt-portlet__body">
+                        <div class="kt-portlet__body" style="z-index: 100">
                             <div id="kt_calendar_external_events" class="fc-unthemed">
                                 <div class="form-group row" id="nombresucursales" style="display: flex;flex-direction: column;">
                                 </div>
@@ -73,7 +95,7 @@ $id_usuario=$row['id_usuario'];
                             </div>
                         </div>
                     </div>
-
+                    
                     <!--end::Portlet-->
                 </div>
                 <div class="col-lg-9">
@@ -297,6 +319,8 @@ $id_usuario=$row['id_usuario'];
     <!--begin::Page Scripts(used by this page) -->
     <script src="assets/js/pages/components/calendar/external-events.js" type="text/javascript"></script>
     <script src="assets/js/pages/crud/forms/widgets/bootstrap-timepicker.js" type="text/javascript"></script>
+    <!--begin::Page Scripts(used by this page) -->
+    <script src="assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js" type="text/javascript"></script>
     <script>
         function modaladdactiviti(){
 

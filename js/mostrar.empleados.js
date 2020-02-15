@@ -21,8 +21,8 @@ function createEmpleados(res){
 			color: element[3]
 		}
 		empleados.push(empleado);
-		let label = document.createElement('label');
-		label.innerHTML = '<input type="radio" name="filtroempleados">&nbsp;<label for="check" style="background-color:'+empleado.color+';color:white;padding:3px;font-size:12px;border: 1px white red;border-radius: 3px;"><strong>'+empleado.nombre+" "+empleado.apellido+'</strong></label>';
+		let label = document.createElement('div');
+		label.innerHTML = '<input class="testradio" style="opacity: 0;width:20px;height: 20px;position: absolute;left: 22px; cursor: pointer;" type="radio" name="empleados"><span class="inputfalso" style="border-radius: 50%;display: inline-block;height: 20px;position: absolute;left: 22px;width: 21px;z-index: -1;background-color: '+empleado.color+';"></span><label style="color:#7f8581;margin-left:20px;margin-top:1px;font-size:12px;">&nbsp;'+empleado.nombre+" "+empleado.apellido+'</label>';
 		document.getElementById('nombreempleados').appendChild(label);
 	});
 }
@@ -48,7 +48,7 @@ function createSucursal(res){
 		}
 		sucursales.push(sucursal);
 		let label = document.createElement('label');
-		label.innerHTML = '<input type="radio" name="filtroempleados">&nbsp;<label for="check" style="color:#7f8581;padding:3px;font-size:12px;border: 1px white red;border-radius: 3px;"><strong>'+sucursal.nombre+'</strong></label>';
+		label.innerHTML = '<input class="testradio2"style="opacity: 0;width:20px;height: 20px;position: absolute;left: 22px; cursor: pointer;" type="radio" name="sucursales"><span class="inputfalso" style="border-radius: 50%;display: inline-block;height: 20px;position: absolute;left: 22px;width: 21px;z-index: -1;background-color: #ccc"></span><label style="color:#7f8581;margin-left:20px;margin-top:1px;font-size:12px;">&nbsp;'+sucursal.nombre+'</label>';
 		document.getElementById('nombresucursales').appendChild(label);
 	});
 }
