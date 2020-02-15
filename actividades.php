@@ -120,7 +120,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                     </div>
                     <script src="./assets/js/pages/crud/forms/widgets/bootstrap-daterangepicker.js" type="text/javascript"></script>
                </div>
-               <button style="height: 38px; margin-top:19px; margin-left:-22px;" type="submit" onclick="pickDateRange()" class="btn btn-brand">aplicar</button>
+               <button style="margin-left: -20px; height:38px; margin-top: 20px; " type="submit" onclick="pickDateRange()" class="btn btn-brand">aplicar</button>
+               <button style="height:38px; margin-top: 20px; " type="submit" onclick="cancelFilterByRange()" class="btn btn-secondary">cancelar</button>
            </div>
        </div>
        <br>

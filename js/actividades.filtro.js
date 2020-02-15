@@ -1,157 +1,166 @@
-var actividades;       //variable que se queda fija y no se debe alterar para almacenar todas las actividades
-var tabla;             //variable cambiante para que pueda reescribirse la tabla
-var FilterIcon;
-var filter = false;
-var activities_filtered_by_icons = [];
-var activities_filtered_by_completed = [];
-var filtro_especifico = [];
-var completado = document.getElementById('completado');
-var activities_filtered_by_date = [];
+var actividades;
 
-//filtro por rango de fecha
-function pickDateRange(){
-    activities_filtered_by_date = [];
-    let dates = document.getElementById('rangoBusqueda').value.split('/');
-    begin = dates[0].substring(0, dates[0].length -1)
-    end = dates[1].substring(1, dates[0].length );
-    begin = new Date(begin);
-    end = new Date(end);
-    tabla.forEach(element => {
-        let auxDate = element.fecha_inicio;
-        auxDate = auxDate.split(" ");
-        auxDate = auxDate[0];
-        auxDate = new Date(auxDate);
-        if(auxDate.getTime() > begin.getTime() || auxDate.getTime < end.getTime()){
-            activities_filtered_by_date.push(element);
-        }
-    });
-    console.log(activities_filtered_by_date);
-}
+//tipos de filtro posibles
+var filtro_tipo_actividad = false;
+var filtro_actividades_completadas = false;
+var filtro_sucursal_empleado = false;
+var filtro_rango_fecha = false;
 
-//filtro por select variado
-//primero obtendre la lista de las sucursales y de los empleados para poder hacer el filtro 
-async function filterBySelect(){
-    filtro_especifico = [];
-    
-    let filter = document.getElementById('kt_select2_1').options[document.getElementById("kt_select2_1").selectedIndex].text;
-    
-    tabla.forEach(element => {
-        if(element.nombre_empleado+" "+element.apellido_empleado == filter || element.nombre_sucursal == filter){
-            filtro_especifico.push(element);
-        }
-    });
+//variables que almacenas las funciones de filtro
+var id_icon;
+var sucursal_empleado;
+//rango de completado pero es booleano
+var rango_fechas;
 
-    printTable(filtro_especifico);
-
-    //magia de filtrado ocurre aqui
-    //tabla.forEach(element => {
-        //if(element.nombre_empleado == )
-    //});
-}
-
-//filtro por completado
-completado.addEventListener('change', ()=>{
-    if(completado.checked){
-        filterByCompleted();
-    }else{
-        //aqui se imprime la lista original sin filtro
-        unfilterByCompleted();
-    }
-})
-
-function filterByCompleted(){
-    
-    activities_filtered_by_completed = [];
-    tabla.forEach(element => {
-        if(element.completado == 'Completado'){
-            activities_filtered_by_completed.push(element);
-        }
-    });
-    printTable(activities_filtered_by_completed);
-}
-
-function unfilterByCompleted(){
-    //console.log('no voy a filtrar por completado');
-}
-
-//preparativos previos del filtro de actividades
-$(document).ready(()=>{
-    $.ajax({
+/* -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* FUNCION INICIAL DEL MODULO -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* */
+$(document).ready(() =>{
+   $.ajax({
         type: 'GET',
-        url: 'funciones/actividades.get.php',
+        url: './funciones/actividades.get.php',
         success: res => {
             actividades = JSON.parse(res);
-            tabla = actividades;
-        },
-        error : err => {
-            console.error(err);
+            console.log(actividades);
         }
-    });
+   });
 });
 
-//filtro por iconos
+/* -------------------------------------------------- FILTROS DEL MODULO -------------------------------------------------- */
+
+//------------------------------    FILTRO POR ICONO    ------------------------------
 function filterByIcon(id_icon){
-    if(FilterIcon != null){
-        if(id_icon == FilterIcon){
-            filter = !filter;
-            if(filter){
-                iconFilter(id_icon);
-                setIconColor(id_icon);                
-            }else{
-                tabla = actividades;
-                printTable(tabla);
-                deSelectIconColor(id_icon);
-            }
+    if(this.id_icon != null){
+        if(this.id_icon != id_icon){
+            filtro_tipo_actividad = true;
+            this.id_icon = id_icon;
+            filter();
         }else{
-            FilterIcon = id_icon;
-            filter = true;
-            iconFilter(id_icon);
-            setIconColor(id_icon);
+            if(filtro_tipo_actividad){
+                filtro_tipo_actividad = false;
+                filter();
+            }else{
+                filtro_tipo_actividad = true;
+                this.id_icon = id_icon;
+                filter();
+            }
         }
     }else{
-        FilterIcon = id_icon;
-        filter = !filter;
-        iconFilter(id_icon);
-        setIconColor(id_icon);
+        this.id_icon = id_icon;
+        filtro_tipo_actividad = true;
+        filter();
     }
 }
 
-//funciones esteticas relacionadas con los filtros de iconos y su ilustracion
-function setIconColor(id_icon){
-    let icon = document.getElementById('btn-icon-'+id_icon);
-    for(let i = 1; i<=10; i++){
-        if('btn-icon-'+id_icon == 'btn-icon-'+i){
-            icon.style.background = "#ececf5";
-            icon.style.color      = "#6f7275";
-            icon.style.transition = "0.3s";
+//------------------------------    FILTRO POR COMPLETADO ------------------------------
+document.getElementById('completado').addEventListener('change',() => {
+    if(document.getElementById('completado').checked){
+        filtro_completado = true;
+        filter();
+    }else{
+        filtro_completado = false;
+        filter();
+    }
+});
+
+//------------------------------    FILTRO POR SUCURSAL O EMPLEADO  ------------------------------
+function filterBySelect(){    
+    this.filtro_sucursal_empleado = document.getElementById('kt_select2_1').options[document.getElementById("kt_select2_1").selectedIndex].text;
+    filter();
+}
+
+//------------------------------    FILTRO POR RANGO DE FECHA   ------------------------------
+function pickDateRange(){
+    rango_fechas = document.getElementById('rangoBusqueda').value.split('/');
+    filtro_rango_fecha = true;
+}
+
+function cancelFilterByRange(){
+    filtro_rango_fecha = false;
+}
+
+// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* LOGICA DE FILTRADO -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+// ------------------------------   FILTRO MAESTRO  ------------------------------
+function filter(){
+    let content = actividades;
+
+    //TODO: LÓGICA DE FILTRADO
+    if(filtro_tipo_actividad){
+
+        if(filtro_completado){
+
+            if(filtro_sucursal_empleado){
+
+                if(filtro_rango_fecha){
+                    
+                }
+            }else{
+                if(filtro_rango_fecha){
+                    
+                }
+            }
         }else{
-            document.getElementById('btn-icon-'+i).style.background = "white";
-            document.getElementById('btn-icon-'+i).style.color = "#646c9a";
-            document.getElementById('btn-icon-'+i).style.transition = "0.3s";
+            if(filtro_sucursal_empleado){
+
+                if(filtro_rango_fecha){
+                    
+                }
+            }else{
+                if(filtro_rango_fecha){
+                    
+                }
+            }
+        }
+    }else{
+        if(filtro_completado){
+
+            if(filtro_sucursal_empleado){
+
+                if(filtro_rango_fecha){
+                    
+                }
+            }else{
+                if(filtro_rango_fecha){
+                    
+                }
+            }
+        }else{
+            if(filtro_sucursal_empleado){
+
+                if(filtro_rango_fecha){
+                    
+                }
+            }else{
+                if(filtro_rango_fecha){
+                    
+                }
+            }
         }
     }
+
+    printTable(content);
 }
 
-function deSelectIconColor(id_icon){
-    let icon = document.getElementById('btn-icon-'+id_icon);
-    icon.style.background = "white";
-    icon.style.color = "#646c9a";
-    icon.style.transition = "0.5s";
+// ------------------------------   FILTRO POR ICONOS   ------------------------------
+function iconFilter(){
+
 }
 
-function iconFilter(id_icon){
-    activities_filtered_by_icons = [];
-    actividades.forEach(actividad => {
-        if(actividad.id_icon == id_icon){
-            activities_filtered_by_icons.push(actividad);
-        }
-    });
-    tabla = activities_filtered_by_icons;
-    printTable(tabla);
+// ------------------------------   FILTRO POR COMPLETADO   ------------------------------
+function completeFilter(){
+
 }
 
+// ------------------------------   FILTRO POR SUCURSAL O EMPLEADO  ------------------------------
+function sucursalEmpleadoFilter(){
+
+}
+
+// ------------------------------   FILTRO POR RANGO Y FECHA    ------------------------------
+function dateRangeFilter(){
+    
+}
+
+// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* IMPRESION DE LA NUEVA TABLA -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 function printTable(content){
-    let table = document.getElementById('content');
-    console.log(table);
-    console.log(content);
+
 }
