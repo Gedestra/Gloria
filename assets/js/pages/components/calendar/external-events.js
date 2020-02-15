@@ -112,18 +112,19 @@
   			var hora = momentoActual.getHours()
   			var minuto = momentoActual.getMinutes()
   			var segundo = momentoActual.getSeconds()
+        var horaImprimible;
   			if ((hora >= 0)&&(hora <= 9)){ 
-  				var horas="0"+hora; 
-  			}
-
+  				var hora="0"+hora;
+          horaImprimible = hora+":"+minuto+":00";
+  			}else{
+          horaImprimible = hora+":"+minuto+":00";
+        }
   			if ((minuto >= 0)&&(minuto <= 9)){ 
-  				minuto="0"+minuto; 
-  			}
-
-  			if ((segundo >= 0)&&(segundo <= 9)){ 
-  				segundo="0"+segundo; 
-  			}
-  			var horaImprimible = hora+":"+minuto+":00";
+  				minuto="0"+minuto;
+          horaImprimible = hora+":"+minuto+":00";
+  			}else{
+          horaImprimible = hora+":"+minuto+":00";
+        }
   			var YM = todayDate.format('YYYY-MM');
   			var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');
   			var TODAY = todayDate.format('YYYY-MM-DD');

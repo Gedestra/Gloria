@@ -2,7 +2,7 @@
 include("session.php");
 $conexion->query("SET NAMES 'utf8'");
 $actividades = array();
-$query = "SELECT e.nombre, e.apellidos, id_empleado, s.nombre AS namesucursal, s.id_sucursal FROM empleados AS e INNER JOIN sucursales AS s ON e.id_sucursal=s.id_sucursal";
+$query = "SELECT * FROM empleados";
 $resultado = $conexion->query($query);
 while($res = $resultado->fetch_assoc()){
 	switch ($res['id_empleado']) {
@@ -72,9 +72,7 @@ while($res = $resultado->fetch_assoc()){
 		$nombre_empleado = $res['nombre'],
 		$apellido_empleado = $res['apellidos'],
 		$id_empleado = $res['id_empleado'],
-		$color_empleado=$color,
-		$nombre_sucursal=$res['namesucursal'],
-		$id_sucursal=$res['id_sucursal']
+		$color_empleado=$color
 	);
 	array_push($actividades, $row);
 }
