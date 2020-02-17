@@ -1,9 +1,9 @@
-<?php  
-include("funciones/session.php"); 
+<?php
+include("funciones/session.php");
 $query="SELECT rol FROM usuarios WHERE username='$username'";
 $resultado = $conexion->query($query);
 $row=$resultado->fetch_assoc();
-$sesion=$row['rol']; 
+$sesion=$row['rol'];
 if ($sesion !='Administrador' && $sesion !='Empleado') {
     header("location: index.php");
 }
@@ -52,7 +52,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                         <li class="kt-menu__item " aria-haspopup="true"><a href="servicios.php" class="kt-menu__link" title="Servicios"><i class="kt-menu__link-icon flaticon-medical"></i><span class="kt-menu__link-text">Servicios</span></a></li>
                         <li class="kt-menu__item " aria-haspopup="true"><a href="promociones.php" class="kt-menu__link" title="Promociones"><i class="kt-menu__link-icon flaticon2-tag"></i><span class="kt-menu__link-text">Promociones</span></a></li>
                         <li class="kt-menu__item " aria-haspopup="true"><a href="giftcard.php" class="kt-menu__link" title="Giftcard"><i class="kt-menu__link-icon flaticon-gift"></i><span class="kt-menu__link-text">Gift card</span></a></li>
-                        <li class="kt-menu__item " aria-haspopup="true"><a href="programacionesSMS.php" class="kt-menu__link" title="sms"><i class="kt-menu__link-icon flaticon3-gift"></i><span class="kt-menu__link-text">Programaciones SMS</span></a></li>
+                        <li class="kt-menu__item " aria-haspopup="true"><a href="programacionesSMS.php" class="kt-menu__link" title="sms"><i class="kt-menu__link-icon flaticon-chat-1"></i><span class="kt-menu__link-text">Programaciones SMS</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -163,8 +163,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                 $query="SELECT * FROM usuarios AS us INNER JOIN empleados AS em ON us.id_empleado=em.id_empleado WHERE username='$username'";
                                                 $resultado=$conexion->query($query);
                                                 $row=$resultado->fetch_assoc();
-                                                echo $row['nombre'];  
-                                                ?>  
+                                                echo $row['nombre'];
+                                                ?>
                                             </span>
                                         </div>
                                     </div>
@@ -173,7 +173,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                             <div class="kt-user-card__avatar">
                                                 <img class="kt-hidden" alt="Pic" src="assets/media/users/300_25.jpg" />
                                                 <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">
-                                                    <?php 
+                                                    <?php
                                                     switch ($row['rol']) {
                                                         case 'Administrador':
                                                         echo "AD";
@@ -192,7 +192,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                 <?php echo $username; ?>
                                                 <div class="kt-user-card__badge">
                                                     <span class="btn btn-success btn-sm btn-bold btn-font-md" data-toggle="modal" data-target="#info">
-                                                        <?php echo $row['rol']; ?>  
+                                                        <?php echo $row['rol']; ?>
                                                     </span>
                                                 </div>
                                             </div>
@@ -235,7 +235,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <?php  
+                                        <?php
                                         switch ($row['rol']) {
                                             case 'Administrador':
                                             echo "
@@ -333,17 +333,17 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                 <label class="col-xl-3 col-lg-3 col-form-label">Seleccionar uno o más servicios a relacionar</label>
                                                                                 <div class="col-lg-9 col-xl-6">
                                                                                     <select class="form-control kt-select2" id="kt_select2_3" name="servicios[]" multiple="multiple" style="width: 200px:">
-                                                                                        <?php 
+                                                                                        <?php
                                                                                         $query = "SELECT * FROM servicios WHERE estatus='Activo' ORDER BY nombre_servicio ASC";
                                                                                         $resultado=$conexion->query($query);
                                                                                         while ($row=$resultado->fetch_assoc()) {
                                                                                             ?>
-                                                                                            <option value="<?php echo $row['id_servicio']; ?>"><?php echo $row['nombre_servicio']; ?></option><?php 
+                                                                                            <option value="<?php echo $row['id_servicio']; ?>"><?php echo $row['nombre_servicio']; ?></option><?php
                                                                                         }
                                                                                         ?>
                                                                                     </select>
                                                                                 </div>
-                                                                            </div> 
+                                                                            </div>
                                                                         </div>
                                                                         <div id="form2" style="display: none;">
                                                                             <div class="form-group row">
@@ -351,12 +351,12 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                 <div class="col-lg-9 col-xl-6">
                                                                                     <select class="form-control kt-selectpicker" name="id_grupo_servicio">
                                                                                         <option value="" style="display: none;">Seleccinar</option>
-                                                                                        <?php 
+                                                                                        <?php
                                                                                         $query = "SELECT * FROM grupo_servicio ORDER BY nombre_grupo_servicio ASC";
                                                                                         $resultado=$conexion->query($query);
                                                                                         while ($row=$resultado->fetch_assoc()) {
                                                                                             ?>
-                                                                                            <option value="<?php echo $row['id_grupo_servicio']; ?>"><?php echo $row['nombre_grupo_servicio']; ?></option><?php 
+                                                                                            <option value="<?php echo $row['id_grupo_servicio']; ?>"><?php echo $row['nombre_grupo_servicio']; ?></option><?php
                                                                                         }
                                                                                         ?>
                                                                                     </select>
@@ -366,26 +366,26 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                                 <label class="col-xl-3 col-lg-3 col-form-label">Seleccionar uno o más servicios a relacionar</label>
                                                                                 <div class="col-lg-9 col-xl-6">
                                                                                     <select class="form-control kt-select2" id="kt_select2_4" name="servicios[]" multiple="multiple" style="width: 200px:">
-                                                                                        <?php 
+                                                                                        <?php
                                                                                         $query = "SELECT * FROM servicios WHERE estatus='Activo' ORDER BY nombre_servicio ASC";
                                                                                         $resultado=$conexion->query($query);
                                                                                         while ($row=$resultado->fetch_assoc()) {
                                                                                             ?>
-                                                                                            <option value="<?php echo $row['id_servicio']; ?>"><?php echo $row['nombre_servicio']; ?></option><?php 
+                                                                                            <option value="<?php echo $row['id_servicio']; ?>"><?php echo $row['nombre_servicio']; ?></option><?php
                                                                                         }
                                                                                         ?>
                                                                                     </select>
                                                                                 </div>
-                                                                            </div>  
-                                                                        </div> 
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-label-brand btn-bold">Guardar</button> 
+                                                            <button type="submit" class="btn btn-label-brand btn-bold">Guardar</button>
                                                             <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                                                        </div>  
+                                                        </div>
                                                     </form>
                                                 </div>
                                                 <div class="tab-pane" id="kt_user_edit_tab_25" role="tabpanel">
@@ -393,7 +393,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                         <div class="kt-form__body">
                                                             <div class="kt-section kt-section--first">
                                                                 <div class="kt-section__body">
-                                                                    <?php 
+                                                                    <?php
                                                                     include("funciones/conexion.php");
                                                                     $conexion->query("SET NAMES 'utf8'");
                                                                     $query = "SELECT GROUP_CONCAT(ser.nombre_servicio), GROUP_CONCAT(ser.id_servicio), gru.nombre_grupo_servicio, gru.id_grupo_servicio FROM relacion_servicio_grupo AS rela INNER JOIN servicios AS ser ON rela.id_servicio=ser.id_servicio INNER JOIN grupo_servicio AS gru ON rela.id_grupo_servicio=gru.id_grupo_servicio GROUP BY gru.id_grupo_servicio";
@@ -471,7 +471,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                         <div class="kt-form__body">
                                                             <div class="kt-section kt-section--first">
                                                                 <div class="kt-section__body">
-                                                                    <?php 
+                                                                    <?php
                                                                     include("funciones/conexion.php");
                                                                     $conexion->query("SET NAMES 'utf8'");
                                                                     $query = "SELECT * FROM sms_tipo WHERE estatus='activo'";
@@ -600,7 +600,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                         <div class="kt-form__body">
                                                             <div class="kt-section kt-section--first">
                                                                 <div class="kt-section__body">
-                                                                    <?php 
+                                                                    <?php
                                                                     include("funciones/conexion.php");
                                                                     $conexion->query("SET NAMES 'utf8'");
                                                                     $query = "SELECT * FROM promociones";
@@ -610,7 +610,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                         ?>
                                                                         <div class="kt-section kt-section--first">
                                                                             <div class="kt-timeline-v3">
-                                                                                <?php 
+                                                                                <?php
                                                                                 $fecha_vigencia=$row['fecha_vigencia'];
                                                                                 $nombre=$row['nombre'];
                                                                                 $Porcentaje=$row['porcentaje'];
@@ -702,7 +702,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                     <div class="col-xl-3"></div>
                                                                     <div class="col-lg-9 col-xl-6">
                                                                         <button type="submit" class="btn btn-label-brand btn-bold">Guardar</button>
-                                                                    </form> 
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -756,7 +756,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                         <div class="kt-form__body">
                                                             <div class="kt-section kt-section--first">
                                                                 <div class="kt-section__body">
-                                                                    <?php 
+                                                                    <?php
                                                                     include("funciones/conexion.php");
                                                                     $conexion->query("SET NAMES 'utf8'");
                                                                     $query = "SELECT confirmar, GROUP_CONCAT(' ',smstipo.etiqueta_sms), GROUP_CONCAT(smstipo.id_sms),tipo.nombre_tipo_actividad, tipo.estatus, tipo.sincronizar_tipo_actividad, tipo.id_tipo_actividad, id_icon FROM sms_relacion AS sms RIGHT JOIN tipo_actividad AS tipo ON sms.id_tipo_actividad=tipo.id_tipo_actividad LEFT JOIN sms_tipo AS smstipo ON sms.id_sms=smstipo.id_sms GROUP BY tipo.id_tipo_actividad ORDER BY estatus asc";
@@ -933,12 +933,12 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                             <label class="col-xl-3 col-lg-3 col-form-label">Seleccione el tipo de mensaje a sincronizar</label>
                                                                             <div class="col-lg-9 col-xl-6">
                                                                                 <select class="form-control kt-select2" id="kt_select2_5" name="id_sms[]" multiple="multiple" style="width: 300px:">
-                                                                                    <?php 
+                                                                                    <?php
                                                                                     $query = "SELECT * FROM sms_tipo ORDER BY etiqueta_sms ASC";
                                                                                     $resultado=$conexion->query($query);
                                                                                     while ($row=$resultado->fetch_assoc()) {
                                                                                         ?>
-                                                                                        <option value="<?php echo $row['id_sms']; ?>"><?php echo $row['etiqueta_sms'].' ('.$row['nombre'].')'; ?></option><?php 
+                                                                                        <option value="<?php echo $row['id_sms']; ?>"><?php echo $row['etiqueta_sms'].' ('.$row['nombre'].')'; ?></option><?php
                                                                                     }
                                                                                     ?>
                                                                                 </select>
@@ -999,7 +999,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                         <div class="kt-form__body">
                                                             <div class="kt-section kt-section--first">
                                                                 <div class="kt-section__body">
-                                                                    <?php 
+                                                                    <?php
                                                                     include("funciones/conexion.php");
                                                                     $conexion->query("SET NAMES 'utf8'");
                                                                     $query = "SELECT * FROM razon_perdido WHERE estatus='Activo'";
@@ -1158,12 +1158,12 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                             <label class="col-xl-3 col-lg-3 col-form-label">tipo de sms</label>
                                                                             <div class="col-lg-9 col-xl-6">
                                                                                 <select class="form-control kt-select2" id="kt_select2_10" name="id_sms[]" multiple="multiple" style="width: 300px:">
-                                                                                    <?php 
+                                                                                    <?php
                                                                                     $query = "SELECT * FROM sms_tipo ORDER BY etiqueta_sms ASC";
                                                                                     $resultado=$conexion->query($query);
                                                                                     while ($row=$resultado->fetch_assoc()) {
                                                                                         ?>
-                                                                                        <option value="<?php echo $row['id_sms']; ?>"><?php echo $row['etiqueta_sms'].' ('.$row['nombre'].')'; ?></option><?php 
+                                                                                        <option value="<?php echo $row['id_sms']; ?>"><?php echo $row['etiqueta_sms'].' ('.$row['nombre'].')'; ?></option><?php
                                                                                     }
                                                                                     ?>
                                                                                 </select>
@@ -1181,7 +1181,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                 <button type="submit" class="btn btn-label-brand btn-bold">Guardar</button>
                                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
                                             </div>
-                                        </form> 
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -1243,7 +1243,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                     <button type="submit" class="btn btn-label-brand btn-bold">Guardar</button>
                                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
                                                 </div>
-                                            </form> 
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -1289,12 +1289,12 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                                                         <label class="col-2 col-form-label">Servicios</label>
                                                                         <div class="col-8">
                                                                             <select class="form-control kt-select2" id="kt_select2_8" name="editgruposervicios[]" multiple="multiple" style="width: 300px:">
-                                                                                <?php 
+                                                                                <?php
                                                                                 $query = "SELECT * FROM servicios";
                                                                                 $resultado=$conexion->query($query);
                                                                                 while ($row=$resultado->fetch_assoc()) {
                                                                                     ?>
-                                                                                    <option value="<?php echo $row['id_servicio']; ?>"><?php echo $row['nombre_servicio']; ?></option><?php 
+                                                                                    <option value="<?php echo $row['id_servicio']; ?>"><?php echo $row['nombre_servicio']; ?></option><?php
                                                                                 }
                                                                                 ?>
                                                                             </select>
@@ -1432,9 +1432,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 valor=d[3].length
                                 smsCount2 = Math.ceil(valor/160);;
                                 charSpan2.innerHTML = valor + " caracteres escritos";
-                                
+
                                 if(smsCount2 <= 1){
-                                    smsSpan2.innerHTML = "(se cobrará 1 mensaje)";    
+                                    smsSpan2.innerHTML = "(se cobrará 1 mensaje)";
                                 }else{
                                     smsSpan2.innerHTML = "(se cobrarán " + smsCount2 + " mensajes)";
                                 }
@@ -1445,11 +1445,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                     smsCount2 = Math.ceil(length2/160);
 
                                     if(smsCount2 <= 1){
-                                        smsSpan2.innerHTML = "(se cobrará 1 mensaje)";    
+                                        smsSpan2.innerHTML = "(se cobrará 1 mensaje)";
                                     }else{
                                         smsSpan2.innerHTML = "(se cobrarán " + smsCount2 + " mensajes)";
                                     }
-                                } );        
+                                } );
                             }
 
                             function editsmstiposave(){
@@ -1458,15 +1458,15 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 var editmensajesms=document.getElementsByName("editmensajesms")[0].value;
                                 var editidsms=document.getElementsByName("editidsms")[0].value;
 
-                                if($("#estatussms").is(':checked')) {  
+                                if($("#estatussms").is(':checked')) {
                                     var editestatussms="activo";
                                 }else{
                                     var editestatussms="inactivo";
                                 }
 
-                                $.ajax({                        
-                                    type: "POST",                 
-                                    url: "funciones/updatesms.php",     
+                                $.ajax({
+                                    type: "POST",
+                                    url: "funciones/updatesms.php",
                                     data:{id_sms:editidsms,etiqueta_sms:editnombresms,nombre:editprogramacionsms,body:editmensajesms,estatus:editestatussms},
                                     beforeSend: function () {
                                         document.getElementById("btnaddeditsms").disabled=true;
@@ -1520,9 +1520,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 var editrelacionservicios=$("select[name='editgruposervicios[]']").map(function(){return $(this).val();}).get();
                                 if (editrelacionservicios.length>0) {
 
-                                    $.ajax({                        
-                                        type: "POST",                 
-                                        url: "funciones/editgruposervicios.php",     
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "funciones/editgruposervicios.php",
                                         data:{nombregrupo:editnombregruposervicio,servcios:editrelacionservicios,id_grupo:editidgruposervicio},
                                         success:  function (response) {
                                             alertify.set('notifier','position', 'botton-right');
@@ -1541,7 +1541,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 }else{
                                     alertify.set('notifier','position', 'botton-right');
                                     alertify.error('<strong>El grupo de servicios no puedo quedar vacio</strong>');
-                                }  
+                                }
                             }
                         </script>
                         <script>
@@ -1673,4 +1673,3 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
                                 }
                             }
                         </script>
-
