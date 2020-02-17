@@ -41,7 +41,7 @@ $id_usuario=$row['id_usuario'];
     <script src="http://momentjs.com/downloads/moment.min.js"></script>
     <script src="js/mostrar.empleados.js"></script>
     <style>
-        input[class="testradio"]:checked + span:after {    
+        input[type="radio"]:checked + span:after {    
             content: "";
             width: 10px;
             height: 10px;
@@ -50,17 +50,7 @@ $id_usuario=$row['id_usuario'];
             top: 5px;
             left: 5px;
             border-radius: 100%;
-        }
-        input[class="testradio2"]:checked + span:after {    
-            content: "";
-            width: 10px;
-            height: 10px;
-            background: white;
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            border-radius: 100%;
-        }      
+        }   
     </style>
 </head>
 <body>
@@ -89,8 +79,8 @@ $id_usuario=$row['id_usuario'];
                             <div id="kt_calendar_external_events" class="fc-unthemed">
                                 <div class="form-group row" id="nombresucursales" style="display: flex;flex-direction: column;">
                                 </div>
-                                <div class="kt-separator kt-separator--border-dashed kt-separator--space-md"></div>
-                                <div class="form-group row" id="nombreempleados" style="display: flex;flex-direction: column;">
+                                    
+                                <div class="form-group row" id="nombreempleados" style="display: flex;flex-direction: column;margin-top: -24px;">
                                 </div>
                             </div>
                         </div>
