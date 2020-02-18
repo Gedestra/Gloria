@@ -1,9 +1,9 @@
-<?php 
-include("funciones/session.php"); 
+<?php
+include("funciones/session.php");
 $query="SELECT rol, id_usuario FROM usuarios WHERE username='$username'";
 $resultado = $conexion->query($query);
 $row=$resultado->fetch_assoc();
-$sesion=$row['rol']; 
+$sesion=$row['rol'];
 if ($sesion !='Administrador' && $sesion !='Empleado') {
     header("location: index.php");
 }
@@ -41,7 +41,7 @@ $id_usuario=$row['id_usuario'];
     <script src="http://momentjs.com/downloads/moment.min.js"></script>
     <script src="js/mostrar.empleados.js"></script>
     <style>
-        input[type="radio"]:checked + span:after {    
+        input[type="radio"]:checked + span:after {
             content: "";
             width: 10px;
             height: 10px;
@@ -50,12 +50,12 @@ $id_usuario=$row['id_usuario'];
             top: 5px;
             left: 5px;
             border-radius: 100%;
-        }   
+        }
     </style>
 </head>
 <body>
     <?php include("head.php"); ?>
-    
+
     <!-- end:: Header -->
     <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
         <!-- begin:: Content -->
@@ -79,13 +79,13 @@ $id_usuario=$row['id_usuario'];
                             <div id="kt_calendar_external_events" class="fc-unthemed">
                                 <div class="form-group row" id="nombresucursales" style="display: flex;flex-direction: column;">
                                 </div>
-                                    
+
                                 <div class="form-group row" id="nombreempleados" style="display: flex;flex-direction: column;margin-top: -24px;">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!--end::Portlet-->
                 </div>
                 <div class="col-lg-9">
@@ -216,7 +216,7 @@ $id_usuario=$row['id_usuario'];
                                 $resultado=$conexion->query($query);
                                 while ($row3=$resultado->fetch_assoc()) {
                                     ?>
-                                    <option value="<?php echo $row3['id_empleado']; ?>"><?php echo $row3['nombre'].$row3['apellidos']; ?></option><?php 
+                                    <option value="<?php echo $row3['id_empleado']; ?>"><?php echo $row3['nombre'].$row3['apellidos']; ?></option><?php
                                 }
                                 ?>
                             </select>
@@ -228,12 +228,12 @@ $id_usuario=$row['id_usuario'];
                         <div class="col-10">
                             <select class="form-control kt-selectpicker" data-live-search="true" tabindex="-98" name="nombre_cliente" id="nombre_cliente">
                                 <option value="" style="display: none;">Seleccionar</option>
-                                <?php 
+                                <?php
                                 $query = "SELECT * FROM clientes ORDER BY nombres ASC";
                                 $resultado=$conexion->query($query);
                                 while ($row3=$resultado->fetch_assoc()) {
                                     ?>
-                                    <option value="<?php echo $row3['id_cliente']; ?>"><?php echo $row3['nombres'].$row3['apellidos']; ?></option><?php 
+                                    <option value="<?php echo $row3['id_cliente']; ?>"><?php echo $row3['nombres'].$row3['apellidos']; ?></option><?php
                                 }
                                 ?>
                             </select>
@@ -318,7 +318,7 @@ $id_usuario=$row['id_usuario'];
             $(".addfechaactual").val(fecha);
             $('.addfechaactual').trigger("change");
 
-            
+
             $('#icontipo').empty();
             <?php
             $conexion->query("SET NAMES 'utf8'");
@@ -471,9 +471,9 @@ $id_usuario=$row['id_usuario'];
         }
         function btnaddactividad(){
             var confirmoactividadvalue;
-            if($("#addconfirmadoactividad").is(':checked')) {  
+            if($("#addconfirmadoactividad").is(':checked')) {
                 confirmoactividadvalue="Confirmada";
-            }else{  
+            }else{
                 confirmoactividadvalue="No confirmada";
             }
             var nombre_actividad_value=$("#nombre_actividad").val();
@@ -532,9 +532,9 @@ $id_usuario=$row['id_usuario'];
                     let srecord = iyear+"-"+imonth+"-"+iday+" "+ihour+":"+iminutes+":"+iseconds;
                     let frecord = fyear+"-"+fmonth+"-"+fday+" "+fhour+":"+fminutes+":"+fseconds;
                     console.log(valuetipoactividad)
-                    $.ajax({                        
-                        type: "POST",                 
-                        url: "funciones/addactividades.php",     
+                    $.ajax({
+                        type: "POST",
+                        url: "funciones/addactividades.php",
                         data:{
                             idtipoactividad:valuetipoactividad,
                             fechainicial: srecord,
