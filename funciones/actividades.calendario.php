@@ -1,4 +1,4 @@
-<?php  
+<?php
 include("session.php");
 $conexion->query("SET NAMES 'utf8'");
 $actividades = array();
@@ -105,12 +105,15 @@ while($res = $resultado->fetch_assoc()){
 		$apellido_cliente = $res['apellidoCliente'],
 		$fecha_inicio=$res['fecha_hora_inicio'],
 		$fecha_termino=$res['fecha_hora_termino'],
-		$id_empleado=$color,
-		$nombre_actividad=$res['nombre_tipo_Actividad']
+		$id_empleado_color=$color,
+		$nombre_actividad=$res['nombre_tipo_Actividad'],
+		$id_tipo_actividad=$res['id_tipo_actividad'],
+		$id_empleado=$res['id_empleado'],
+		$id_cliente=$res['id_cliente'],
+		$id_actividad=$res['id_Actividad']
 	);
 	array_push($actividades, $row);
 }
-
 echo json_encode($actividades);
 
 ?>
