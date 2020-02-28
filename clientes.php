@@ -18,6 +18,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 	<title>3D LASHES | Clientes</title>
 	<meta name="description" content="Latest updates and statistic charts">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="envioscript.js"></script>
 
 
 	<!--begin::Fonts -->
@@ -97,43 +99,43 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 <body>
 	<?php 
 	include("head.php"); 
-	if ($_POST) {
-		$conexion->query("SET NAMES 'utf8'");
-		$nombre=$_POST['nombre'];
-		$apellido=$_POST['apellido'];
-		$correo=$_POST['correo'];
-		$telefono=$_POST['telefono'];
-		$sexo=$_POST['sexo'];
-		$fecha_nacimiento=Date_create($_POST['fecha_nacimiento']);
-		$new_date = Date_format($fecha_nacimiento, "Y-m-d");
-		$ocupacion=$_POST['ocupacion'];
-		$direccion=$_POST['direccion'];
-		$estado=$_POST['estado'];
-		$pais=$_POST['pais'];
-		$municipio=$_POST['municipio'];
-		if ($fecha_nacimiento!=null) {
-			$query="INSERT INTO clientes (id_cliente, nombres, apellidos, correo, telefono, sexo, fecha_nacimiento, ocupacion, direccion, estado, municipio, estatus, pais) VALUES (NULL, '$nombre', '$apellido', '$correo', '$telefono', '$sexo', '$new_date', '$ocupacion', '$direccion', '$estado', '$municipio', 'Activo', '$pais');";
-			$resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
-			if ($resultado) {
-				echo "<script>alertify.set('notifier','position', 'botton-right');
-				alertify.success('<strong>Agregado correctamente</strong>');</script>";
-			}
-		}else{
-			$query="INSERT INTO clientes (id_cliente, nombres, apellidos, correo, telefono, sexo, fecha_nacimiento, ocupacion, direccion, estado, municipio, estatus, pais) VALUES (NULL, '$nombre', '$apellido', '$correo', '$telefono', '$sexo', NULL, '$ocupacion', '$direccion', '$estado', '$municipio', 'Activo', '$pais');";
-			$resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
-			if ($resultado) {
-				echo "<script>alertify.set('notifier','position', 'botton-right');
-				alertify.success('<strong>Agregado correctamente</strong>');</script>";
-			}
-		}
-	}
-	if ($_GET['cliente']=='update') {
-		echo "<script>alertify.set('notifier','position', 'botton-right');
-		alertify.success('<strong>¡Cliente Actualizado!</strong>');</script>";
-	}else if($_GET['cliente']=='delete'){
-		echo "<script>alertify.set('notifier','position', 'botton-right');
-		alertify.error('<strong>Cliente Eliminado!</strong>');</script>";
-	} 
+	// if ($_POST) {
+	// 	$conexion->query("SET NAMES 'utf8'");
+	// 	$nombre=$_POST['nombre'];
+	// 	$apellido=$_POST['apellido'];
+	// 	$correo=$_POST['correo'];
+	// 	$telefono=$_POST['telefono'];
+	// 	$sexo=$_POST['sexo'];
+	// 	$fecha_nacimiento=Date_create($_POST['fecha_nacimiento']);
+	// 	$new_date = Date_format($fecha_nacimiento, "Y-m-d");
+	// 	$ocupacion=$_POST['ocupacion'];
+	// 	$direccion=$_POST['direccion'];
+	// 	$estado=$_POST['estado'];
+	// 	$pais=$_POST['pais'];
+	// 	$municipio=$_POST['municipio'];
+	// 	if ($fecha_nacimiento!=null) {
+	// 		$query="INSERT INTO clientes (id_cliente, nombres, apellidos, correo, telefono, sexo, fecha_nacimiento, ocupacion, direccion, estado, municipio, estatus, pais) VALUES (NULL, '$nombre', '$apellido', '$correo', '$telefono', '$sexo', '$new_date', '$ocupacion', '$direccion', '$estado', '$municipio', 'Activo', '$pais');";
+	// 		$resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
+	// 		if ($resultado) {
+	// 			echo "<script>alertify.set('notifier','position', 'botton-right');
+	// 			alertify.success('<strong>Agregado correctamente</strong>');</script>";
+	// 		}
+	// 	}else{
+	// 		$query="INSERT INTO clientes (id_cliente, nombres, apellidos, correo, telefono, sexo, fecha_nacimiento, ocupacion, direccion, estado, municipio, estatus, pais) VALUES (NULL, '$nombre', '$apellido', '$correo', '$telefono', '$sexo', NULL, '$ocupacion', '$direccion', '$estado', '$municipio', 'Activo', '$pais');";
+	// 		$resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
+	// 		if ($resultado) {
+	// 			echo "<script>alertify.set('notifier','position', 'botton-right');
+	// 			alertify.success('<strong>Agregado correctamente</strong>');</script>";
+	// 		}
+	// 	}
+	// }
+	// if ($_GET['cliente']=='update') {
+	// 	echo "<script>alertify.set('notifier','position', 'botton-right');
+	// 	alertify.success('<strong>¡Cliente Actualizado!</strong>');</script>";
+	// }else if($_GET['cliente']=='delete'){
+	// 	echo "<script>alertify.set('notifier','position', 'botton-right');
+	// 	alertify.error('<strong>Cliente Eliminado!</strong>');</script>";
+	// } 
 	?>
 	<!-- end:: Header -->
 	<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
@@ -243,11 +245,10 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="" method="POST">
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">Nombre(s)</label>
 							<div class="col-10">
-								<input type="text" class="form-control" name="nombre" required>
+								<input type="text" class="form-control" name="nombre1" required>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -295,7 +296,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">País</label>
 							<div class="col-10">
-								<select class="form-control kt-selectpicker" name="pais" onchange="habilitar();">
+								<select class="form-control kt-selectpicker" name="pais" id="addpais" onchange="habilitar();">
 									<option value="Elegir" id="AF">Elegir opción</option>
 									<option value="Afganistán" id="AF">Afganistán</option>
 									<option value="Albania" id="AL">Albania</option>
@@ -562,7 +563,6 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 						<button type="submit" class="btn btn-primary" id="btnagregar">Guardar</button>
 					</div>
-				</form>
 			</div>
 		</div>
 	</div>
