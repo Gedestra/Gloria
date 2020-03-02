@@ -49,14 +49,43 @@ $(document).ready(function(){
             // AJAX Code To Submit Form.
             $.ajax({
                 type: "POST",
-                url: "addclientes.php",
+                url: "funciones/addclientes.php",
                 data: dataString,
                 cache: false,
                 success: function(result){
                     alert(result);
+                    location.reload();
                 }
             });
         }
+        return false;
+    });
+
+    $("#btneditar").click(function(){
+        var nombre = $("#nombre").val();
+        var apellido = $("#apellido").val();
+        var correo = $("#correo").val();
+        var telefono = $("#telefono").val();
+        var ocupacion = $("#ocupacion").val();
+        var direccion = $("#colonia").val();
+        var estado = $("#estado").val();
+        var pais = $("#uppais").val();
+        var municipio = $("#municipio").val();
+        var id = $("#id_cliente").val();
+        console.log("HOLA");        
+        var dataString = 'nombre='+ nombre + '&apellido='+ apellido + '&correo='+ correo + '&telefono='+ telefono + '&ocupacion='+ ocupacion + '&direccion='+ direccion
+        + '&estado='+ estado + '&pais='+ pais + '&municipio='+ municipio + '&id_cliente='+ id;
+        console.log(dataString);
+        $.ajax({
+            type: "POST",
+            url: "funciones/updatecliente.php",
+            data: dataString,
+            success: function(result){
+                alert("Datos actualizados correctamente");
+                location.reload();
+            }
+        });
+        console.log("Adios");
         return false;
     });
 });
@@ -74,6 +103,8 @@ function nuevaFecha(fecha_nacimiento){
     }
     return fecha_nacimiento2.join("");
 };
+
+
 
 // $conexion->query("SET NAMES 'utf8'");
 // $nombre=$_POST['nombre'];

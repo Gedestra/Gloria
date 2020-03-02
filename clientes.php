@@ -19,7 +19,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 	<meta name="description" content="Latest updates and statistic charts">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script src="envioscript.js"></script>
+	<script src="funciones/envioClientesscript.js"></script>
 
 
 	<!--begin::Fonts -->
@@ -99,36 +99,6 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 <body>
 	<?php 
 	include("head.php"); 
-	// if ($_POST) {
-	// 	$conexion->query("SET NAMES 'utf8'");
-	// 	$nombre=$_POST['nombre'];
-	// 	$apellido=$_POST['apellido'];
-	// 	$correo=$_POST['correo'];
-	// 	$telefono=$_POST['telefono'];
-	// 	$sexo=$_POST['sexo'];
-	// 	$fecha_nacimiento=Date_create($_POST['fecha_nacimiento']);
-	// 	$new_date = Date_format($fecha_nacimiento, "Y-m-d");
-	// 	$ocupacion=$_POST['ocupacion'];
-	// 	$direccion=$_POST['direccion'];
-	// 	$estado=$_POST['estado'];
-	// 	$pais=$_POST['pais'];
-	// 	$municipio=$_POST['municipio'];
-	// 	if ($fecha_nacimiento!=null) {
-	// 		$query="INSERT INTO clientes (id_cliente, nombres, apellidos, correo, telefono, sexo, fecha_nacimiento, ocupacion, direccion, estado, municipio, estatus, pais) VALUES (NULL, '$nombre', '$apellido', '$correo', '$telefono', '$sexo', '$new_date', '$ocupacion', '$direccion', '$estado', '$municipio', 'Activo', '$pais');";
-	// 		$resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
-	// 		if ($resultado) {
-	// 			echo "<script>alertify.set('notifier','position', 'botton-right');
-	// 			alertify.success('<strong>Agregado correctamente</strong>');</script>";
-	// 		}
-	// 	}else{
-	// 		$query="INSERT INTO clientes (id_cliente, nombres, apellidos, correo, telefono, sexo, fecha_nacimiento, ocupacion, direccion, estado, municipio, estatus, pais) VALUES (NULL, '$nombre', '$apellido', '$correo', '$telefono', '$sexo', NULL, '$ocupacion', '$direccion', '$estado', '$municipio', 'Activo', '$pais');";
-	// 		$resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
-	// 		if ($resultado) {
-	// 			echo "<script>alertify.set('notifier','position', 'botton-right');
-	// 			alertify.success('<strong>Agregado correctamente</strong>');</script>";
-	// 		}
-	// 	}
-	// }
 	// if ($_GET['cliente']=='update') {
 	// 	echo "<script>alertify.set('notifier','position', 'botton-right');
 	// 	alertify.success('<strong>¡Cliente Actualizado!</strong>');</script>";
@@ -577,7 +547,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="funciones/updatecliente.php" method="POST" id="formfunebres">
+					<!-- <form action="funciones/updatecliente.php" method="POST" id="formfunebres"> -->
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">Nombre(s)</label>
 							<div class="col-10">
@@ -880,7 +850,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 						<button type="submit" class="btn btn-primary" id="btneditar">Guardar</button>
 					</div>
-				</form>
+				<!-- </form> -->
 			</div>
 		</div>
 	</div>

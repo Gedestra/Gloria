@@ -18,6 +18,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 	<title>3D LASHES | Empleados</title>
 	<meta name="description" content="Latest updates and statistic charts">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="funciones/envioEmpleados.js"></script>
 
 	<!--begin::Fonts -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
@@ -46,6 +48,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
+	<><>
 </head>
 
 <!-- end::Head -->
@@ -183,18 +186,18 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="funciones/addempleados.php" method="POST">
+				<!-- <form action="funciones/addempleados.php" method="POST"> -->
 					<div class="kt-portlet__body">
 						<div class="form-group row">
 							<label for="recipient-name" class="col-2 col-form-label">Nombre(s)</label>
 							<div class="col-10">
-								<input type="text" class="form-control" name="nombre" required>
+								<input type="text" class="form-control" name="nombre1" id="nombre1" required>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">Apellidos(s)</label>
 							<div class="col-10">
-								<input type="text" class="form-control" name="apellidos" required>
+								<input type="text" class="form-control" name="apellidos" id="apellido" required>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -231,7 +234,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">Escolaridad</label>
 							<div class="col-10">
-								<select class="form-control kt-selectpicker" name="escolaridad">
+								<select class="form-control kt-selectpicker" name="escolaridad" id="escolaridadChoose">
 									<option value="" style="display: none;">Seleccionar</option>
 									<option value="preescolar">Educación preescolar</option>
 									<option value="primaria">Educación primaria</option>
@@ -255,7 +258,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">Número de hijos</label>
 							<div class="col-10">
-								<select class="form-control kt-selectpicker" name="numero_hijos">
+								<select class="form-control kt-selectpicker" name="numero_hijos" id="hijos">
 									<option value="" style="display: none;">Seleccionar</option>
 									<option value="0">No hijos</option>
 									<option value="1">1</option>
@@ -284,31 +287,31 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">Número de IMSS</label>
 							<div class="col-10">
-								<input type="text" class="form-control" name="numero_imss">
+								<input type="text" class="form-control" name="numero_imss" id="IMSS"> 
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">CURP</label>
 							<div class="col-10">
-								<input type="text" class="form-control" name="curp">
+								<input type="text" class="form-control" name="curp" id="curpEmp">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">RFC</label>
 							<div class="col-10">
-								<input type="text" class="form-control" name="rfc">
+								<input type="text" class="form-control" name="rfc" id="rfcEmp">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">Puesto</label>
 							<div class="col-10">
-								<input type="text" class="form-control" name="puesto">
+								<input type="text" class="form-control" name="puesto" id="puestoEmp">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">Sucursal</label>
 							<div class="col-10">
-								<select class="form-control kt-selectpicker" name="sucursal" required>
+								<select class="form-control kt-selectpicker" name="sucursal" id="sucursalEmp" required>
 									<option value="" style="display: none;">Seleccinar</option>
 									<?php 
 									$query = "SELECT * FROM sucursales WHERE estatus='Activo' ORDER BY nombre ASC";
@@ -326,7 +329,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					<button type="submit" class="btn btn-primary">Guardar</button>
+					<button type="submit" class="btn btn-primary" id="bttnSaveEmp">Guardar</button>
 				</div>
 			</form>
 		</div>
