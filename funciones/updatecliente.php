@@ -16,4 +16,5 @@
 		$query="UPDATE clientes SET nombres = '$nombre', apellidos = '$apellido', correo = '$correo', telefono = '$telefono', ocupacion = '$ocupacion', direccion = '$direccion', estado = '$estado', pais = '$pais', municipio = '$municipio' WHERE id_cliente = '$id_cliente'";
 	}
 	$resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
+	mysql_close($connection);
 ?>

@@ -8,22 +8,26 @@ $(document).ready(function(){
         var fecha_nacimiento= $("#kt_inputmask_1").val();
         var pruebaFechaNac = nuevaFecha(fecha_nacimiento);
         var fechacorrecta1 = validarFecha(pruebaFechaNac);
+        if(pruebaFechaNac === "//"){
+            pruebaFechaNac = "";
+            fechacorrecta1 = true;
+        }
         var escolaridad = $("#escolaridadChoose").val();
         var estado_civil = $("input[name='estado_civil']").val();
         var hijos = $("#hijos").val();
         var fecha_ingreso = $("#kt_datepicker_4_1").val();
-        // var pruebaFechaIng = nuevaFecha(fecha_ingreso);
-         var fechacorrecta2 = validarAño(fecha_ingreso);
+        var fechacorrecta2 = validarAño(fecha_ingreso);
         var numero_imss = $("#IMSS").val();
         var curp = $("#curpEmp").val();
         var rfc = $("#rfcEmp").val();
+        var puesto = $("#puestoEmp").val();
         var sucursal = $("#sucursalEmp").val();
 
         // Returns successful data submission message when the entered information is stored in database.
         var dataString = 'nombre='+ nombre + '&apellidos='+ apellido + '&correo='+ correo + '&telefono='+ telefono + 
-        '&sexo='+ sexo + '&fecha_nacimiento='+ pruebaFechaNac + 'escolaridad='+ escolaridad + '&estado_civil='+ estado_civil + 
+        '&sexo='+ sexo + '&fecha_nacimiento='+ pruebaFechaNac + '&escolaridad='+ escolaridad + '&estado_civil='+ estado_civil + 
         '&hijos='+ hijos + '&fecha_ingreso='+ fecha_ingreso + '&numero_IMSS='+ numero_imss + '&curp='+ curp + 
-        '&rfc='+ rfc + '&sucursal='+ sucursal;
+        '&rfc='+ rfc + '&puesto='+ puesto +'&sucursal='+ sucursal;
         if(!fechacorrecta1){
             alert("La fecha de nacimiento introducida es invalida");
         }
@@ -37,7 +41,7 @@ $(document).ready(function(){
                 data: dataString,
                 cache: false,
                 success: function(result){
-                    alert(result);
+                    alert("Empleado registrado exitosamente");
                     location.reload();
                 }
             });
@@ -45,24 +49,25 @@ $(document).ready(function(){
         return false;
     });
 
-    $("#submitEdit").click(function(){
-        var nombre = $("#upnombre").val();
-        var direccion = $("#updireccion").val();
+    $("#updatebttn").click(function(){
         var status = $('input:checkbox[name=estatus]:checked').val();
-        var id = $("#upid").val();
+        var correo = $("#upcorreo").val();
+        var telefono = $("#uptelefono").val();
+        var puesto = $("#uppuesto").val();
+        var sucursal = $("#upsucursal").val();
+        var id_empleado = $("#id_empleado").val();
                 
-        if (status === "activo"){
-            var dataString = 'id_sucursal='+id + '&nombre='+ nombre + '&direccion='+ direccion + '&estatus='+ status;
+        if (status === "Activo"){
+            var dataString = 'id_empleado='+id_empleado + '&correo='+ correo + '&telefono='+ telefono + '&puesto='+ puesto +'&sucursal='+ sucursal + '&estatus='+ status;
         }else{
-            var dataString = 'id_sucursal='+id + '&nombre='+ nombre + '&direccion='+ direccion + '&estatus=' + "nuller";
+            var dataString = 'id_empleado='+id_empleado + '&correo='+ correo + '&telefono='+ telefono + '&puesto='+ puesto +'&sucursal='+ sucursal + '&estatus='+ "nuller";
         }
-        
-        console.log(dataString);
         $.ajax({
             type: "POST",
             url: "funciones/updateempleado.php",
             data: dataString,
             success: function(result){
+                console.log(result);
                 alert("Datos actualizados correctamente");
                 location.reload();
             }
@@ -81,7 +86,7 @@ function validarAño(dateString){
     if(year<yearNow - 50){
         return false;
     }
-    return year>(yearNow - 50);
+    return true;
 }
 
 function validarFecha(dateString){

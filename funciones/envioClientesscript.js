@@ -28,6 +28,10 @@ $(document).ready(function(){
         var fecha_nacimiento = $("input[name='fecha_nacimiento']").val();
         var pruebaFechaNac = nuevaFecha(fecha_nacimiento);
         var fechacorrecta = validarFecha(pruebaFechaNac);
+        if(pruebaFechaNac === "//"){
+            pruebaFechaNac = "";
+            fechacorrecta = true;
+        }
         var ocupacion = $("input[name='ocupacion']").val();
         var direccion = $("input[name='direccion']").val();
         var estado = $("#addestado").val();
@@ -40,7 +44,7 @@ $(document).ready(function(){
         + '&estado='+ estado + '&pais='+ pais + '&municipio='+ municipio;
         if(nombre==''||correo==''||telefono==''||apellido=='')
         {
-            alert("Please Fill All Fields");
+            alert("Porfavor llene todos los campos");
         }else if(!fechacorrecta){
             alert("La fecha introducida es incorrecta");
         }
@@ -53,7 +57,7 @@ $(document).ready(function(){
                 data: dataString,
                 cache: false,
                 success: function(result){
-                    alert(result);
+                    alert("Cliente registrado exitosamente");
                     location.reload();
                 }
             });
@@ -72,10 +76,8 @@ $(document).ready(function(){
         var pais = $("#uppais").val();
         var municipio = $("#municipio").val();
         var id = $("#id_cliente").val();
-        console.log("HOLA");        
         var dataString = 'nombre='+ nombre + '&apellido='+ apellido + '&correo='+ correo + '&telefono='+ telefono + '&ocupacion='+ ocupacion + '&direccion='+ direccion
         + '&estado='+ estado + '&pais='+ pais + '&municipio='+ municipio + '&id_cliente='+ id;
-        console.log(dataString);
         $.ajax({
             type: "POST",
             url: "funciones/updatecliente.php",
@@ -85,7 +87,6 @@ $(document).ready(function(){
                 location.reload();
             }
         });
-        console.log("Adios");
         return false;
     });
 });
@@ -103,19 +104,3 @@ function nuevaFecha(fecha_nacimiento){
     }
     return fecha_nacimiento2.join("");
 };
-
-
-
-// $conexion->query("SET NAMES 'utf8'");
-// $nombre=$_POST['nombre'];
-// $apellido=$_POST['apellido'];
-// $correo=$_POST['correo'];
-// $telefono=$_POST['telefono'];
-// $sexo=$_POST['sexo'];
-// $fecha_nacimiento=Date_create($_POST['fecha_nacimiento']);
-// $new_date = Date_format($fecha_nacimiento, "Y-m-d");
-// $ocupacion=$_POST['ocupacion'];
-// $direccion=$_POST['direccion'];
-// $estado=$_POST['estado'];
-// $pais=$_POST['pais'];
-// $municipio=$_POST['municipio'];

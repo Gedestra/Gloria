@@ -402,7 +402,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					<button type="button" class="btn btn-primary" onclick="updateEmployee()" data-dismiss="modal">Guardar</button>
+					<button type="button" class="btn btn-primary" id="updatebttn" data-dismiss="modal">Guardar</button>
 				</div>
 				<script src="js/empleado.edit.js"></script>
 			<!--</form>-->

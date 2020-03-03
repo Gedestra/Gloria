@@ -14,10 +14,5 @@
     //Insert query
     $query = "INSERT INTO sucursales (id_sucursal, nombre, direccion, estatus) VALUES (NULL, '$nombre', '$direccion', 'Activo');";
     $resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
-    
-    if ($_GET) {
-		echo "<script>alertify.set('notifier','position', 'botton-right');
-			alertify.success('<strong>¡Sucursal Actualizada!</strong>');</script>";
-    }
     mysql_close($connection);
 ?>

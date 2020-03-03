@@ -1,6 +1,5 @@
 $(document).ready(function(){
     $("#bttonSubmit").click(function(){
-        console.log("SIUUUUUUUUU")
         var nombre = $("input[name='nombre1']").val();
         var direccion = $("input[name='direccion']").val();
 
@@ -8,7 +7,7 @@ $(document).ready(function(){
         var dataString = 'nombre='+ nombre + '&direccion='+ direccion;
         if(nombre==''||direccion=='')
         {
-            alert("Please Fill All Fields");
+            alert("Porfavor llene todos los campos");
         }
         else
         {
@@ -19,7 +18,7 @@ $(document).ready(function(){
                 data: dataString,
                 cache: false,
                 success: function(result){
-                    alert(result);
+                    alert("Sucursal registrada exitosamente");
                     location.reload();
                 }
             });
@@ -39,8 +38,6 @@ $(document).ready(function(){
         }else{
             var dataString = 'id_sucursal='+id + '&nombre='+ nombre + '&direccion='+ direccion + '&estatus=' + "nuller";
         }
-        
-        console.log(dataString);
         $.ajax({
             type: "POST",
             url: "funciones/updatesucursal.php",
