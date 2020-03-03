@@ -55,13 +55,13 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 <body>
 	<?php
 	include("head.php");
-	if ($_GET['usuario']=='update') {
-		echo "<script>alertify.set('notifier','position', 'botton-right');
-		alertify.success('<strong>¡Usuario Actualizado!</strong>');</script>";
-	}else if($_GET['usuario']=='delete'){
-		echo "<script>alertify.set('notifier','position', 'botton-right');
-		alertify.error('<strong>¡Usuario Eliminado!</strong>');</script>";
-	} 
+	// if ($_GET['usuario']=='update') {
+	// 	echo "<script>alertify.set('notifier','position', 'botton-right');
+	// 	alertify.success('<strong>¡Usuario Actualizado!</strong>');</script>";
+	// }else if($_GET['usuario']=='delete'){
+	// 	echo "<script>alertify.set('notifier','position', 'botton-right');
+	// 	alertify.error('<strong>¡Usuario Eliminado!</strong>');</script>";
+	// } 
 	?>
 	<!-- end:: Header -->
 	<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
@@ -311,16 +311,16 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="funciones/daleteusarios.php" method="POST">
+				<!-- <form action="funciones/daleteusarios.php" method="POST"> -->
 					<p>¿Estas seguro que quieres eliminar al usuario  <span id="daleusuario"></span> ?</p>
 					<p><strong>Este perderá completo acceso al sistema</strong></p>
 					<input type="text" class="form-control" id="daleid" name="id_usuario" style="display: none;">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					<button type="submit" class="btn btn-primary">Aceptar</button>
+					<button type="submit" class="btn btn-primary" id="deathbttn">Aceptar</button>
 				</div>
-			</form>
+			<!-- </form> -->
 		</div>
 	</div>
 </div>

@@ -31,7 +31,6 @@ $(document).ready(function(){
 
         var dataString = 'nombre='+ nombre + '&userid=' + userid + '&rol='+ rol;
 
-        console.log(dataString);
         $.ajax({
             type: "POST",
             url: "funciones/updateusuario.php",
@@ -43,4 +42,19 @@ $(document).ready(function(){
         });
         return false;
     });
+
+    $("#deathbttn").click(function(){
+        var user_id = $("#daleid").val();
+        var dataString = 'id_usuario='+ user_id;
+        console.log(dataString);
+        $.ajax({
+            type: "POST",
+            url: "funciones/daleteusarios.php",
+            data: dataString,
+            success: function(result){
+                alert("Usuario eliminado exitosamente");
+                location.reload();
+            }
+        });
+    })
 });
