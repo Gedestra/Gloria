@@ -45,29 +45,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 <body>
 	<?php 
 	include("head.php");
-	if ($_POST) {
-		$conexion->query("SET NAMES 'utf8'");
-		$nombre=$_POST['nombre'];
-		$estatus=$_POST['estatus'];
-		$fecha_vigencia=$_POST['fecha_vigencia'];
-		$descripcion=$_POST['descripcion'];
-		$Porcentaje=$_POST['Porcentaje'];
-		if ($estatus==null) {
-			$conestatus="Inactivo";
-		}else{
-			$conestatus="Activo";
-		}
-		$query="INSERT INTO promociones (id_promocion, nombre, estatus, fecha_vigencia, porcentaje, descripcion) VALUES (NULL, '$nombre', '$conestatus', '$fecha_vigencia', '$Porcentaje', '$descripcion')";
-		$resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
-		if ($resultado) {
-			echo "<script>alertify.set('notifier','position', 'botton-right');
-			alertify.success('<strong>Agregado correctamente</strong>');</script>";
-		}
-	}
-	if ($_GET) {
-		echo "<script>alertify.set('notifier','position', 'botton-right');
-		alertify.success('<strong>¡Promoción Actualizada!</strong>');</script>";
-	}
+	
 	?>
 	<!-- end:: Header -->
 	<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
@@ -302,49 +280,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 <!--begin::Page Scripts(used by this page) -->
 <script src="assets/js/pages/crud/forms/widgets/input-mask.js" type="text/javascript"></script>
 <script src="assets/js/pages/crud/metronic-datatable/base/html-table.js" type="text/javascript"></script>
-<script>
-	$(document).ready(function() {
-		$('#example tfoot th').each( function () {
-			var title = $(this).text();
-			$(this).html( '<input type="text" placeholder="Buscar'+title+'" />' );
-		} );
 
 
-		var table = $('#example').DataTable({
-			"language": {
-				search: 'Buscar:',
-				"lengthMenu": "Mostrando _MENU_ registros por pagina",
-				"zeroRecords": "Sin datos",
-				"info": "Mostrando _PAGE_ de _PAGES_",
-				"infoEmpty": "Sin registros",
-				"infoFiltered": "(filtrados de _MAX_)",
-				paginate: {
-					first: 'Primero',
-					previous: 'Anterior',
-					next: 'Siguiente',
-					last: 'Último',
-				}
-			}
-		});
-		table.columns().every( function () {
-			var that = this;
-
-		} );
-	} );
-</script>
-<script>
-	function agregaform(datos){
-		d=datos.split('||');
-		$('#upnombre').val(d[1]);
-		$('#uppromocion').val(d[4]);
-		$('#upfechavigencia').val(d[3]);
-		$('#upid').val(d[0]);
-		if (d[2]=="Activo") {
-			$("#upestatus").prop("checked", true);
-		}else{
-			$("#upestatus").prop("checked", false);
-		}
-	}
-</script>
 </body>
 </html>

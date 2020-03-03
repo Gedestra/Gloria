@@ -18,6 +18,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 	<title>3D LASHES | Usuarios</title>
 	<meta name="description" content="Latest updates and statistic charts">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="funciones/envioUsuario.js"></script>
 
 	<!--begin::Fonts -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
@@ -44,6 +46,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 	<link rel="shortcut icon" href="img/logo1.png" />
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
 </head>
 
 <!-- end::Head -->
@@ -52,26 +55,13 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 <body>
 	<?php
 	include("head.php");
-	if ($_POST) {
-		$conexion->query("SET NAMES 'utf8'");
-		$username=$_POST['username'];
-		$password=$_POST['password'];
-		$id_empleado=$_POST['id_empleado'];
-		$rol=$_POST['rol'];
-		$query="INSERT INTO usuarios (id_usuario, id_empleado, username, password, rol) VALUES (NULL, '$id_empleado', '$username', '$password', '$rol');";
-		$resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
-		if ($resultado) {
-			echo "<script>alertify.set('notifier','position', 'botton-right');
-			alertify.success('<strong>Agregado correctamente</strong>');</script>";
-		}
-	}
-	if ($_GET['usuario']=='update') {
-		echo "<script>alertify.set('notifier','position', 'botton-right');
-		alertify.success('<strong>¡Usuario Actualizado!</strong>');</script>";
-	}else if($_GET['usuario']=='delete'){
-		echo "<script>alertify.set('notifier','position', 'botton-right');
-		alertify.error('<strong>¡Usuario Eliminado!</strong>');</script>";
-	} 
+	// if ($_GET['usuario']=='update') {
+	// 	echo "<script>alertify.set('notifier','position', 'botton-right');
+	// 	alertify.success('<strong>¡Usuario Actualizado!</strong>');</script>";
+	// }else if($_GET['usuario']=='delete'){
+	// 	echo "<script>alertify.set('notifier','position', 'botton-right');
+	// 	alertify.error('<strong>¡Usuario Eliminado!</strong>');</script>";
+	// } 
 	?>
 	<!-- end:: Header -->
 	<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
@@ -161,17 +151,17 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="" method="POST">
+					<!-- <form action="" method="POST"> -->
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">Usuario</label>
 							<div class="col-10">
-								<input type="text" class="form-control" name="username" required>
+								<input type="text" class="form-control" name="username" id="nombreus" required>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">Asignar al empleado:</label>
 							<div class="col-10">
-								<select class="form-control kt-selectpicker" name="id_empleado" required>
+								<select class="form-control kt-selectpicker" name="id_empleado" id="id_empleado" required>
 									<option value="" style="display: none;">Seleccionar</option>
 									<?php 
 									$query1 = "SELECT id_empleado, nombre, apellidos FROM empleados WHERE estatus='Activo' ORDER BY nombre ASC";
@@ -200,7 +190,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">Rol</label>
 							<div class="col-10">
-								<select class="form-control kt-selectpicker" name="rol" required>
+								<select class="form-control kt-selectpicker" name="rol" id="roluser" required>
 									<option value="" style="display: none;">Seleccionar</option>
 									<option value="Administrador">Administrador</option>
 									<option value="Encargado">Encargado</option>
@@ -213,14 +203,14 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 						<button type="submit" class="btn btn-primary" id="btnguardar">Guardar</button>
 					</div>
-				</form>
+				<!-- </form> -->
 			</div>
 		</div>
 	</div>
 </div>
 <!--End begin::Modal agregar-->
 <!--begin::Modal actualizar-->
-<div class="modal fade" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -229,11 +219,11 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="" method="POST">
-					<div class="form-group row">
+				 <form action="" method="POST"> -->
+					<!-- <div class="form-group row">
 						<label for="" class="col-2 col-form-label">Usuario</label>
 						<div class="col-10">
-							<input type="text" class="form-control" name="username" required>
+							<input type="text" class="form-control" name="username" id="nombreus" required>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -252,24 +242,24 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 					<div class="form-group row">
 						<label for="" class="col-2 col-form-label">Rol</label>
 						<div class="col-10">
-							<select class="form-control kt-selectpicker" name="rol" required>
+							<select class="form-control kt-selectpicker" name="rol" id="roluser" required>
 								<option value="" style="display: none;">Seleccionar</option>
 								<option value="Administrador">Administrador</option>
-								<option value="Encargado">Encargado</option>
-								<option value="Empleado">Empleado</option>
-							</select>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					<button type="submit" class="btn btn-primary" id="btnguardar">Guardar</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-</div>
+								<option value="Encargado">Encargado</option> -->
+								<!-- <option value="Empleado">Empleado</option> -->
+							<!-- </select> -->
+						<!-- </div> -->
+					<!-- </div> -->
+				<!-- </div> -->
+				<!-- <div class="modal-footer"> -->
+					<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button> -->
+					<!-- <button type="submit" class="btn btn-primary" id="btnguardar">Guardar</button> -->
+				<!-- </div> -->
+			<!-- </form> -->
+		<!-- </div> -->
+	<!-- </div> -->
+<!-- </div> -->
+<!-- </div>  -->
 <!--End begin::Modal agregar-->
 <!--begin::Modal actualizar-->
 <div class="modal fade" id="kt_modal_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -281,7 +271,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="funciones/updateusuario.php" method="POST">
+				<!-- <form action="funciones/updateusuario.php" method="POST"> -->
 					<div class="form-group row">
 						<label for="" class="col-2 col-form-label">Usuario</label>
 						<div class="col-10">
@@ -303,9 +293,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					<button type="submit" class="btn btn-primary">Guardar</button>
+					<button type="submit" class="btn btn-primary" id="editbttn">Guardar</button>
 				</div>
-			</form>
+			<!-- </form> -->
 		</div>
 	</div>
 </div>
@@ -321,16 +311,16 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="funciones/daleteusarios.php" method="POST">
+				<!-- <form action="funciones/daleteusarios.php" method="POST"> -->
 					<p>¿Estas seguro que quieres eliminar al usuario  <span id="daleusuario"></span> ?</p>
 					<p><strong>Este perderá completo acceso al sistema</strong></p>
 					<input type="text" class="form-control" id="daleid" name="id_usuario" style="display: none;">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					<button type="submit" class="btn btn-primary">Aceptar</button>
+					<button type="submit" class="btn btn-primary" id="deathbttn">Aceptar</button>
 				</div>
-			</form>
+			<!-- </form> -->
 		</div>
 	</div>
 </div>

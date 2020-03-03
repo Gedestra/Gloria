@@ -15,6 +15,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 	<title>3D LASHES | Sucursales</title>
 	<meta name="description" content="Latest updates and statistic charts">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="funciones/envioSucursales.js"></script>
 
 	<!--begin::Fonts -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
@@ -45,17 +47,6 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 <body>
 	<?php 
 	include("head.php");
-	if ($_POST) {
-		$conexion->query("SET NAMES 'utf8'");
-		$nombre=$_POST['nombre'];
-		$direccion=$_POST['direccion'];
-		$query="INSERT INTO sucursales (id_sucursal, nombre, direccion, estatus) VALUES (NULL, '$nombre', '$direccion', 'Activo');";
-		$resultado = $conexion->query($query) || die ("ha ocurrido un error no se guarda los datos".mysqli_error($conexion));
-		if ($resultado) {
-			echo "<script>alertify.set('notifier','position', 'botton-right');
-			alertify.success('<strong>Agregado correctamente</strong>');</script>";
-		}
-	}
 	if ($_GET) {
 		echo "<script>alertify.set('notifier','position', 'botton-right');
 			alertify.success('<strong>¡Sucursal Actualizada!</strong>');</script>";
@@ -154,11 +145,10 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="" method="POST">
 						<div class="form-group row">
 							<label for="" class="col-2 col-form-label">Nombre</label>
 							<div class="col-10">
-								<input type="text" class="form-control" name="nombre" required>
+								<input type="text" class="form-control" name="nombre1" required>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -170,9 +160,8 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-						<button type="submit" class="btn btn-primary">Guardar</button>
+						<button id="bttonSubmit" type="submit" class="btn btn-primary">Guardar</button>
 					</div>
-				</form>
 			</div>
 		</div>
 	</div>
@@ -188,7 +177,7 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="funciones/updatesucursal.php" method="POST">
+				<!-- <form action="funciones/updatesucursal.php" method="POST"> -->
 					<div class="form-group row">
 						<label for="" class="col-2 col-form-label">Nombre</label>
 						<div class="col-10">
@@ -216,9 +205,9 @@ if ($sesion !='Administrador' && $sesion !='Empleado') {
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					<button type="submit" class="btn btn-primary">Guardar</button>
+					<button type="submit" id="submitEdit" class="btn btn-primary">Guardar</button>
 				</div>
-			</form>
+			<!-- </form> -->
 		</div>
 	</div>
 </div>
